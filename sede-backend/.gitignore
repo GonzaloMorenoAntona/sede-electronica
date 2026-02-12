@@ -1,0 +1,18 @@
+# Archivos de sistema e IntelliJ
+.idea/
+*.iml
+*.iws
+.DS_Store
+
+# Backend (Java/Spring Boot)
+**/target/
+**/mvnw
+**/mvnw.cmd
+**/.mvn
+**/help.md
+
+# Frontend (React - para el futuro)
+**/node_modules/
+**/build/
+**/dist/
+.env.local
