@@ -21,7 +21,11 @@ public class TramiteService {
         if (tramite == null) return null;
 
         Map<String, Object> respuesta = new HashMap<>();
-        respuesta.put("informacion", tramite);
+        respuesta.put("id", tramite.getId());
+        respuesta.put("titulo", tramite.getTitulo());
+        respuesta.put("descripcion", tramite.getDescripcion()); // Aquí está tu descripción real
+        respuesta.put("unidadTramitadora", tramite.getUnidadTramitadora());
+        respuesta.put("tipo", tramite.getTipo());
         respuesta.put("documentos", documentoRepository.findByTramiteId(id));
         respuesta.put("normativas", normativaRepository.findByTramiteId(id));
         return respuesta;
