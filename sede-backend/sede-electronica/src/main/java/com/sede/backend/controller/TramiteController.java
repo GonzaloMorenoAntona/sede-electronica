@@ -14,7 +14,10 @@ public class TramiteController {
 
     @Autowired
     private TramiteService tramiteService;
-
+    @GetMapping
+    public List<Tramite> obtenerTodos() {
+        return tramiteService.obtenerTodos();
+    }
     @GetMapping("/{id}/detalle")
     public Map<String, Object> getDetalle(@PathVariable Long id) {
         return tramiteService.getDetalleCompleto(id);

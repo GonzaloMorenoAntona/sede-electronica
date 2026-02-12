@@ -26,7 +26,9 @@ public class TramiteService {
         respuesta.put("normativas", normativaRepository.findByTramiteId(id));
         return respuesta;
     }
-
+    public List<Tramite> obtenerTodos() {
+        return tramiteRepository.findAll();
+    }
     public List<Tramite> buscarTramites(String query) {
         return tramiteRepository.searchByKeyword(query);
     }

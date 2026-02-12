@@ -29,8 +29,11 @@ public class Tramite {
     private String urlExterna;
 
     @Column(name = "es_enlace_externo")
-    private Integer esEnlaceExterno; // Lo ponemos como Integer porque en tu captura se ve como 1/0
+    private Integer esEnlaceExterno; // Lo ponemos como Integer
 
     @Column(name = "unidad_tramitadora")
     private String unidadTramitadora;
+
+    @Column(name = "tipo")
+    private String tipo;
 }
