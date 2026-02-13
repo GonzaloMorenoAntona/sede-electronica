@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-// IMPORTANTE: Fíjate en los puntos y barras (./components/...)
 import Buscador from './components/Buscador';
 import FichaTramite from './components/FichaTramite';
+
+import imagenFondo from './assets/fondo.jpg'; //imagen de fondo
 
 function App() {
   const [view, setView] = useState('BUSCADOR');
@@ -23,6 +24,7 @@ function App() {
   };
 
   const abrirTramite = async (id) => {
+    setActiveTab('información')
     try {
       const response = await fetch(`/api/tramites/${id}/detalle`);
       const data = await response.json();
@@ -32,21 +34,44 @@ function App() {
   };
 
   return (
-    <>
-      {view === 'BUSCADOR' ? (
-        <Buscador 
-          searchTerm={searchTerm} setSearchTerm={setSearchTerm}
-          handleSearch={handleSearch} results={results}
-          abrirTramite={abrirTramite} isLoading={isLoading}
-        />
-      ) : (
-        <FichaTramite 
-          tramite={tramiteDetalle} 
-          volver={() => setView('BUSCADOR')} 
-          activeTab={activeTab} setActiveTab={setActiveTab}
-        />
-      )}
-    </>
+    // CAMBIO IMPORTANTE: Quitamos el style del div principal para manejarlo por capas
+    <div style={{ position: 'relative', minHeight: '100vh' }}>
+      
+      {/* --- CAPA DEL FONDO (DEFINITIVA) --- */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: -1,
+        backgroundImage: `url(${imagenFondo})`, 
+        
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center center',
+        backgroundSize: 'contain',  // 'contain' ajusta la foto para que se vea entera
+        opacity: 0.5,               // Ponemos 0.5 para asegurarnos de que se ve
+        pointerEvents: 'none'
+      }}></div>
+
+      {/* --- CAPA DE CONTENIDO (APP) --- */}
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        {view === 'BUSCADOR' ? (
+          <Buscador 
+            searchTerm={searchTerm} setSearchTerm={setSearchTerm}
+            handleSearch={handleSearch} results={results}
+            abrirTramite={abrirTramite} isLoading={isLoading}
+          />
+        ) : (
+          <FichaTramite 
+            tramite={tramiteDetalle} 
+            volver={() => setView('BUSCADOR')} 
+            activeTab={activeTab} setActiveTab={setActiveTab}
+          />
+        )}
+      </div>
+
+    </div>
   );
 }
 

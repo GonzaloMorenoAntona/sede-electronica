@@ -4,7 +4,7 @@ const FichaTramite = ({ tramite, volver, activeTab, setActiveTab }) => {
   if (!tramite) return null;
 
   return (
-    <div style={{ fontFamily: '"Segoe UI", Roboto, sans-serif', backgroundColor: '#eff2f5', minHeight: '100vh', padding: '30px 20px' }}>
+    <div style={{ fontFamily: '"Segoe UI", Roboto, sans-serif', backgroundColor: 'rgba(239, 242, 245, 0.85)', minHeight: '100vh', padding: '30px 20px' }}>
       <div style={{ maxWidth: '1100px', margin: '0 auto', backgroundColor: 'white', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }}>
         
         <div style={{ padding: '40px', background: 'linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%)', borderBottom: '1px solid #eee' }}>
@@ -16,7 +16,7 @@ const FichaTramite = ({ tramite, volver, activeTab, setActiveTab }) => {
         </div>
 
         <div style={{ display: 'flex', borderBottom: '1px solid #eee' }}>
-          {['información', 'documentacion', 'normativa'].map(tab => (
+          {['información', 'documentación', 'normativa'].map(tab => (
             <button key={tab} onClick={() => setActiveTab(tab)} style={{ flex: 1, padding: '20px', border: 'none', background: 'none', cursor: 'pointer', fontWeight: '700', color: activeTab === tab ? '#af272f' : '#888', borderBottom: activeTab === tab ? '4px solid #af272f' : '4px solid transparent' }}>
               {tab.toUpperCase()}
             </button>
@@ -24,13 +24,13 @@ const FichaTramite = ({ tramite, volver, activeTab, setActiveTab }) => {
         </div>
 
         <div style={{ padding: '50px' }}>
-          {activeTab === 'info' && (
+          {activeTab === 'información' && (
             <div>
               <h3 style={{ color: '#af272f' }}>Objeto del Procedimiento</h3>
               <p style={{ whiteSpace: 'pre-line' }}>{tramite.descripcion}</p>
             </div>
           )}
-          {activeTab === 'docs' && (
+          {activeTab === 'documentación' && (
             <div>
               <h3 style={{ color: '#af272f' }}>Documentación</h3>
               {tramite.documentos?.map((doc, i) => (
@@ -41,7 +41,7 @@ const FichaTramite = ({ tramite, volver, activeTab, setActiveTab }) => {
               ))}
             </div>
           )}
-          {activeTab === 'normas' && (
+          {activeTab === 'normativa' && (
             <div>
               <h3 style={{ color: '#af272f' }}>Normativa</h3>
               {tramite.normativas?.map((norma, i) => (
