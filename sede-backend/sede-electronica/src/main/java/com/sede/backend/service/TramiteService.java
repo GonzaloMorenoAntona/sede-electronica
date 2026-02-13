@@ -15,7 +15,6 @@ public class TramiteService {
     private DocumentoRepository documentoRepository;
     @Autowired
     private NormativaRepository normativaRepository;
-
     public Map<String, Object> getDetalleCompleto(Long id) {
         Tramite tramite = tramiteRepository.findById(id).orElse(null);
         if (tramite == null) return null;
@@ -30,10 +29,11 @@ public class TramiteService {
         respuesta.put("normativas", normativaRepository.findByTramiteId(id));
         return respuesta;
     }
+
     public List<Tramite> obtenerTodos() {
         return tramiteRepository.findAll();
     }
-    public List<Tramite> buscarTramites(String query) {
-        return tramiteRepository.searchByKeyword(query);
+    public List<Tramite> buscarTramites(String query, Long categoriaId, String tipo) {
+        return tramiteRepository.searchByKeyword(query, categoriaId, tipo);
     }
 }

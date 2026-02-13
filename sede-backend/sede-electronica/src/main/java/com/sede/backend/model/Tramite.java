@@ -3,6 +3,8 @@ package com.sede.backend.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "tramites")
 @Data
@@ -36,4 +38,10 @@ public class Tramite {
 
     @Column(name = "tipo")
     private String tipo;
+
+    @Column(name = "fecha_publicacion")
+    private LocalDate fechaPublicacion;
+
+    @Column(name = "estado")
+    private String estado;
 }
