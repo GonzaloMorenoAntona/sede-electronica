@@ -16,8 +16,8 @@ public class Tramite {
 
     private String titulo;
 
-    @Column(columnDefinition = "TEXT")
-    private String descripcion;
+    @Column(name = "descripcion_html")
+    private String descripcionHtml;
 
     @Column(name = "categoria_id")
     private Long categoriaId;
@@ -44,4 +44,7 @@ public class Tramite {
 
     @Column(name = "estado")
     private String estado;
+
+    @Column(name = "enlaces_json", columnDefinition = "JSON")
+    private String enlacesJson;
 }

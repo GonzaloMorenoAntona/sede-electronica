@@ -9,7 +9,6 @@ const BuscadorPage = ({ abrirTramite, categorias }) => {
   const [filtroTipo, setFiltroTipo] = useState(null);
 
   const handleSearch = async () => {
-    // Si no hay nada escrito ni filtros, no buscamos nada
     if (!searchTerm.trim() && !filtroCategoria && !filtroTipo) {
       setResults([]);
       return;

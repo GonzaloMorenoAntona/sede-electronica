@@ -20,8 +20,7 @@ const FichaTramitePage = ({ tramiteId, volver }) => {
 
   if (loading) return <div style={{ textAlign: 'center', padding: '50px', color: '#af272f' }}>Cargando detalles del trámite...</div>;
   if (!tramite) return <div style={{ textAlign: 'center', padding: '50px' }}>No se ha podido encontrar la información del trámite.</div>;
-  console.log("¿Es una función?:", typeof FichaTramiteUI);
-console.log("Contenido de FichaTramiteUI:", FichaTramiteUI);
+  
   return (
     <FichaTramiteUI 
       tramite={tramite} 

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 const Buscador = ({ 
   searchTerm, setSearchTerm, handleSearch, results, abrirTramite, isLoading,
   filtroCategoria, setFiltroCategoria, filtroTipo, setFiltroTipo,
@@ -84,25 +83,40 @@ const Buscador = ({
         {/* RESULTADOS */}
         <div style={{ display: 'grid', gap: '15px' }}>
           {results.length > 0 ? results.map(item => (
-            <div key={item.id} onClick={() => abrirTramite(item.id)} style={{ backgroundColor: 'white', padding: '25px', borderRadius: '12px', cursor: 'pointer', borderLeft: '6px solid #af272f', boxShadow: '0 2px 8px rgba(0,0,0,0.05)', transition: 'transform 0.2s' }}>
+            <div 
+              key={item.id} 
+              onClick={() => abrirTramite(item.id)} 
+              style={{ 
+                backgroundColor: 'white', 
+                padding: '20px', // Un poco menos de padding para que sea compacto
+                borderRadius: '12px', 
+                cursor: 'pointer', 
+                borderLeft: '6px solid #af272f', 
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)', 
+                transition: 'transform 0.2s' 
+              }}
+            >
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
-                <span style={{ fontSize: '0.75em', color: '#af272f', fontWeight: 'bold', letterSpacing: '1px' }}>{item.tipo}</span>
-                <span style={{ fontSize: '0.75em', color: '#999' }}>ID Área: {item.categoriaId}</span>
+                <span style={{ fontSize: '0.75em', color: '#af272f', fontWeight: 'bold', letterSpacing: '1px' }}>
+                  {item.tipo}
+                </span>
               </div>
-              <h3 style={{ margin: '5px 0', color: '#222', fontSize: '1.3em' }}>{item.titulo}</h3>
-              <p style={{ margin: 0, color: '#666', fontSize: '0.95em', lineHeight: '1.5' }}>{item.descripcion?.substring(0, 140)}...</p>
+
+              <h3 style={{ margin: 0, color: '#222', fontSize: '1.2em' }}>
+                {item.titulo}
+              </h3>
             </div>
           )) : !isLoading && (
             <div style={{ textAlign: 'center', padding: '40px', color: '#999' }}>
-               No se han encontrado resultados. Prueba a cambiar el texto o los filtros.
+              No se han encontrado resultados.
             </div>
           )}
         </div>
 
-      </div>
-    </div>
-  );
-};
+            </div>
+          </div>
+        );
+      };
 
 const btnFiltro = (activo) => ({
   padding: '6px 15px',
