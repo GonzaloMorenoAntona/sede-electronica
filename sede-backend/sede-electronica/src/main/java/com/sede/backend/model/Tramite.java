@@ -1,5 +1,6 @@
 package com.sede.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class Tramite {
     private String titulo;
 
     @Column(name = "descripcion_html")
+    @JsonProperty("descripcionHtml")
     private String descripcionHtml;
 
     @Column(name = "categoria_id")
@@ -28,6 +30,7 @@ public class Tramite {
     private String palabrasClave;
 
     @Column(name = "url_externa")
+    @JsonProperty("urlExterna")
     private String urlExterna;
 
     @Column(name = "es_enlace_externo")
@@ -46,5 +49,6 @@ public class Tramite {
     private String estado;
 
     @Column(name = "enlaces_json", columnDefinition = "JSON")
+    @JsonProperty("enlacesJson")
     private String enlacesJson;
 }

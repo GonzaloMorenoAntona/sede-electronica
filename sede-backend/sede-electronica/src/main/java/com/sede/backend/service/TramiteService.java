@@ -22,12 +22,13 @@ public class TramiteService {
         Map<String, Object> respuesta = new HashMap<>();
         respuesta.put("id", tramite.getId());
         respuesta.put("titulo", tramite.getTitulo());
-        respuesta.put("descripcion", tramite.getDescripcionHtml());
+        respuesta.put("descripcionHtml", tramite.getDescripcionHtml());
         respuesta.put("unidadTramitadora", tramite.getUnidadTramitadora());
         respuesta.put("tipo", tramite.getTipo());
         respuesta.put("fechaPublicacion", tramite.getFechaPublicacion());
         respuesta.put("estado", tramite.getEstado());
-        respuesta.put("enlaces", tramite.getEnlacesJson());
+        respuesta.put("enlacesJson", tramite.getEnlacesJson());
+        respuesta.put("urlExterna", tramite.getUrlExterna());
         respuesta.put("documentos", documentoRepository.findByTramiteId(id));
         respuesta.put("normativas", normativaRepository.findByTramiteId(id));
         return respuesta;
