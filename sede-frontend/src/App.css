@@ -1,39 +1,39 @@
-.App {
-  text-align: center;
+/* 1. TÍTULOS INTERNOS DE LAS GUÍAS (descripcion_html) */
+.titulo-guia-interno {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  border-bottom: 3px solid var(--primary-color);
+  padding-bottom: 8px;
+  letter-spacing: -0.01em;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* 2. ENLACES DINÁMICOS (Los {{tags}} del SQL) */
+.enlace-sede-dinamico {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+  padding: 2px 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.enlace-sede-dinamico:hover {
+  color: var(--primary-hover);
+  border-bottom-color: var(--primary-hover);
+  background-color: rgba(0, 115, 171, 0.05);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* 3. ESTILOS DE BOTONES Y FORMULARIOS */
+button {
+  transition: all 0.2s ease-in-out;
+  letter-spacing: -0.01em;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+input {
+  font-family: 'Inter', sans-serif;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-

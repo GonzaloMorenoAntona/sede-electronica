@@ -1,116 +1,76 @@
 import React, { useState } from 'react';
 
-const Buscador = ({ 
-  searchTerm, setSearchTerm, handleSearch, results, abrirTramite, isLoading,
-  filtroCategoria, setFiltroCategoria, filtroTipo, setFiltroTipo,
-  categorias 
-}) => {
+// Un solo SVG genérico que cambia según el "d" (la ruta) que le pases
+const Icon = ({ d, size = 18, color = "currentColor"}) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}><path d={d} /></svg>
+);
+
+const Buscador = ({ searchTerm, setSearchTerm, handleSearch, results, abrirTramite, isLoading, filtroCategoria, setFiltroCategoria, filtroTipo, setFiltroTipo, categorias }) => {
   const [showFilters, setShowFilters] = useState(false);
 
-  // FUNCIÓN INTELIGENTE DE SELECCIÓN
   const manejarSeleccion = (item) => {
-    // Si tiene URL externa pero NO tiene contenido (descripcionHtml vacío o nulo)
-    // lo mandamos directo a la pasarela sin abrir la ficha.
-    if (item.urlExterna && (!item.descripcionHtml || item.descripcionHtml.trim() === "")) {
+    if (item.urlExterna && (!item.descripcionHtml || item.descripcionHtml?.trim() === "")) {
       window.open(item.urlExterna, '_blank');
     } else {
-      // Si tiene descripción, es un trámite guiado: abrimos la ficha.
       abrirTramite(item.id);
     }
   };
 
   return (
-    <div style={{ fontFamily: '"Segoe UI", sans-serif', backgroundColor: 'transparent', minHeight: '100vh', padding: '40px 20px' }}>
-      <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-        
-        <h1 style={{ color: '#af272f', textAlign: 'center', fontWeight: '800', marginBottom: '30px' }}>Buscador Global</h1>
-        
-        <form onSubmit={handleSearch} style={{ display: 'flex', gap: '15px', marginBottom: '15px' }}>
-          <input 
-            type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="¿Qué trámite necesitas?" 
-            style={{ flexGrow: 1, padding: '15px 25px', borderRadius: '50px', border: '1px solid #ddd', outline: 'none', boxShadow: '0 2px 5px rgba(0,0,0,0.05)' }}
-          />
-          <button type="submit" style={{ padding: '0 35px', backgroundColor: '#af272f', color: 'white', border: 'none', borderRadius: '50px', cursor: 'pointer', fontWeight: 'bold' }}>
-            {isLoading ? '...' : 'BUSCAR'}
-          </button>
-        </form>
+    <div style={{ maxWidth: '900px', margin: '40px auto', fontFamily: 'Inter, sans-serif' }}>
+      <h1 style={{ textAlign: 'center', color: '#1a202c', fontWeight: '700', fontSize: '2.2rem' }}>Buscador Global</h1>
+      
+      <form onSubmit={handleSearch} style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
+        <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="¿Qué necesitas?" style={s.input} />
+        <button type="submit" style={s.btnRed}>{isLoading ? '...' : 'BUSCAR'}</button>
+      </form>
 
-        <div style={{ textAlign: 'left', marginBottom: '20px' }}>
-          <button 
-            onClick={() => setShowFilters(!showFilters)}
-            style={{ background: 'none', border: 'none', color: '#af272f', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.9em', display: 'flex', alignItems: 'center', gap: '5px' }}
-          >
-            {showFilters ? '▲ OCULTAR FILTROS' : '▼ AÑADIR FILTROS'} 
-            {(filtroCategoria || filtroTipo) && <span style={{ backgroundColor: '#af272f', color: 'white', borderRadius: '50%', padding: '2px 8px', fontSize: '0.8em' }}>!</span>}
-          </button>
+      <button onClick={() => setShowFilters(!showFilters)} style={s.btnFilter}>
+        <Icon d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z" size={14} color="#0073ab" /> {showFilters ? 'OCULTAR FILTROS' : 'FILTROS'}
+      </button>
+
+      {showFilters && (
+        <div style={s.filterPanel}>
+          {[{ t: 'ÁREAS', list: categorias, state: filtroCategoria, set: setFiltroCategoria }, 
+            { t: 'TIPO', list: ['TRAMITE', 'GUIA', 'NOTICIA'], state: filtroTipo, set: setFiltroTipo }].map((seccion, idx) => (
+            <div key={idx}>
+              <h4 style={s.filterTitle}>{seccion.t}</h4>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {seccion.list.map(obj => {
+                  const val = typeof obj === 'string' ? obj : obj.id;
+                  const label = typeof obj === 'string' ? obj : obj.nombre;
+                  const activo = seccion.state === val;
+                  return <button key={val} onClick={() => seccion.set(activo ? null : val)} style={s.tag(activo)}>{label}</button>
+                })}
+              </div>
+            </div>
+          ))}
         </div>
+      )}
 
-        {showFilters && (
-          <div style={{ backgroundColor: 'white', padding: '25px', borderRadius: '15px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)', marginBottom: '30px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px' }}>
-            <div>
-              <h4 style={{ color: '#af272f', marginTop: 0, fontSize: '1em' }}>Áreas Municipales</h4>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                {categorias.map(cat => (
-                  <button key={cat.id} onClick={() => setFiltroCategoria(filtroCategoria === cat.id ? null : cat.id)} style={btnFiltro(filtroCategoria === cat.id)}>
-                    {cat.nombre}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h4 style={{ color: '#af272f', marginTop: 0, fontSize: '1em' }}>Tipo de Contenido</h4>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                {['TRAMITE', 'GUIA', 'NOTICIA'].map(tipo => (
-                  <button key={tipo} onClick={() => setFiltroTipo(filtroTipo === tipo ? null : tipo)} style={btnFiltro(filtroTipo === tipo)}>
-                    {tipo}
-                  </button>
-                ))}
-              </div>
-              {(filtroCategoria || filtroTipo) && (
-                <button onClick={() => { setFiltroCategoria(null); setFiltroTipo(null); }} style={{ marginTop: '20px', border: 'none', background: 'none', color: '#888', cursor: 'pointer', textDecoration: 'underline', fontSize: '0.85em' }}>
-                  Limpiar todos los filtros
-                </button>
-              )}
-            </div>
+      <div style={{ display: 'grid', gap: '12px' }}>
+        {results.map(item => (
+          <div key={item.id} onClick={() => manejarSeleccion(item)} style={s.card} onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'} onMouseLeave={e => e.currentTarget.style.transform = 'none'}>
+            <span style={s.cardTag}>{item.tipo}</span>
+            <h3 style={s.cardTitle}>{item.titulo}</h3>
           </div>
-        )}
-
-        <div style={{ display: 'grid', gap: '15px' }}>
-          {results.length > 0 ? results.map(item => (
-            <div 
-              key={item.id} 
-              onClick={() => manejarSeleccion(item)} // CAMBIO: Usamos la función inteligente
-              style={{ 
-                backgroundColor: 'white', padding: '20px', borderRadius: '12px', cursor: 'pointer', 
-                borderLeft: '6px solid #af272f', boxShadow: '0 2px 8px rgba(0,0,0,0.05)', transition: 'transform 0.2s' 
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.transform = 'translateX(5px)'}
-              onMouseLeave={(e) => e.currentTarget.style.transform = 'translateX(0)'}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
-                <span style={{ fontSize: '0.75em', color: '#af272f', fontWeight: 'bold', letterSpacing: '1px' }}>
-                  {item.tipo}
-                </span>
-              </div>
-              <h3 style={{ margin: 0, color: '#222', fontSize: '1.2em' }}>{item.titulo}</h3>
-            </div>
-          )) : !isLoading && (
-            <div style={{ textAlign: 'center', padding: '40px', color: '#999' }}>
-              No se han encontrado resultados.
-            </div>
-          )}
-        </div>
+        ))}
       </div>
     </div>
   );
 };
 
-const btnFiltro = (activo) => ({
-  padding: '6px 15px', borderRadius: '20px', border: activo ? '1px solid #af272f' : '1px solid #ddd',
-  backgroundColor: activo ? '#af272f' : 'white', color: activo ? 'white' : '#555',
-  cursor: 'pointer', fontSize: '0.85em', fontWeight: activo ? 'bold' : 'normal', transition: '0.3s'
-});
+// OBJETO DE ESTILOS (Para no ensuciar el HTML)
+const s = {
+  input: { flexGrow: 1, padding: '14px 20px', borderRadius: '10px', border: '1px solid #e2e8f0', outline: 'none', fontSize: '1rem' },
+  btnRed: { padding: '0 25px', backgroundColor: '#0073ab', color: 'white', border: 'none', borderRadius: '10px', fontWeight: '600', cursor: 'pointer' },
+  btnFilter: { background: 'none', border: 'none', color: '#0073ab', cursor: 'pointer', fontWeight: '600', fontSize: '0.9rem', display: 'flex', alignItems: 'center' },
+  filterPanel: { backgroundColor: 'white', padding: '25px', borderRadius: '12px', border: '1px solid #e2e8f0', marginBottom: '20px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
+  filterTitle: { margin: '0 0 10px 0', fontSize: '0.75rem', color: '#a0aec0', letterSpacing: '0.05em' },
+  tag: (activo) => ({ padding: '6px 12px', borderRadius: '6px', border: '1px solid', borderColor: activo ? '#0073ab' : '#e2e8f0', backgroundColor: activo ? '#0073ab' : 'white', color: activo ? 'white' : '#4a5568', cursor: 'pointer', fontSize: '0.8rem', fontWeight: '600' }),
+  card: { backgroundColor: 'white', padding: '20px', borderRadius: '10px', border: '1px solid #e2e8f0', borderLeft: '4px solid #0073ab', cursor: 'pointer', transition: '0.2s' },
+  cardTag: { fontSize: '0.7rem', color: '#a0aec0', fontWeight: '700', textTransform: 'uppercase' },
+  cardTitle: { margin: '5px 0 0 0', color: '#2d3748', fontSize: '1.15rem', fontWeight: '600' }
+};
 
 export default Buscador;

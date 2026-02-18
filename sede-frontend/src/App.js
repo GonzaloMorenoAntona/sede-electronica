@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './App.css';
 import Layout from './components/Layout';
 // IMPORTANTE: Sin llaves {} en estos imports
 import BuscadorPage from './pages/BuscadorPage';

@@ -58,7 +58,7 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
         
         {/* CABECERA */}
         <div style={{ padding: '40px', background: 'linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%)', borderBottom: '1px solid #eee' }}>
-          <button onClick={volver} style={{ background: 'none', border: 'none', color: '#af272f', cursor: 'pointer', fontWeight: 'bold', marginBottom: '20px' }}>
+          <button onClick={volver} style={{ background: 'none', border: 'none', color: '#0073ab', cursor: 'pointer', fontWeight: 'bold', marginBottom: '20px' }}>
             ← VOLVER AL BUSCADOR
           </button>
 
@@ -72,9 +72,9 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
                   {tramite.urlExterna && (
                     <button onClick={() => window.open(tramite.urlExterna, '_blank')}
                       style={{ 
-                        backgroundColor: '#af272f', color: 'white', padding: '16px', borderRadius: '8px', 
+                        backgroundColor: '#0073ab', color: 'white', padding: '16px', borderRadius: '8px', 
                         border: 'none', fontWeight: '600', cursor: 'pointer', fontSize: '1rem',
-                        boxShadow: '0 4px 12px rgba(175, 39, 47, 0.15)' 
+                        boxShadow: '0 4px 12px rgba(0, 115, 171, 0.15)' 
                       }}>
                       TRAMITAR AHORA
                     </button>
@@ -82,7 +82,7 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
                   {linkCabecera && (
                     <a href={linkCabecera.url} target="_blank" rel="noreferrer"
                       style={{ 
-                        color: '#af272f', textDecoration: 'none', fontWeight: '600', 
+                        color: '#0073ab', textDecoration: 'none', fontWeight: '600', 
                         textAlign: 'center', fontSize: '0.9rem', display: 'flex', 
                         justifyContent: 'center', alignItems: 'center', marginTop: '5px' 
                       }}>
@@ -91,7 +91,7 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
                   )}
                 </>
               ) : (
-                <div style={{ color: '#d93025', backgroundColor: '#fce8e6', border: '1px solid #d93025', padding: '15px', borderRadius: '8px', fontWeight: '700', textAlign: 'center' }}>
+                <div style={{ color: '#0073ab', backgroundColor: '#fce8e6', border: '1px solid #d93025', padding: '15px', borderRadius: '8px', fontWeight: '700', textAlign: 'center' }}>
                   PLAZO CERRADO
                 </div>
               )}
@@ -114,8 +114,8 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
                 onClick={() => setActiveTab(tab)} 
                 style={{ 
                   flex: 1, padding: '20px', border: 'none', background: 'none', cursor: 'pointer', fontWeight: '700', 
-                  color: activeTab === tab ? '#af272f' : '#888', 
-                  borderBottom: activeTab === tab ? '4px solid #af272f' : '4px solid transparent', transition: '0.3s' 
+                  color: activeTab === tab ? '#0073ab' : '#888', 
+                  borderBottom: activeTab === tab ? '4px solid #0073ab' : '4px solid transparent', transition: '0.3s' 
                 }}
               >
                 {tab.toUpperCase()}
@@ -143,7 +143,7 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
 
           {activeTab === 'documentación' && (
             <div style={{ color: '#333' }}>
-              <h3 style={{ color: '#af272f', marginBottom: '25px', display: 'flex', alignItems: 'center' }}>
+              <h3 style={{ color: '#0073ab', marginBottom: '25px', display: 'flex', alignItems: 'center' }}>
                 <IconoPro nombre="expediente" /> Documentación Requerida
               </h3>
               {tramite.documentos.map((doc, i) => (
@@ -157,7 +157,7 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
 
           {activeTab === 'normativa' && (
             <div>
-              <h3 style={{ color: '#af272f', marginBottom: '25px' }}>Normativa Aplicable</h3>
+              <h3 style={{ color: '#0073ab', marginBottom: '25px' }}>Normativa Aplicable</h3>
               {tramite.normativas.map((norma, i) => (
                 <div key={i} style={{ marginBottom: '20px', padding: '15px', backgroundColor: '#f9f9f9', borderRadius: '8px' }}>
                   <a href={norma.enlaceBoletin} target="_blank" rel="noopener noreferrer" 

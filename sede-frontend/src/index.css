@@ -1,52 +1,27 @@
-
-/* Definimos el estilo una sola vez aquí */
-.titulo-guia-interno {
-    color: #af272f; /* El rojo actual */
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #af272f;
-    padding-bottom: 10px;
-}
-
-/* También podemos dar estilo a los enlaces que inyectamos */
-.enlace-sede-dinamico {
-    color: #0000EE;
-    text-decoration: underline;
-}
-/* Importación de fuente profesional */
+/* 1. IMPORTACIÓN DE FUENTE PROFESIONAL */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+/* 2. VARIABLES GLOBALES (El "cerebro" de tus colores) */
 :root {
-  --primary-color: #af272f;
-  --text-main: #1a1a1a;
-  --text-muted: #666666;
+  --primary-color: #0073ab;       /* Azul oficial Ciudad Real */
+  --primary-hover: #005581;
+  --text-main: #1a202c;
+  --text-muted: #64748b;
   --bg-light: #f8f9fa;
   --border-color: #e2e8f0;
 }
 
+/* 3. RESETEO Y BASE (Para que se vea igual en todos los navegadores) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  font-family: 'Inter', -apple-system, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--text-main);
   background-color: var(--bg-light);
   line-height: 1.6;
-}
-
-/* Botones con acabado "Software" */
-button {
-  transition: all 0.2s ease-in-out;
-  letter-spacing: -0.01em;
-}
-
-/* Enlaces dinámicos dentro del texto */
-.enlace-sede-dinamico {
-  color: var(--primary-color);
-  text-decoration: none;
-  font-weight: 600;
-  border-bottom: 2px solid transparent;
-  transition: border-color 0.2s;
-}
-
-.enlace-sede-dinamico:hover {
-  border-bottom-color: var(--primary-color);
+  -webkit-font-smoothing: antialiased;
 }
