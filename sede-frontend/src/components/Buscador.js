@@ -20,7 +20,7 @@ const Buscador = ({ searchTerm, setSearchTerm, handleSearch, results, abrirTrami
     <div style={{ maxWidth: '900px', margin: '40px auto', fontFamily: 'Inter, sans-serif' }}>
       <form onSubmit={handleSearch} style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
         <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="¿Qué necesitas?" style={s.input} />
-        <button type="submit" style={s.btnRed}>{isLoading ? '...' : 'BUSCAR'}</button>
+        <button type="submit" style={s.btnBuscar}>{isLoading ? '...' : 'BUSCAR'}</button>
       </form>
 
       <button onClick={() => setShowFilters(!showFilters)} style={s.btnFilter}>
@@ -48,7 +48,9 @@ const Buscador = ({ searchTerm, setSearchTerm, handleSearch, results, abrirTrami
 
       <div style={{ display: 'grid', gap: '12px' }}>
         {results.map(item => (
-          <div key={item.id} onClick={() => manejarSeleccion(item)} style={s.card} onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'} onMouseLeave={e => e.currentTarget.style.transform = 'none'}>
+          <div key={item.id} onClick={() => manejarSeleccion(item)} 
+          className = "buscador-card"
+          >
             <span style={s.cardTag}>{item.tipo}</span>
             <h3 style={s.cardTitle}>{item.titulo}</h3>
           </div>
@@ -58,10 +60,10 @@ const Buscador = ({ searchTerm, setSearchTerm, handleSearch, results, abrirTrami
   );
 };
 
-// OBJETO DE ESTILOS (Para no ensuciar el HTML)
+// OBJETO DE ESTILOS 
 const s = {
   input: { flexGrow: 1, padding: '14px 20px', borderRadius: '10px', border: '1px solid #e2e8f0', outline: 'none', fontSize: '1rem' },
-  btnRed: { padding: '0 25px', backgroundColor: 'var(--primary-color)', color: 'white', border: 'none', borderRadius: '10px', fontWeight: '600', cursor: 'pointer' },
+  btnBuscar: { padding: '0 25px', backgroundColor: 'var(--primary-color)', color: 'white', border: 'none', borderRadius: '10px', fontWeight: '600', cursor: 'pointer' },
   btnFilter: { background: 'none', border: 'none', color: 'var(--primary-color)', cursor: 'pointer', fontWeight: '600', fontSize: '0.9rem', display: 'flex', alignItems: 'center' },
   filterPanel: { backgroundColor: 'white', padding: '25px', borderRadius: '12px', border: '1px solid #e2e8f0', marginBottom: '20px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
   filterTitle: { margin: '0 0 10px 0', fontSize: '0.75rem', color: '#a0aec0', letterSpacing: '0.05em' },

@@ -18,8 +18,8 @@ const FichaTramitePage = ({ tramiteId, volver }) => {
     if (tramiteId) cargarDetalle();
   }, [tramiteId]);
 
-  if (loading) return <div style={{ textAlign: 'center', padding: '50px', color: '#af272f' }}>Cargando detalles del trámite...</div>;
-  if (!tramite) return <div style={{ textAlign: 'center', padding: '50px' }}>No se ha podido encontrar la información del trámite.</div>;
+  if (loading) return <div style={{ textAlign: 'center', padding: '50px', color: 'var(--primary-color)' }}>Cargando detalles del trámite...</div>;
+  if (!tramite) return <div style={{ textAlign: 'center', padding: '50px', color: 'var(--primary-color)' }}>No se ha podido encontrar la información del trámite.</div>;
   
   return (
     <FichaTramiteUI 

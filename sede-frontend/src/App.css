@@ -117,8 +117,25 @@ input {
   color: #718096;
   font-size: 0.9rem;
 }
-/* BUSCAMOS LOS ENLACES DENTRO DEL CONTENEDOR DE LA FICHA */
+/* El estado normal de la tarjeta */
+.buscador-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid var(--primary-color);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* tarda 0.2s en cambiar su posición */
+}
 
+/* El efecto HOVER real y fluido */
+.buscador-card:hover {
+  transform: translateY(-4px); 
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); /* Le damos sombra para que "flote" */
+  border-left-color: var(--primary-hover); 
+}
+
+/* BUSCAMOS LOS ENLACES DENTRO DEL CONTENEDOR DE LA FICHA */
 .descripcion-tramite-container a {
   color: var(--primary-color) !important;
   text-decoration: underline; /* O 'none' si prefieres que solo se subraye al pasar el ratón */

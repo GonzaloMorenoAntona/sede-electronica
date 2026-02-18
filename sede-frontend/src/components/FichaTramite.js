@@ -14,8 +14,9 @@ const IconoPro = ({ nombre }) => {
 };
 
 const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTab }) => {
-  
-  const tramite = Array.isArray(tramiteRecibido) ? tramiteRecibido[0] : tramiteRecibido;
+  /* A veces el servicio devuelve un array con un solo trámite, a veces el objeto directamente. 
+  Aquí lo normalizamos para evitar errores. */
+  const tramite = Array.isArray(tramiteRecibido) ? tramiteRecibido[0] : tramiteRecibido; 
   if (!tramite) return null;
 
   // LÓGICA DE FILTRADO
