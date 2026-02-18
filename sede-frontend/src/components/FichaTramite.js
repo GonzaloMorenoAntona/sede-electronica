@@ -58,7 +58,7 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
         
         {/* CABECERA */}
         <div style={{ padding: '40px', background: 'linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%)', borderBottom: '1px solid #eee' }}>
-          <button onClick={volver} style={{ background: 'none', border: 'none', color: '#0073ab', cursor: 'pointer', fontWeight: 'bold', marginBottom: '20px' }}>
+          <button onClick={volver} style={{ background: 'none', border: 'none', color: 'var(--primary-color)', cursor: 'pointer', fontWeight: 'bold', marginBottom: '20px' }}>
             ← VOLVER AL BUSCADOR
           </button>
 
@@ -72,7 +72,7 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
                   {tramite.urlExterna && (
                     <button onClick={() => window.open(tramite.urlExterna, '_blank')}
                       style={{ 
-                        backgroundColor: '#0073ab', color: 'white', padding: '16px', borderRadius: '8px', 
+                        backgroundColor: 'var(--primary-color)', color: 'white', padding: '16px', borderRadius: '8px', 
                         border: 'none', fontWeight: '600', cursor: 'pointer', fontSize: '1rem',
                         boxShadow: '0 4px 12px rgba(0, 115, 171, 0.15)' 
                       }}>
@@ -82,7 +82,7 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
                   {linkCabecera && (
                     <a href={linkCabecera.url} target="_blank" rel="noreferrer"
                       style={{ 
-                        color: '#0073ab', textDecoration: 'none', fontWeight: '600', 
+                        color: 'var(--primary-color)', textDecoration: 'none', fontWeight: '600', 
                         textAlign: 'center', fontSize: '0.9rem', display: 'flex', 
                         justifyContent: 'center', alignItems: 'center', marginTop: '5px' 
                       }}>
@@ -91,7 +91,7 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
                   )}
                 </>
               ) : (
-                <div style={{ color: '#0073ab', backgroundColor: '#fce8e6', border: '1px solid #d93025', padding: '15px', borderRadius: '8px', fontWeight: '700', textAlign: 'center' }}>
+                <div style={{ color: 'var(--primary-color)', backgroundColor: '#fce8e6', border: `1px solid var(--primary-color)`, padding: '15px', borderRadius: '8px', fontWeight: '700', textAlign: 'center' }}>
                   PLAZO CERRADO
                 </div>
               )}
@@ -114,8 +114,8 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
                 onClick={() => setActiveTab(tab)} 
                 style={{ 
                   flex: 1, padding: '20px', border: 'none', background: 'none', cursor: 'pointer', fontWeight: '700', 
-                  color: activeTab === tab ? '#0073ab' : '#888', 
-                  borderBottom: activeTab === tab ? '4px solid #0073ab' : '4px solid transparent', transition: '0.3s' 
+                  color: activeTab === tab ? 'var(--primary-color)' : '#888', 
+                  borderBottom: activeTab === tab ? '4px solid var(--primary-color)' : '4px solid transparent', transition: '0.3s' 
                 }}
               >
                 {tab.toUpperCase()}
@@ -142,26 +142,36 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
           )}
 
           {activeTab === 'documentación' && (
-            <div style={{ color: '#333' }}>
-              <h3 style={{ color: '#0073ab', marginBottom: '25px', display: 'flex', alignItems: 'center' }}>
-                <IconoPro nombre="expediente" /> Documentación Requerida
-              </h3>
-              {tramite.documentos.map((doc, i) => (
-                <div key={i} style={{ padding: '20px', borderBottom: '1px solid #eee', backgroundColor: i % 2 === 0 ? '#fcfcfc' : 'white' }}>
-                  <strong style={{ fontSize: '1.1rem', color: '#222' }}>{doc.nombre}</strong>
-                  <div style={{ color: '#555', marginTop: '8px', fontSize: '0.95rem' }} dangerouslySetInnerHTML={{ __html: doc.descripcion }} />
-                </div>
-              ))}
-            </div>
-          )}
+          <div style={{ color: '#333' }}>
+            <h3 style={{ color: 'var(--primary-color)', marginBottom: '25px', display: 'flex', alignItems: 'center' }}>
+              <IconoPro nombre="expediente" /> Documentación Requerida
+            </h3>
+            
+            {tramite.documentos.map((doc, i) => (
+              <div key={i} style={{ padding: '20px', borderBottom: '1px solid #eee', backgroundColor: i % 2 === 0 ? '#fcfcfc' : 'white' }}>
+                <strong style={{ fontSize: '1.1rem', color: '#222' }}>{doc.nombre}</strong>
+                <div 
+                  className="descripcion-tramite-container" 
+                  style={{ color: '#555', marginTop: '8px', fontSize: '0.95rem' }} 
+                  dangerouslySetInnerHTML={{ __html: doc.descripcion }} 
+                />
+              </div>
+            ))}
+            <div
+              className="descripcion-tramite-container" 
+              style={{ marginTop: '20px' }}
+              dangerouslySetInnerHTML={{ __html: tramite.descripcion_html }} 
+            />
+          </div>
+        )}
 
           {activeTab === 'normativa' && (
             <div>
-              <h3 style={{ color: '#0073ab', marginBottom: '25px' }}>Normativa Aplicable</h3>
+              <h3 style={{ color: 'var(--primary-color)', marginBottom: '25px' }}>Normativa Aplicable</h3>
               {tramite.normativas.map((norma, i) => (
                 <div key={i} style={{ marginBottom: '20px', padding: '15px', backgroundColor: '#f9f9f9', borderRadius: '8px' }}>
                   <a href={norma.enlaceBoletin} target="_blank" rel="noopener noreferrer" 
-                     style={{ color: '#0056b3', fontWeight: '700', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+                     style={{ color: 'var(--primary-hover)', fontWeight: '700', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '8px' }}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
                     {norma.referencia}
                   </a>

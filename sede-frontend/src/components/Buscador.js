@@ -18,15 +18,13 @@ const Buscador = ({ searchTerm, setSearchTerm, handleSearch, results, abrirTrami
 
   return (
     <div style={{ maxWidth: '900px', margin: '40px auto', fontFamily: 'Inter, sans-serif' }}>
-      <h1 style={{ textAlign: 'center', color: '#1a202c', fontWeight: '700', fontSize: '2.2rem' }}>Buscador Global</h1>
-      
       <form onSubmit={handleSearch} style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
         <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="¿Qué necesitas?" style={s.input} />
         <button type="submit" style={s.btnRed}>{isLoading ? '...' : 'BUSCAR'}</button>
       </form>
 
       <button onClick={() => setShowFilters(!showFilters)} style={s.btnFilter}>
-        <Icon d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z" size={14} color="#0073ab" /> {showFilters ? 'OCULTAR FILTROS' : 'FILTROS'}
+        <Icon d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z" size={14} color="var(--primary-color)" /> {showFilters ? 'OCULTAR FILTROS' : 'FILTROS'}
       </button>
 
       {showFilters && (
@@ -63,12 +61,12 @@ const Buscador = ({ searchTerm, setSearchTerm, handleSearch, results, abrirTrami
 // OBJETO DE ESTILOS (Para no ensuciar el HTML)
 const s = {
   input: { flexGrow: 1, padding: '14px 20px', borderRadius: '10px', border: '1px solid #e2e8f0', outline: 'none', fontSize: '1rem' },
-  btnRed: { padding: '0 25px', backgroundColor: '#0073ab', color: 'white', border: 'none', borderRadius: '10px', fontWeight: '600', cursor: 'pointer' },
-  btnFilter: { background: 'none', border: 'none', color: '#0073ab', cursor: 'pointer', fontWeight: '600', fontSize: '0.9rem', display: 'flex', alignItems: 'center' },
+  btnRed: { padding: '0 25px', backgroundColor: 'var(--primary-color)', color: 'white', border: 'none', borderRadius: '10px', fontWeight: '600', cursor: 'pointer' },
+  btnFilter: { background: 'none', border: 'none', color: 'var(--primary-color)', cursor: 'pointer', fontWeight: '600', fontSize: '0.9rem', display: 'flex', alignItems: 'center' },
   filterPanel: { backgroundColor: 'white', padding: '25px', borderRadius: '12px', border: '1px solid #e2e8f0', marginBottom: '20px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
   filterTitle: { margin: '0 0 10px 0', fontSize: '0.75rem', color: '#a0aec0', letterSpacing: '0.05em' },
-  tag: (activo) => ({ padding: '6px 12px', borderRadius: '6px', border: '1px solid', borderColor: activo ? '#0073ab' : '#e2e8f0', backgroundColor: activo ? '#0073ab' : 'white', color: activo ? 'white' : '#4a5568', cursor: 'pointer', fontSize: '0.8rem', fontWeight: '600' }),
-  card: { backgroundColor: 'white', padding: '20px', borderRadius: '10px', border: '1px solid #e2e8f0', borderLeft: '4px solid #0073ab', cursor: 'pointer', transition: '0.2s' },
+  tag: (activo) => ({ padding: '6px 12px', borderRadius: '6px', border: '1px solid', borderColor: activo ? 'var(--primary-color)' : '#e2e8f0', backgroundColor: activo ? 'var(--primary-color)' : 'white', color: activo ? 'white' : '#4a5568', cursor: 'pointer', fontSize: '0.8rem', fontWeight: '600' }),
+  card: { backgroundColor: 'white', padding: '20px', borderRadius: '10px', border: '1px solid #e2e8f0', borderLeft: `4px solid var(--primary-color)`, cursor: 'pointer', transition: '0.2s' },
   cardTag: { fontSize: '0.7rem', color: '#a0aec0', fontWeight: '700', textTransform: 'uppercase' },
   cardTitle: { margin: '5px 0 0 0', color: '#2d3748', fontSize: '1.15rem', fontWeight: '600' }
 };

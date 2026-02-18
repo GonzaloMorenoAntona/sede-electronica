@@ -12,7 +12,7 @@
 
 /* 2. ENLACES DINÁMICOS (Los {{tags}} del SQL) */
 .enlace-sede-dinamico {
-  color: var(--primary-color);
+  color: var(--primary-hover);
   text-decoration: none;
   font-weight: 600;
   border-bottom: 1px solid transparent;
@@ -36,4 +36,98 @@ button {
 
 input {
   font-family: 'Inter', sans-serif;
+}
+/* Estructura del fondo de la Home */
+.home-main {
+  background-color: transparent; /* Ahora es un cristal, deja ver el logo */
+  min-height: 100vh;
+}
+
+.hero-sede { /*bloque de color azul con el título*/
+  background-color: var(--primary-color);
+  color: white;
+  padding: 80px 20px; 
+  text-align: center;
+}
+
+.hero-content h1 {/* El título grande de la Home */
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  letter-spacing: -0.03em;
+}
+
+.home-content-wrapper {/* El contenedor donde esta todo, manteniendno el margen de los lados  */
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* Título de secciones */
+.section-title {
+  text-align: center;
+  color: #2d3748;
+  margin: 50px 0 25px 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* EL GRID DE 3 COLUMNAS */
+.areas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* 3 col en PC, se ajusta en móvil */
+  gap: 25px;
+}
+
+/* TARJETAS */
+.area-card-pro { 
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px; /*las esquinas de los recuadros*/
+  padding: 40px 30px;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* transición suave para hover */
+  cursor: pointer;
+}
+
+.area-card-pro:hover { /* Efecto de elevación al pasar el mouse */
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 115, 171, 0.1), 0 10px 10px -5px rgba(0, 115, 171, 0.04);
+  border-color: var(--primary-hover);
+}
+
+.area-icon { /* El círculo azul detrás de los iconos */
+  background-color: rgba(0, 115, 171, 0.05);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px auto;
+}
+
+.area-card-pro h3 { /* Títulos de las áreas */
+  color: #1a202c;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.area-card-pro p { /* Descripciones de las áreas */
+  color: #718096;
+  font-size: 0.9rem;
+}
+/* BUSCAMOS LOS ENLACES DENTRO DEL CONTENEDOR DE LA FICHA */
+
+.descripcion-tramite-container a {
+  color: var(--primary-color) !important;
+  text-decoration: underline; /* O 'none' si prefieres que solo se subraye al pasar el ratón */
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+/* 2. El efecto cuando el usuario pasa el ratón */
+.descripcion-tramite-container a:hover {
+  color: var(--primary-hover) !important;
+  text-decoration: underline;
 }

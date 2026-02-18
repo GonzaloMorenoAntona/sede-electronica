@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import './App.css';
 import Layout from './components/Layout';
-// IMPORTANTE: Sin llaves {} en estos imports
-import BuscadorPage from './pages/BuscadorPage';
+import HomePage from './pages/HomePage'; 
 import FichaTramitePage from './pages/FichaTramitePage';
 
 function App() {
-  const [view, setView] = useState('BUSCADOR');
-  const [selectedId, setSelectedId] = useState(null); // Solo el ID, nada más
+  const [view, setView] = useState('HOME');
+  const [selectedId, setSelectedId] = useState(null);
   const [categorias, setCategorias] = useState([]);
 
-  // Traemos las categorías reales de tu base de datos
+  // Cargamos las categorías una sola vez al arrancar
   useEffect(() => {
     fetch('/api/categorias')
       .then(res => res.json())
@@ -18,25 +17,23 @@ function App() {
       .catch(err => console.error("Error cargando categorías:", err));
   }, []);
 
-  // Esta función es la que usará el buscador para "avisar" a App de que cambie de vista
-  const irADetalle = (id) => {
+  // Esta función se la pasamos a la Home para que pueda abrir un trámite
+  const abrirDetalle = (id) => {
     setSelectedId(id);
     setView('DETALLE');
   };
 
   return (
     <Layout>
-      {view === 'BUSCADOR' && (
-        <BuscadorPage 
+      {view === 'HOME' ? (
+        <HomePage 
           categorias={categorias} 
-          abrirTramite={irADetalle} 
+          alSeleccionarTramite={abrirDetalle} 
         />
-      )}
-      
-      {view === 'DETALLE' && (
+      ) : (
         <FichaTramitePage 
           tramiteId={selectedId} 
-          volver={() => setView('BUSCADOR')} 
+          volver={() => setView('HOME')} 
         />
       )}
     </Layout>
