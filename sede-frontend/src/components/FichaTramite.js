@@ -26,7 +26,7 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
       const enlaces = typeof tramite.enlacesJson === 'string' 
         ? JSON.parse(tramite.enlacesJson) 
         : tramite.enlacesJson;
-      linkCabecera = enlaces.find(e => e.id === 'cabecera_solicitud');
+      linkCabecera = enlaces.find(e => e.id === 'cabecera_solicitud');// Buscamos el enlace específico para la cabecera
     } catch (e) {
       console.error("Error al buscar link de cabecera:", e);
     }
@@ -92,7 +92,7 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
                   )}
                 </>
               ) : (
-                <div style={{ color: 'var(--primary-color)', backgroundColor: '#fce8e6', border: `1px solid var(--primary-color)`, padding: '15px', borderRadius: '8px', fontWeight: '700', textAlign: 'center' }}>
+                <div style={{ color: 'var(--primary-color)', backgroundColor: '#999', border: `1px solid var(--primary-color)`, padding: '15px', borderRadius: '8px', fontWeight: '700', textAlign: 'center' }}>
                   PLAZO CERRADO
                 </div>
               )}
@@ -158,11 +158,6 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
                 />
               </div>
             ))}
-            <div
-              className="descripcion-tramite-container" 
-              style={{ marginTop: '20px' }}
-              dangerouslySetInnerHTML={{ __html: tramite.descripcion_html }} 
-            />
           </div>
         )}
 

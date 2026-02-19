@@ -48,9 +48,7 @@ const Buscador = ({ searchTerm, setSearchTerm, handleSearch, results, abrirTrami
 
       <div style={{ display: 'grid', gap: '12px' }}>
         {results.map(item => (
-          <div key={item.id} onClick={() => manejarSeleccion(item)} 
-          className = "buscador-card"
-          >
+          <div key={item.id} onClick={() => manejarSeleccion(item)} className = "buscador-card">
             <span style={s.cardTag}>{item.tipo}</span>
             <h3 style={s.cardTitle}>{item.titulo}</h3>
           </div>
