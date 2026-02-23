@@ -30,7 +30,7 @@ const Buscador = ({ searchTerm, setSearchTerm, handleSearch, results, abrirTrami
       {showFilters && (
         <div style={s.filterPanel}>
           {[{ t: 'ÁREAS', list: categorias, state: filtroCategoria, set: setFiltroCategoria }, 
-            { t: 'TIPO', list: ['TRAMITE', 'GUIA', 'NOTICIA'], state: filtroTipo, set: setFiltroTipo }].map((seccion, idx) => (
+            { t: 'TIPO', list: ['TRAMITE', 'GUIA', 'NOTICIA', 'INFORMACIÓN MUNICIPAL', 'DOCUMENTACIÓN PARA CONCEJALES/AS', 'NOTAS DE INTERÉS'], state: filtroTipo, set: setFiltroTipo }].map((seccion, idx) => (
             <div key={idx}>
               <h4 style={s.filterTitle}>{seccion.t}</h4>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
