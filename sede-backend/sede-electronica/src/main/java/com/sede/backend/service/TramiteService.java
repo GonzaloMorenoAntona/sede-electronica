@@ -29,6 +29,7 @@ public class TramiteService {
         respuesta.put("estado", tramite.getEstado());
         respuesta.put("enlacesJson", tramite.getEnlacesJson());
         respuesta.put("urlExterna", tramite.getUrlExterna());
+        respuesta.put("esEnlaceExterno", tramite.getEsEnlaceExterno());
         respuesta.put("documentos", documentoRepository.findByTramiteId(id));
         respuesta.put("normativas", normativaRepository.findByTramiteId(id));
         return respuesta;

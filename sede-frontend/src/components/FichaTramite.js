@@ -66,35 +66,41 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '20px' }}>
             <h1 style={{ margin: 0, color: '#222', flex: 1, fontSize: '2rem', letterSpacing: '-0.02em' }}>{tramite.titulo}</h1>
             
-            {/* AQUÍ VA EL BLOQUE QUE ME HAS PASADO (Cajita de Acciones) */}
+            {/* BLOQUE DE ACCIONES */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', minWidth: '220px' }}>
-              {tramite.estado === 'VIGENTE' ? (
-                <>
-                  {tramite.urlExterna && (
-                    <button onClick={() => window.open(tramite.urlExterna, '_blank')}
-                      style={{ 
-                        backgroundColor: 'var(--primary-color)', color: 'white', padding: '16px', borderRadius: '8px', 
-                        border: 'none', fontWeight: '600', cursor: 'pointer', fontSize: '1rem',
-                        boxShadow: '0 4px 12px rgba(0, 115, 171, 0.15)' 
-                      }}>
-                      TRAMITAR AHORA
-                    </button>
-                  )}
-                  {linkCabecera && (
-                    <a href={linkCabecera.url} target="_blank" rel="noreferrer"
-                      style={{ 
-                        color: 'var(--primary-color)', textDecoration: 'none', fontWeight: '600', 
-                        textAlign: 'center', fontSize: '0.9rem', display: 'flex', 
-                        justifyContent: 'center', alignItems: 'center', marginTop: '5px' 
-                      }}>
-                      <IconoPro nombre="descarga" /> {linkCabecera.label} (PDF)
-                    </a>
-                  )}
-                </>
-              ) : (
-                <div style={{ color: 'var(--primary-color)', backgroundColor: '#999', border: `1px solid var(--primary-color)`, padding: '15px', borderRadius: '8px', fontWeight: '700', textAlign: 'center' }}>
+              {tramite.estado === 'CERRADO' ? (
+                /* Si el estado es CERRADO, ignoramos todo lo demás */
+                <div style={{ color: 'white', backgroundColor: '#999', padding: '15px', borderRadius: '8px', fontWeight: '700', textAlign: 'center' }}>
                   PLAZO CERRADO
                 </div>
+              ) : (
+                /* Si no está cerrado, comprobamos si es VIGENTE y cumple las condiciones */
+                tramite.estado === 'VIGENTE' && (
+                  <>
+                    {(tramite.urlExterna && Number(tramite.esEnlaceExterno) === 0) && (
+                      <button onClick={() => window.open(tramite.urlExterna, '_blank')}
+                        style={{ 
+                          backgroundColor: 'var(--primary-color)', color: 'white', padding: '16px', borderRadius: '8px', 
+                          border: 'none', fontWeight: '600', cursor: 'pointer', fontSize: '1rem',
+                          boxShadow: '0 4px 12px rgba(0, 115, 171, 0.15)' 
+                        }}>
+                        TRAMITAR AHORA
+                      </button>
+                    )}
+                    
+                    {/* Aquí siguen los otros enlaces como linkCabecera si existen */}
+                    {linkCabecera && (
+                      <a href={linkCabecera.url} target="_blank" rel="noreferrer"
+                        style={{ 
+                          color: 'var(--primary-color)', textDecoration: 'none', fontWeight: '600', 
+                          textAlign: 'center', fontSize: '0.9rem', display: 'flex', 
+                          justifyContent: 'center', alignItems: 'center', marginTop: '5px' 
+                        }}>
+                        <IconoPro nombre="descarga" /> {linkCabecera.label} (PDF)
+                      </a>
+                    )}
+                  </>
+                )
               )}
             </div>
           </div>
