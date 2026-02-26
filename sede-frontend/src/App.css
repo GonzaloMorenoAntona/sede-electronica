@@ -1,69 +1,28 @@
-/* 1. TÍTULOS INTERNOS DE LAS GUÍAS (descripcion_html) */
-.titulo-guia-interno {
-  color: var(--primary-color);
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  margin-top: 10px;
-  border-bottom: 3px solid var(--primary-color);
-  padding-bottom: 8px;
-  letter-spacing: -0.01em;
-}
+/* ==========================================================================
+   1. ESTRUCTURA Y LAYOUT (Home)
+   ========================================================================== */
+.home-main { min-height: 100vh; }
 
-/* 2. ENLACES DINÁMICOS (Los {{tags}} del SQL) */
-.enlace-sede-dinamico {
-  color: var(--primary-hover);
-  text-decoration: none;
-  font-weight: 600;
-  border-bottom: 1px solid transparent;
-  transition: all 0.2s ease;
-  padding: 2px 0;
-}
-
-.enlace-sede-dinamico:hover {
-  color: var(--primary-hover);
-  border-bottom-color: var(--primary-hover);
-  background-color: rgba(0, 115, 171, 0.05);
-}
-
-/* 3. ESTILOS DE BOTONES Y FORMULARIOS */
-button {
-  transition: all 0.2s ease-in-out;
-  letter-spacing: -0.01em;
-  font-family: 'Inter', sans-serif;
-  cursor: pointer;
-}
-
-input {
-  font-family: 'Inter', sans-serif;
-}
-/* Estructura del fondo de la Home */
-.home-main {
-  background-color: transparent; /* Ahora es un cristal, deja ver el logo */
-  min-height: 100vh;
-}
-
-.hero-sede { /*bloque de color azul con el título*/
+.hero-sede {
   background-color: var(--primary-color);
   color: white;
-  padding: 80px 20px; 
+  padding: 80px 20px;
   text-align: center;
 }
 
-.hero-content h1 {/* El título grande de la Home */
+.hero-content h1 {
   font-size: 2.8rem;
   font-weight: 800;
   margin-bottom: 10px;
   letter-spacing: -0.03em;
 }
 
-.home-content-wrapper {/* El contenedor donde esta todo, manteniendno el margen de los lados  */
+.home-content-wrapper {
   max-width: 1100px;
   margin: 0 auto;
   padding: 40px 20px;
 }
 
-/* Título de secciones */
 .section-title {
   text-align: center;
   color: #2d3748;
@@ -72,79 +31,83 @@ input {
   font-weight: 700;
 }
 
-/* EL GRID DE 3 COLUMNAS */
-.areas-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* 3 col en PC, se ajusta en móvil */
-  gap: 25px;
-}
+/* ==========================================================================
+   2. COMPONENTES: TARJETAS (Cards)
+   ========================================================================== */
 
-/* TARJETAS */
-.area-card-pro { 
+/* Base común para todas las tarjetas */
+.area-card-pro, .area-card-simple {
   background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px; /*las esquinas de los recuadros*/
-  padding: 40px 30px;
-  text-align: center;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* transición suave para hover */
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
   cursor: pointer;
-}
-
-.area-card-pro:hover { /* Efecto de elevación al pasar el mouse */
-  transform: translateY(-8px);
-  box-shadow: 0 20px 25px -5px rgba(0, 115, 171, 0.1), 0 10px 10px -5px rgba(0, 115, 171, 0.04);
-  border-color: var(--primary-hover);
-}
-
-.area-icon { /* El círculo azul detrás de los iconos */
-  background-color: rgba(0, 115, 171, 0.05);
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+}
+
+.area-card-pro:hover, .area-card-simple:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 25px -5px rgba(0, 115, 171, 0.1);
+}
+
+/* Estilos específicos */
+.area-card-pro { padding: 40px 30px; text-align: center; }
+.area-card-simple { padding: 25px; border-top: 4px solid var(--primary-color); }
+
+.area-icon {
+  background-color: rgba(0, 115, 171, 0.05);
+  width: 70px; height: 70px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
   margin: 0 auto 20px auto;
 }
 
-.area-card-pro h3 { /* Títulos de las áreas */
-  color: #1a202c;
-  font-size: 1.2rem;
-  margin-bottom: 10px;
+/* Grids */
+.areas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 25px;
 }
 
-.area-card-pro p { /* Descripciones de las áreas */
-  color: #718096;
-  font-size: 0.9rem;
-}
-/* El estado normal de la tarjeta */
+/* ==========================================================================
+   3. BUSCADOR Y RESULTADOS
+   ========================================================================== */
 .buscador-card {
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-color);
   border-left: 4px solid var(--primary-color);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease; /* tarda 0.2s en cambiar su posición */
+  transition: all 0.2s ease;
 }
 
-/* El efecto HOVER real y fluido */
 .buscador-card:hover {
-  transform: translateY(-4px); 
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); /* Le damos sombra para que "flote" */
-  border-left-color: var(--primary-hover); 
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-left-color: var(--primary-hover);
 }
 
-/* BUSCAMOS LOS ENLACES DENTRO DEL CONTENEDOR DE LA FICHA */
-.descripcion-tramite-container a {
+/* ==========================================================================
+   4. CONTENIDO DINÁMICO (SQL / Guías)
+   ========================================================================== */
+.titulo-guia-interno {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 10px 0 20px 0;
+  border-bottom: 3px solid var(--primary-color);
+  padding-bottom: 8px;
+}
+
+.enlace-sede-dinamico, .descripcion-tramite-container a {
   color: var(--primary-color) !important;
-  text-decoration: underline; /* O 'none' si prefieres que solo se subraye al pasar el ratón */
+  text-decoration: underline;
   font-weight: 600;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
-/* 2. El efecto cuando el usuario pasa el ratón */
-.descripcion-tramite-container a:hover {
+.enlace-sede-dinamico:hover, .descripcion-tramite-container a:hover {
   color: var(--primary-hover) !important;
-  text-decoration: underline;
+  background-color: rgba(0, 115, 171, 0.05);
 }

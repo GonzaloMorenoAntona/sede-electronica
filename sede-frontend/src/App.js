@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'; 
 import './App.css';
-import Layout from './components/Layout';
+import Layout from './components/LayoutTEMP';
 import HomePage from './pages/HomePage'; 
 import FichaTramitePage from './pages/FichaTramitePage';
+import SubvencionesPage from './pages/SubvencionesPage'
 
 function App() {
   const [view, setView] = useState('HOME');
@@ -19,20 +20,34 @@ function App() {
 
   // Esta función se la pasamos a la Home para que pueda abrir un trámite
   const abrirDetalle = (id) => {
-    setSelectedId(id);
-    setView('DETALLE');
+    // Si el ID es 16, saltamos directamente a la página especial
+    if (id === 16) {
+      setView('SUBVENCIONES');
+    } else {
+      setSelectedId(id);
+      setView('DETALLE');
+    }
   };
 
   return (
     <Layout>
-      {view === 'HOME' ? (
+      {/* Lógica de navegación por estados */}
+      {view === 'HOME' && (
         <HomePage 
           categorias={categorias} 
           alSeleccionarTramite={abrirDetalle} 
         />
-      ) : (
+      )}
+
+      {view === 'DETALLE' && (
         <FichaTramitePage 
           tramiteId={selectedId} 
+          volver={() => setView('HOME')} 
+        />
+      )}
+
+      {view === 'SUBVENCIONES' && (
+        <SubvencionesPage 
           volver={() => setView('HOME')} 
         />
       )}

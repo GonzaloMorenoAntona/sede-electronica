@@ -1,6 +1,6 @@
 import React from 'react';
 
-// 1. Icono Profesional (SVG) - Definido fuera para mayor limpieza
+// Icono Profesional (SVG) - Definido fuera para mayor limpieza
 const IconoPro = ({ nombre }) => {
   const rutas = {
     expediente: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z",
@@ -69,16 +69,17 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
             {/* BLOQUE DE ACCIONES */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', minWidth: '220px' }}>
               {tramite.estado === 'CERRADO' ? (
-                /* Si el estado es CERRADO, ignoramos todo lo demás */
                 <div style={{ color: 'white', backgroundColor: '#999', padding: '15px', borderRadius: '8px', fontWeight: '700', textAlign: 'center' }}>
                   PLAZO CERRADO
                 </div>
               ) : (
-                /* Si no está cerrado, comprobamos si es VIGENTE y cumple las condiciones */
+                /* Aquí ya no preguntamos si es 0, porque si estamos en la FICHA, sabemos que lo es */
                 tramite.estado === 'VIGENTE' && (
                   <>
-                    {(tramite.urlExterna && Number(tramite.esEnlaceExterno) === 0) && (
-                      <button onClick={() => window.open(tramite.urlExterna, '_blank')}
+                    {tramite.urlExterna && (
+                      <button 
+                        /* Cambiado a window.open para abrir pestaña nueva */
+                        onClick={() => window.open(tramite.urlExterna, '_blank')}
                         style={{ 
                           backgroundColor: 'var(--primary-color)', color: 'white', padding: '16px', borderRadius: '8px', 
                           border: 'none', fontWeight: '600', cursor: 'pointer', fontSize: '1rem',
@@ -88,7 +89,7 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
                       </button>
                     )}
                     
-                    {/* Aquí siguen los otros enlaces como linkCabecera si existen */}
+                    {/* Enlace al PDF de la cabecera (si existe) */}
                     {linkCabecera && (
                       <a href={linkCabecera.url} target="_blank" rel="noreferrer"
                         style={{ 

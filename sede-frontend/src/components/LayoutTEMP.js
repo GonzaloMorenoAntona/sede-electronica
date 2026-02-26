@@ -5,7 +5,7 @@ const Layout = ({ children }) => {
   return (
     <div style={{ position: 'relative', minHeight: '100vh', width: '100%' }}>
       
-      {/* CAPA DEL LOGO: Esta es la clave para que no se corte */}
+      {/* CAPA DEL LOGO */}
       <div style={{
         position: 'fixed', // Se queda pegado a la ventana del navegador
         top: 0,
@@ -21,11 +21,11 @@ const Layout = ({ children }) => {
         backgroundSize: '1300px auto', 
         
         opacity: 0.07,     // Ajustado para que sea una marca de agua sutil
-        filter: 'grayscale(100%)', // Mantiene la estética profesional
+        filter: 'grayscale(100%)', // Mantiene la estética 
         pointerEvents: 'none'      // No interfiere con los clics
       }}></div>
 
-      {/* CAPA DE CONTENIDO: Aquí es donde van tus tarjetas de 1100px */}
+      {/* CAPA DE CONTENIDO*/}
       <div style={{ position: 'relative', zIndex: 1 }}>
         {children}
       </div>

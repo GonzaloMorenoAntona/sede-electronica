@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-// Un solo SVG genérico que cambia según el "d" (la ruta) que le pases
+// Un solo SVG genérico que cambia según la ruta) que le pases
 const Icon = ({ d, size = 18, color = "currentColor"}) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}><path d={d} /></svg>
 );
@@ -9,7 +9,9 @@ const Buscador = ({ searchTerm, setSearchTerm, handleSearch, results, abrirTrami
   const [showFilters, setShowFilters] = useState(false);
 
   const manejarSeleccion = (item) => {
-    if (item.urlExterna && (!item.descripcionHtml || item.descripcionHtml?.trim() === "")) {
+    console.log("Datos recibidos del trámite:", item);
+    if (Number(item.esEnlaceExterno) === 1 && item.urlExterna) {
+      console.log("-> Es EXTERNO. Abriendo en pestaña nueva...");
       window.open(item.urlExterna, '_blank');
     } else {
       abrirTramite(item.id);
@@ -30,7 +32,7 @@ const Buscador = ({ searchTerm, setSearchTerm, handleSearch, results, abrirTrami
       {showFilters && (
         <div style={s.filterPanel}>
           {[{ t: 'ÁREAS', list: categorias, state: filtroCategoria, set: setFiltroCategoria }, 
-            { t: 'TIPO', list: ['TRAMITE', 'GUIA', 'NOTICIA', 'INFORMACIÓN MUNICIPAL', 'DOCUMENTACIÓN PARA CONCEJALES/AS', 'NOTAS DE INTERÉS'], state: filtroTipo, set: setFiltroTipo }].map((seccion, idx) => (
+            { t: 'TIPO', list: ['TRAMITE', 'NOTICIA', 'INFORMACIÓN MUNICIPAL', 'DOCUMENTACIÓN PARA CONCEJALES/AS', 'NOTAS DE INTERÉS'], state: filtroTipo, set: setFiltroTipo }].map((seccion, idx) => (
             <div key={idx}>
               <h4 style={s.filterTitle}>{seccion.t}</h4>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
