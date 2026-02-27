@@ -9,9 +9,7 @@ const Buscador = ({ searchTerm, setSearchTerm, handleSearch, results, abrirTrami
   const [showFilters, setShowFilters] = useState(false);
 
   const manejarSeleccion = (item) => {
-    console.log("Datos recibidos del trámite:", item);
     if (Number(item.esEnlaceExterno) === 1 && item.urlExterna) {
-      console.log("-> Es EXTERNO. Abriendo en pestaña nueva...");
       window.open(item.urlExterna, '_blank');
     } else {
       abrirTramite(item.id);

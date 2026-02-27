@@ -18,7 +18,7 @@ const SubvencionesPage = ({ volver }) => {
 
   return (
     <div className="home-content-wrapper">
-        <button onClick={volver} style={{ background: 'none', border: 'none', color: 'var(--primary-color)', cursor: 'pointer', fontWeight: 'bold', marginBottom: '20px' }}>
+        <button onClick={volver} className="enlace-sede-dinamico" style={{border:'none', background:'none', cursor:'pointer', marginBottom:'20px', display:'block'}}>
             ← VOLVER AL BUSCADOR
         </button>
 

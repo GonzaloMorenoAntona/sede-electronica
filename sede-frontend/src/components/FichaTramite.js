@@ -1,117 +1,80 @@
 import React from 'react';
+import './FichaTramite.css'; 
 
-// Icono Profesional (SVG) - Definido fuera para mayor limpieza
 const IconoPro = ({ nombre }) => {
   const rutas = {
     expediente: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z",
     descarga: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"
   };
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '10px' }}>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}>
       <path d={rutas[nombre]} />
     </svg>
   );
 };
 
 const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTab }) => {
-  /* A veces el servicio devuelve un array con un solo trámite, a veces el objeto directamente. 
-  Aquí lo normalizamos para evitar errores. */
   const tramite = Array.isArray(tramiteRecibido) ? tramiteRecibido[0] : tramiteRecibido; 
   if (!tramite) return null;
 
-  // LÓGICA DE FILTRADO
-  let linkCabecera = null;
-  if (tramite.enlacesJson) {
-    try {
-      const enlaces = typeof tramite.enlacesJson === 'string' 
-        ? JSON.parse(tramite.enlacesJson) 
-        : tramite.enlacesJson;
-      linkCabecera = enlaces.find(e => e.id === 'cabecera_solicitud');// Buscamos el enlace específico para la cabecera
-    } catch (e) {
-      console.error("Error al buscar link de cabecera:", e);
-    }
-  }
+  // Lógica de filtrado de enlaces (se mantiene igual)
+  const getLinkCabecera = () => {
+    if (!tramite.enlacesJson) return null;
+    const enlaces = typeof tramite.enlacesJson === 'string' ? JSON.parse(tramite.enlacesJson) : tramite.enlacesJson;
+    return enlaces.find(e => e.id === 'cabecera_solicitud');
+  };
 
   const renderizarContenidoEnriquecido = () => {
     let textoFinal = tramite.descripcionHtml || ""; 
-    const rawEnlaces = tramite.enlacesJson;
-
-    if (rawEnlaces) {
-      try {
-        const enlaces = typeof rawEnlaces === 'string' ? JSON.parse(rawEnlaces) : rawEnlaces;
-        if (Array.isArray(enlaces)) {
-          enlaces.forEach(enlace => {
-            const htmlLink = `<a href="${enlace.url}" target="_blank" class="enlace-sede-dinamico">${enlace.label}</a>`;
-            const marcador = `{{${enlace.id}}}`;
-            textoFinal = textoFinal.split(marcador).join(htmlLink);
-          });
-        }
-      } catch (e) {
-        console.error("Error al procesar enlacesJson:", e);
-      }
+    if (tramite.enlacesJson) {
+      const enlaces = typeof tramite.enlacesJson === 'string' ? JSON.parse(tramite.enlacesJson) : tramite.enlacesJson;
+      enlaces.forEach(enlace => {
+        const htmlLink = `<a href="${enlace.url}" target="_blank" class="enlace-sede-dinamico">${enlace.label}</a>`;
+        textoFinal = textoFinal.split(`{{${enlace.id}}}`).join(htmlLink);
+      });
     }
     return { __html: textoFinal };
   };
 
+  const linkCabecera = getLinkCabecera();
+
   return (
-    <div style={{ padding: '30px 20px' }}>
-      <div style={{ maxWidth: '1100px', margin: '0 auto', backgroundColor: 'white', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }}>
+    <div className="home-content-wrapper">
+      <div className="ficha-container">
         
         {/* CABECERA */}
-        <div style={{ padding: '40px', background: 'linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%)', borderBottom: '1px solid #eee' }}>
-          <button onClick={volver} style={{ background: 'none', border: 'none', color: 'var(--primary-color)', cursor: 'pointer', fontWeight: 'bold', marginBottom: '20px' }}>
+        <header className="ficha-header">
+          <button onClick={volver} className="enlace-sede-dinamico" style={{border:'none', background:'none', cursor:'pointer', marginBottom:'20px', display:'block'}}>
             ← VOLVER AL BUSCADOR
           </button>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '20px' }}>
-            <h1 style={{ margin: 0, color: '#222', flex: 1, fontSize: '2rem', letterSpacing: '-0.02em' }}>{tramite.titulo}</h1>
+          <div className="ficha-header-flex">
+            <h1 style={{ margin: 0, color: '#222', flex: 1 }}>{tramite.titulo}</h1>
             
-            {/* BLOQUE DE ACCIONES */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', minWidth: '220px' }}>
-              {tramite.estado === 'CERRADO' ? (
-                <div style={{ color: 'white', backgroundColor: '#999', padding: '15px', borderRadius: '8px', fontWeight: '700', textAlign: 'center' }}>
-                  PLAZO CERRADO
-                </div>
+            <div className="acciones-wrapper">
+              {tramite.estado === 'VIGENTE' ? (
+                <>
+                  <button className="btn-tramitar-principal" onClick={() => window.open(tramite.urlExterna, '_blank')}>
+                    TRAMITAR AHORA
+                  </button>
+                  {linkCabecera && (
+                    <a href={linkCabecera.url} className="enlace-sede-dinamico" style={{textAlign:'center', display:'flex', justifyContent:'center', alignItems:'center'}}>
+                      <IconoPro nombre="descarga" /> {linkCabecera.label} (PDF)
+                    </a>
+                  )}
+                </>
               ) : (
-                /* Aquí ya no preguntamos si es 0, porque si estamos en la FICHA, sabemos que lo es */
-                tramite.estado === 'VIGENTE' && (
-                  <>
-                    {tramite.urlExterna && (
-                      <button 
-                        /* Cambiado a window.open para abrir pestaña nueva */
-                        onClick={() => window.open(tramite.urlExterna, '_blank')}
-                        style={{ 
-                          backgroundColor: 'var(--primary-color)', color: 'white', padding: '16px', borderRadius: '8px', 
-                          border: 'none', fontWeight: '600', cursor: 'pointer', fontSize: '1rem',
-                          boxShadow: '0 4px 12px rgba(0, 115, 171, 0.15)' 
-                        }}>
-                        TRAMITAR AHORA
-                      </button>
-                    )}
-                    
-                    {/* Enlace al PDF de la cabecera (si existe) */}
-                    {linkCabecera && (
-                      <a href={linkCabecera.url} target="_blank" rel="noreferrer"
-                        style={{ 
-                          color: 'var(--primary-color)', textDecoration: 'none', fontWeight: '600', 
-                          textAlign: 'center', fontSize: '0.9rem', display: 'flex', 
-                          justifyContent: 'center', alignItems: 'center', marginTop: '5px' 
-                        }}>
-                        <IconoPro nombre="descarga" /> {linkCabecera.label} (PDF)
-                      </a>
-                    )}
-                  </>
-                )
+                <div className="plazo-cerrado-badge">PLAZO CERRADO</div>
               )}
             </div>
           </div>
-        </div>
+        </header>
 
-        {/* NAVEGACIÓN PESTAÑAS */}
-        <div style={{ display: 'flex', borderBottom: '1px solid #eee' }}>
+        {/* NAVEGACIÓN PESTAÑAS - Solo muestra lo que tiene contenido */}
+        <nav className="tab-nav">
           {['información', 'documentación', 'normativa']
             .filter(tab => {
-              if (tab === 'información') return true;
+              if (tab === 'información') return true; // Siempre se muestra
               if (tab === 'documentación') return tramite.documentos?.length > 0;
               if (tab === 'normativa') return tramite.normativas?.length > 0;
               return false;
@@ -119,71 +82,59 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
             .map(tab => (
               <button 
                 key={tab} 
-                onClick={() => setActiveTab(tab)} 
-                style={{ 
-                  flex: 1, padding: '20px', border: 'none', background: 'none', cursor: 'pointer', fontWeight: '700', 
-                  color: activeTab === tab ? 'var(--primary-color)' : '#888', 
-                  borderBottom: activeTab === tab ? '4px solid var(--primary-color)' : '4px solid transparent', transition: '0.3s' 
-                }}
+                className={`tab-button ${activeTab === tab ? 'active' : ''}`}
+                onClick={() => setActiveTab(tab)}
               >
-                {tab.toUpperCase()}
+                {tab}
               </button>
             ))}
-        </div>
+        </nav>
 
-        {/* CONTENIDO DINÁMICO */}
-        <div style={{ padding: '50px' }}>
+        {/* CUERPO */}
+        <article className="ficha-body">
           {activeTab === 'información' && (
-            <div>
-              {tramite.fechaPublicacion && (
-                <div style={{ textAlign: 'right', marginBottom: '20px' }}>
-                  <span style={{ fontSize: '0.85em', color: '#666', fontStyle: 'italic' }}>
-                    Última actualización: {new Date(tramite.fechaPublicacion).toLocaleDateString('es-ES')}
-                  </span>
-                </div>
-              )}
-              <div 
-                style={{ lineHeight: '1.8', color: '#333', fontSize: '1.05rem' }} 
-                dangerouslySetInnerHTML={renderizarContenidoEnriquecido()} 
-              />
-            </div>
+            <div dangerouslySetInnerHTML={renderizarContenidoEnriquecido()} />
           )}
 
           {activeTab === 'documentación' && (
-          <div style={{ color: '#333' }}>
-            <h3 style={{ color: 'var(--primary-color)', marginBottom: '25px', display: 'flex', alignItems: 'center' }}>
-              <IconoPro nombre="expediente" /> Documentación Requerida
-            </h3>
-            
-            {tramite.documentos.map((doc, i) => (
-              <div key={i} style={{ padding: '20px', borderBottom: '1px solid #eee', backgroundColor: i % 2 === 0 ? '#fcfcfc' : 'white' }}>
-                <strong style={{ fontSize: '1.1rem', color: '#222' }}>{doc.nombre}</strong>
-                <div 
-                  className="descripcion-tramite-container" 
-                  style={{ color: '#555', marginTop: '8px', fontSize: '0.95rem' }} 
-                  dangerouslySetInnerHTML={{ __html: doc.descripcion }} 
-                />
-              </div>
-            ))}
-          </div>
-        )}
-
-          {activeTab === 'normativa' && (
             <div>
-              <h3 style={{ color: 'var(--primary-color)', marginBottom: '25px' }}>Normativa Aplicable</h3>
-              {tramite.normativas.map((norma, i) => (
-                <div key={i} style={{ marginBottom: '20px', padding: '15px', backgroundColor: '#f9f9f9', borderRadius: '8px' }}>
-                  <a href={norma.enlaceBoletin} target="_blank" rel="noopener noreferrer" 
-                     style={{ color: 'var(--primary-hover)', fontWeight: '700', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '8px' }}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-                    {norma.referencia}
-                  </a>
-                  <p style={{ margin: '5px 0 0 24px', fontSize: '0.9rem', color: '#666' }}>{norma.descripcionCorta}</p>
+              <h3 className="titulo-guia-interno"><IconoPro nombre="expediente" /> Documentación</h3>
+              {tramite.documentos?.map((doc, i) => (
+                <div key={i} className="doc-item">
+                  <strong>{doc.nombre}</strong>
+                  <div className="descripcion-tramite-container" dangerouslySetInnerHTML={{ __html: doc.descripcion }} />
                 </div>
               ))}
             </div>
           )}
-        </div>
+          {/* CONTENIDO DE NORMATIVA (RECUPERADO) */}
+            {activeTab === 'normativa' && (
+              <div>
+                <h3 className="titulo-guia-interno">Normativa Aplicable</h3>
+                
+                {tramite.normativas?.length > 0 ? (
+                  tramite.normativas.map((norma, i) => (
+                    <div key={i} className="norma-item">
+                      <a 
+                        href={norma.enlaceBoletin} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="norma-referencia"
+                      >
+                        <IconoPro nombre="descarga" /> 
+                        {norma.referencia}
+                      </a>
+                      <p style={{ margin: '0 0 0 28px', fontSize: '0.95rem', color: '#666' }}>
+                        {norma.descripcionCorta}
+                      </p>
+                    </div>
+                  ))
+                ) : (
+                  <p>No hay normativa específica registrada para este trámite.</p>
+                )}
+              </div>
+            )}
+        </article>
       </div>
     </div>
   );

@@ -47,7 +47,7 @@ const HomePage = ({ categorias, alSeleccionarTramite }) => {
         </section>
 
         {/* SECCIÓN 1: ÁREAS DE GESTIÓN (Las 9 principales) */}
-     <section className="areas-section">
+        <section className="areas-section">
           <h2 className="section-title">Áreas Municipales de Gestión</h2>
           <div className="areas-grid">
             {areasPrincipales.map(cat => (
@@ -63,13 +63,9 @@ const HomePage = ({ categorias, alSeleccionarTramite }) => {
         </section>
 
      {/* SECCIÓN 2: INFORMACIÓN Y OTROS */}
-        <section className="others-section" style={{ marginTop: '30px', borderTop: '1px solid #eee', paddingTop: '30px' }}>
+        <section className="others-section">
           <h2 className="section-title" >Información y Otros Servicios</h2>
-          <div className="others-grid" style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(3, 1fr)', 
-            gap: '20px' 
-          }}>
+          <div className="others-grid">
             {otrasCategorias.map(cat => (
               <div key={cat.id} className="area-card-simple">
                 <h3>{cat.nombre}</h3>
