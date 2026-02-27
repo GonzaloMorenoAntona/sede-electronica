@@ -9,11 +9,17 @@ const FichaTramitePage = ({ tramiteId, volver }) => {
 
   // Cargamos el detalle del trámite al entrar en la página
   useEffect(() => {
+    setActiveTab('información');
     const cargarDetalle = async () => {
       setLoading(true);
-      const data = await getDetalleTramite(tramiteId);
-      setTramite(data);
-      setLoading(false);
+      try {
+        const data = await getDetalleTramite(tramiteId);
+        setTramite(data);
+      } catch (err) {
+        console.error('Error cargando trámite:', err);
+      } finally {
+        setLoading(false);  // setLoading(false) siempre se ejecuta, haya error o no
+      }
     };
     if (tramiteId) cargarDetalle();
   }, [tramiteId]);

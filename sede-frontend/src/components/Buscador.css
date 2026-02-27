@@ -1,0 +1,69 @@
+/* ==========================================================================
+   COMPONENTE: BUSCADOR
+   ========================================================================== */
+.buscador-wrapper { max-width: 900px; margin: 40px auto; } /*Contenedor exterior donde se coloca el buscador*/
+
+.buscador-form { display: flex; gap: 10px; margin-bottom: 20px; } /*Contiene el busacdor y el boton */
+
+.buscador-input { /*campo de texto donde escribe en el buscador, esta dentro del buscador-form*/
+  flex-grow: 1; padding: 14px 20px; font-size: 1rem; font-family: inherit;
+  border-radius: 10px; border: 1px solid #e2e8f0; outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.buscador-input:focus { /*cuando el usuario hace click en el busacdor para escribir*/
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 115, 171, 0.1);
+}
+
+.buscador-btn-buscar {
+  padding: 0 25px; background-color: var(--primary-color); color: white;
+  border: none; border-radius: 10px; font-weight: 600; font-size: 1rem;
+  font-family: inherit; cursor: pointer; white-space: nowrap; transition: background-color 0.2s;
+}
+.buscador-btn-buscar:hover { background-color: var(--primary-hover); }
+
+/*PANEL DE FILTROS*/
+.buscador-btn-filtros {
+  background: none; border: none; padding: 0; margin-bottom: 16px;
+  color: var(--primary-color); font-weight: 600; font-size: 0.9rem;
+  font-family: inherit; cursor: pointer; display: flex; align-items: center; gap: 6px;
+}
+.buscador-btn-filtros:hover { text-decoration: underline; }
+
+.buscador-filter-panel {
+  background: white; padding: 25px; border-radius: 12px;
+  border: 1px solid #e2e8f0; margin-bottom: 20px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+.buscador-filter-title {
+  margin: 0 0 10px; font-size: 0.75rem; font-weight: 700;
+  color: #a0aec0; letter-spacing: 0.05em; text-transform: uppercase;
+}
+.buscador-filter-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/*LETRAS DE FILTROS*/
+.buscador-tag {
+  padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600;
+  font-family: inherit; cursor: pointer; transition: all 0.15s;
+  border: 1px solid #e2e8f0; background: white; color: #4a5568;
+}
+.buscador-tag:hover { border-color: var(--primary-color); color: var(--primary-color); }
+.buscador-tag--activo { background: var(--primary-color); border-color: var(--primary-color); color: white; }
+
+.buscador-resultados { display: grid; gap: 12px; }
+
+.buscador-card {
+  background: white; padding: 20px; border-radius: 10px; cursor: pointer;
+  border: 1px solid var(--border-color); border-left: 4px solid var(--primary-color);
+  transition: all 0.2s;
+}
+.buscador-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+  border-left-color: var(--primary-hover);
+}
+
+@media (max-width: 640px) {
+  .buscador-filter-panel { grid-template-columns: 1fr; }
+  .buscador-btn-buscar { padding: 0 16px; font-size: 0.9rem; }
+}

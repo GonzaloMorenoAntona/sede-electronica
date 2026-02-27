@@ -1,126 +1,75 @@
 /* ==========================================================================
      COMPONENTE: FICHA DE TRÁMITE
    ========================================================================== */
-
-/* Contenedor principal de la ficha */
-.ficha-container {
-  max-width: 1100px;
-  margin: 0 auto;
-  background-color: white;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-  border: 1px solid var(--border-color);
+.ficha-container { /*Ficha de fondo que contiene la infrormacion*/
+  max-width: 1100px; margin: 0 auto; background: white;
+  border-radius: 20px; overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid var(--border-color);
 }
 
+.ficha-header { padding: 40px 50px 30px; border-bottom: 1px solid var(--border-color); }/*Contenedor de la cabecera de la ficha*/
 
-/* Botón principal de Tramitar */
+.ficha-header-flex { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; }/*Informacion de dentro de la cabecera*/
+
+.titulo-tramite-principal { margin: 0; flex: 1; font-size: 2rem; color: #222; line-height: 1.2; }
+/*BOTON DE TRAMITAR*/
+.acciones-wrapper { display: flex; flex-direction: column; gap: 12px; min-width: 260px; align-items: flex-end; }/*agrupa el bloque de la derecha de TRAMITAR y PDF*/
+
 .btn-tramitar-principal {
-  background-color: var(--primary-color);
-  color: white;
-  padding: 16px 24px;
-  border-radius: 8px;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 115, 171, 0.15);
-  text-align: center;
+  background: var(--primary-color); color: white; padding: 16px 24px;
+  border-radius: 8px; border: none; font-weight: 600; cursor: pointer;
+  font-size: 1rem; box-shadow: 0 4px 12px rgba(0,115,171,0.15); transition: all 0.2s;
 }
+.btn-tramitar-principal:hover { background: var(--primary-hover); transform: translateY(-2px); }
 
-.btn-tramitar-principal:hover {
-  background-color: var(--primary-hover);
-  transform: translateY(-2px);
+.btn-volver {
+  border: none; background: none; cursor: pointer; padding: 0;
+  color: var(--primary-color); font-weight: 600; text-decoration: underline;
+  margin-bottom: 20px; display: block; font-size: inherit; font-family: inherit;
 }
+.btn-volver:hover { color: var(--primary-hover); background-color: rgba(0, 115, 171, 0.05); }
 
-/* Navegación por pestañas */
-.tab-nav {
-  display: flex;
-  border-bottom: 1px solid var(--border-color);
-  background-color: #fcfcfc;
-}
-
+/*tab de navegacion*/
+.tab-nav { display: flex; border-bottom: 1px solid var(--border-color); background: #fcfcfc; }
 .tab-button {
-  flex: 1;
-  padding: 20px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-weight: 700;
-  color: #888;
-  border-bottom: 4px solid transparent;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  font-size: 0.85rem;
+  flex: 1; padding: 20px; border: none; background: none; cursor: pointer;
+  font-weight: 700; color: #888; border-bottom: 4px solid transparent;
+  text-transform: uppercase; font-size: 0.85rem; transition: all 0.3s;
 }
+.tab-button.active { color: var(--primary-color); border-bottom-color: var(--primary-color); background: white; }
 
-.tab-button.active {
-  color: var(--primary-color);
-  border-bottom-color: var(--primary-color);
-  background-color: white;
-}
+.ficha-body { padding: 50px; line-height: 1.8; color: #333; }
 
-/* Cuerpo de contenido */
-.ficha-body {
-  padding: 50px;
-  line-height: 1.8;
-  color: #333;
-}
+/*DOCUMENTACION*/
+.doc-item { padding: 20px; border-bottom: 1px solid #eee; transition: background 0.2s; }
+.doc-item:nth-child(even) { background: #fcfcfc; }
+.doc-item:hover { background: #f5f9ff; }
 
-/* Items de documentación y normativa */
-.doc-item {
-  padding: 20px;
-  border-bottom: 1px solid #eee;
-  transition: background-color 0.2s;
-}
-
-.doc-item:nth-child(even) { background-color: #fcfcfc; }
-.doc-item:hover { background-color: #f5f9ff; }
+/*NORMATIVA*/
 .norma-item {
-  margin-bottom: 20px;
-  padding: 15px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  border-left: 4px solid var(--border-color);
-  transition: all 0.2s ease;
+  margin-bottom: 20px; padding: 15px; background: #f9f9f9;
+  border-radius: 8px; border-left: 4px solid var(--border-color); transition: all 0.2s;
 }
-
-.norma-item:hover {
-  background-color: #f1f5f9;
-  border-left-color: var(--primary-color);
-}
+.norma-item:hover { background: #f1f5f9; border-left-color: var(--primary-color); }
 
 .norma-referencia {
-  color: var(--primary-color);
-  font-weight: 700;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 5px;
+  color: var(--primary-color); font-weight: 700; text-decoration: none;
+  display: flex; align-items: center; gap: 8px; margin-bottom: 5px;
 }
-/* Esto es lo que falta para que el diseño no se caiga todo hacia la izquierda */
-.ficha-header-flex {
-  display: flex;
-  justify-content: space-between; /* LA CLAVE: Empuja el contenido a los extremos */
-  align-items: flex-start;
-  gap: 40px;
-  width: 100%;
+.norma-descripcion { margin: 0 0 0 28px; font-size: 0.95rem; color: #666; }
+
+.plazo-cerrado-badge {/*plazo de tramite cerrado*/
+  background: #fee2e2; color: #991b1b; padding: 10px 20px;
+  border-radius: 8px; font-weight: 700; font-size: 0.85rem;
 }
 
-.acciones-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  min-width: 260px; /* Ancho mínimo para que el botón no se encoja */
-  align-items: flex-end; /* Alinea el botón y el PDF a la derecha del bloque */
-}
-
-.titulo-tramite-principal {
-  margin: 0;
-  flex: 1; /* El título se expande para llenar el hueco */
-  font-size: 2rem;
-  color: #222;
-  line-height: 1.2;
+/*responsive*/
+@media (max-width: 768px) {
+  .ficha-header { padding: 24px; }
+  .ficha-header-flex { flex-direction: column; gap: 20px; }
+  .acciones-wrapper { min-width: unset; width: 100%; align-items: stretch; }
+  .btn-tramitar-principal { text-align: center; }
+  .titulo-tramite-principal { font-size: 1.4rem; }
+  .ficha-body { padding: 24px; }
+  .tab-button { padding: 14px 8px; font-size: 0.75rem; }
 }
