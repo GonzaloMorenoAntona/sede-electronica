@@ -1,4 +1,4 @@
-package com.tu_proyecto.sede.config; // <--- ¡OJO! Ajusta esto a tu paquete real
+package com.sede.backend.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
