@@ -1,57 +1,64 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useNavigate, useParams } from 'react-router-dom';
 import './App.css';
 import Layout from './components/LayoutTEMP';
-import HomePage from './pages/HomePage'; 
+import HomePage from './pages/HomePage';
 import FichaTramitePage from './pages/FichaTramitePage';
-import SubvencionesPage from './pages/SubvencionesPage'
+import SubvencionesPage from './pages/SubvencionesPage';
 
-function App() {
-  const [view, setView] = useState('HOME');
-  const [selectedId, setSelectedId] = useState(null);
+// Componente interno para FichaTramite — necesita useParams y useNavigate
+const FichaWrapper = ({ categorias }) => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  return (
+    <FichaTramitePage
+      tramiteId={Number(id)}
+      volver={() => navigate(-1)}
+    />
+  );
+};
+
+function AppContent() {
   const [categorias, setCategorias] = useState([]);
+  const navigate = useNavigate();
 
-  // Cargamos las categorías una sola vez al arrancar
   useEffect(() => {
     fetch('/api/categorias')
       .then(res => res.json())
       .then(data => setCategorias(data))
-      .catch(err => console.error("Error cargando categorías:", err));
+      .catch(err => console.error('Error cargando categorías:', err));
   }, []);
 
-  // Esta función se la pasamos a la Home para que pueda abrir un trámite
   const abrirDetalle = (id) => {
-    // Si el ID es 16, saltamos directamente a la página especial
     if (id === 16) {
-      setView('SUBVENCIONES');
+      navigate('/subvenciones');
     } else {
-      setSelectedId(id);
-      setView('DETALLE');
+      navigate(`/tramite/${id}`);
     }
   };
 
   return (
     <Layout>
-      {/* Lógica de navegación por estados */}
-      {view === 'HOME' && (
-        <HomePage 
-          categorias={categorias} 
-          alSeleccionarTramite={abrirDetalle} 
-        />
-      )}
-
-      {view === 'DETALLE' && (
-        <FichaTramitePage 
-          tramiteId={selectedId} 
-          volver={() => setView('HOME')} 
-        />
-      )}
-
-      {view === 'SUBVENCIONES' && (
-        <SubvencionesPage 
-          volver={() => setView('HOME')} 
-        />
-      )}
+      <Routes>
+        <Route path="/" element={
+          <HomePage
+            categorias={categorias}
+            alSeleccionarTramite={abrirDetalle}
+          />
+        } />
+        <Route path="/tramite/:id" element={<FichaWrapper categorias={categorias} />} />
+        <Route path="/subvenciones" element={<SubvencionesPage volver={() => navigate('/')} />} />
+      </Routes>
     </Layout>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   );
 }
 

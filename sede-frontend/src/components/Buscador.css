@@ -41,15 +41,16 @@
 }
 .buscador-filter-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 
-/*LETRAS DE FILTROS*/
+/*ELEMENTOS DENTRO DE LOS FILTROS*/
 .buscador-tag {
   padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600;
   font-family: inherit; cursor: pointer; transition: all 0.15s;
   border: 1px solid #e2e8f0; background: white; color: #4a5568;
 }
-.buscador-tag:hover { border-color: var(--primary-color); color: var(--primary-color); }
-.buscador-tag--activo { background: var(--primary-color); border-color: var(--primary-color); color: white; }
+.buscador-tag:hover { border-color: var(--primary-color); color: var(--primary-color); } /*letras cuadno pasas con el raton por encimad e los filtros */
+.buscador-tag--activo { background: var(--primary-color); border-color: var(--primary-color); color: white; }/*cuando pulsas en un filtro*/
 
+/*tarjetas de los resultados*/
 .buscador-resultados { display: grid; gap: 12px; }
 
 .buscador-card {
@@ -62,6 +63,8 @@
   box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
   border-left-color: var(--primary-hover);
 }
+.buscador-card-tipo { font-size: 0.7rem; color: #a0aec0; font-weight: 700; text-transform: uppercase; display: block; }
+.buscador-card-titulo { margin: 5px 0 0; color: #2d3748; font-size: 1.15rem; font-weight: 600; }
 
 @media (max-width: 640px) {
   .buscador-filter-panel { grid-template-columns: 1fr; }

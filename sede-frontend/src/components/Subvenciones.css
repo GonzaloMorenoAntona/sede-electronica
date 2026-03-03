@@ -1,4 +1,8 @@
-.sub-anios { display: flex; gap: 10px; margin-bottom: 30px; justify-content: center; flex-wrap: wrap; }
+/* ==========================================================================
+     COMPONENTE: SUBVENCIONES
+   ========================================================================== */
+   /*AÑOS*/
+.sub-anios { display: flex; gap: 10px; margin-bottom: 30px; justify-content: center; flex-wrap: wrap; }/*Pone los botones con la separacioon, en horizontal...*/
 
 .sub-anio-btn {
   padding: 10px 20px; border-radius: 8px; border: 1px solid var(--border-color);
@@ -8,6 +12,7 @@
 .sub-anio-btn:hover { border-color: var(--primary-color); }
 .sub-anio-btn--activo { background: var(--primary-color); color: white; border-color: var(--primary-color); }
 
+/*ACORDEONES*/
 .sub-acordeones { display: flex; flex-direction: column; gap: 15px; }
 
 .sub-acordeon-header {
@@ -15,12 +20,14 @@
   padding: 20px 25px; background: white; border-radius: 10px;
   border: 1px solid var(--border-color); border-left: 4px solid var(--primary-color);
   cursor: pointer; transition: background 0.2s;
+  width: 100%; text-align: left; font-family: inherit; font-size: 1rem;
 }
 .sub-acordeon-header:hover { background: #f5f9ff; }
-.sub-acordeon-header span { font-weight: 700; font-size: 1.1rem; color: #2d3748; }
+.sub-acordeon-header span { font-weight: 700; font-size: 1.1rem; color: #2d3748; }/*LETRA*/
 
 .sub-acordeon-body { padding: 20px 0; display: flex; flex-direction: column; gap: 20px; }
 
+/*TARJETAS DENTRO DE LOS ACORDEONES*/
 .sub-card {
   background: white; border-radius: 10px; padding: 20px;
   border: 1px solid var(--border-color); border-left: 4px solid var(--primary-color);
@@ -38,10 +45,16 @@
   border-top: 1px solid var(--border-color); padding-top: 12px;
   display: flex; gap: 15px; flex-wrap: wrap; align-items: center;
 }
-.sub-card-anexos-label { font-size: 0.85rem; font-weight: 700; color: #4a5568; }
+.sub-card-anexos-label { font-size: 0.85rem; font-weight: 700; color: #4a5568; } /*titulo anexo*/
 
-.sub-vacio { text-align: center; padding: 40px; color: #718096; }
+.sub-vacio { text-align: center; padding: 40px; color: #718096; }/*Para cuando no hay subvencoines para cierto año*/
 
+.plazo-cerrado-badge {/*plazo de tramite cerrado*/
+  background: #fee2e2; color: #991b1b; padding: 10px 20px;
+  border-radius: 8px; font-weight: 700; font-size: 0.85rem;
+}
+
+/*RESPONSIVE*/
 @media (max-width: 768px) {
   .sub-card-header { flex-direction: column; gap: 12px; }
   .sub-card-acciones { width: 100%; justify-content: flex-start; }

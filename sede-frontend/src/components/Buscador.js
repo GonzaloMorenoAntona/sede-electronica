@@ -102,12 +102,8 @@ const Buscador = ({
             onClick={() => manejarSeleccion(item)}
             className="buscador-card"
           >
-            <span style={{ fontSize: '0.7rem', color: '#a0aec0', fontWeight: 700, textTransform: 'uppercase' }}>
-              {item.tipo}
-            </span>
-            <h3 style={{ margin: '5px 0 0 0', color: '#2d3748', fontSize: '1.15rem', fontWeight: 600 }}>
-              {item.titulo}
-            </h3>
+            <span className="buscador-card-tipo">{item.tipo}</span>
+            <h3 className="buscador-card-titulo">{item.titulo}</h3>
           </div>
         ))}
       </div>
