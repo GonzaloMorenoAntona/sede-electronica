@@ -1,0 +1,25 @@
+/* ==========================================================================
+     COMPONENTE: SUBVENCIONES
+   ========================================================================== */
+.listado-grupo { margin-bottom: 30px; }
+
+.listado-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 20px; border-bottom: 1px solid #eee;
+  cursor: pointer; transition: background 0.2s; border-radius: 8px;
+}
+.listado-item:hover { background: #f5f9ff; }
+
+.listado-item-titulo { font-size: 1rem; font-weight: 600; color: #2d3748; }
+
+.listado-item-subgrupo { font-size: 0.8rem; color: #718096; font-weight: 500; text-transform: uppercase; }
+
+.listado-item-arrow { color: var(--primary-color); font-weight: 700; font-size: 1.1rem; flex-shrink: 0; margin-left: 15px; }
+
+.listado-vacio { text-align: center; padding: 40px; color: #718096; }
+
+.listado-contador { font-size: 0.9rem; color: #718096; font-weight: 600; align-self: flex-end; padding-bottom: 6px; }
+
+@media (max-width: 768px) {
+  .listado-item { padding: 14px; }
+}

@@ -20,3 +20,12 @@ export const getDetalleTramite = async (id) => {
     return null;
   }
 };
+export const getTramitesPorCategoria = async (categoriaId) => {
+  try {
+    const response = await fetch(`/api/tramites?categoriaId=${categoriaId}`);
+    return await response.json();
+  } catch (error) {
+    console.error('Error cargando trámites por categoría:', error);
+    return [];
+  }
+};

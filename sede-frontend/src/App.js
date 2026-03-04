@@ -5,15 +5,29 @@ import Layout from './components/LayoutTEMP';
 import HomePage from './pages/HomePage';
 import FichaTramitePage from './pages/FichaTramitePage';
 import SubvencionesPage from './pages/SubvencionesPage';
+import ListadoTramitesPage from './pages/ListadoTramitesPage';
 
-// Componente interno para FichaTramite — necesita useParams y useNavigate
-const FichaWrapper = ({ categorias }) => {
+const FichaWrapper = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
   return (
     <FichaTramitePage
       tramiteId={Number(id)}
+      volver={() => navigate(-1)}
+    />
+  );
+};
+
+const ListadoWrapper = ({ categorias }) => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const categoria = categorias.find(c => c.id === Number(id));
+
+  return (
+    <ListadoTramitesPage
+      categoriaId={Number(id)}
+      categoriaNombre={categoria?.nombre || ''}
+      abrirTramite={(tramiteId) => navigate(`/tramite/${tramiteId}`)}
       volver={() => navigate(-1)}
     />
   );
@@ -30,12 +44,9 @@ function AppContent() {
       .catch(err => console.error('Error cargando categorías:', err));
   }, []);
 
-  const abrirDetalle = (id) => {
-    if (id === 16) {
-      navigate('/subvenciones');
-    } else {
-      navigate(`/tramite/${id}`);
-    }
+  const abrirTramite = (id) => {
+    if (id === 16) navigate('/subvenciones');
+    else navigate(`/tramite/${id}`);
   };
 
   return (
@@ -44,11 +55,13 @@ function AppContent() {
         <Route path="/" element={
           <HomePage
             categorias={categorias}
-            alSeleccionarTramite={abrirDetalle}
+            alSeleccionarTramite={abrirTramite}
+            abrirCategoria={(cat) => navigate(`/categoria/${cat.id}`)}
           />
         } />
-        <Route path="/tramite/:id" element={<FichaWrapper categorias={categorias} />} />
-        <Route path="/subvenciones" element={<SubvencionesPage volver={() => navigate('/')} />} />
+        <Route path="/tramite/:id"    element={<FichaWrapper />} />
+        <Route path="/categoria/:id"  element={<ListadoWrapper categorias={categorias} />} />
+        <Route path="/subvenciones"   element={<SubvencionesPage volver={() => navigate('/')} />} />
       </Routes>
     </Layout>
   );

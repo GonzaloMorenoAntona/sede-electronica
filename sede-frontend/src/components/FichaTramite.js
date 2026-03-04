@@ -44,7 +44,7 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
 
         <header className="ficha-header">
           <button onClick={volver} className="btn-volver">
-            ← VOLVER AL BUSCADOR
+            ← VOLVER
           </button>
           <div className="ficha-header-flex">
             <h1 className="titulo-tramite-principal">{tramite.titulo}</h1>

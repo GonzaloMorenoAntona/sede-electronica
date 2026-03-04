@@ -26,4 +26,5 @@ public interface TramiteRepository extends JpaRepository<Tramite, Long> {
             @Param("categoriaId") Long categoriaId,
             @Param("tipo") String tipo
     );
+    List<Tramite> findByCategoriaIdOrderByTituloAsc(Long categoriaId);
 }

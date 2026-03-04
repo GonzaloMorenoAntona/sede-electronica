@@ -15,7 +15,10 @@ public class TramiteController {
     @Autowired
     private TramiteService tramiteService;
     @GetMapping
-    public List<Tramite> obtenerTodos() {
+    public List<Tramite> obtenerTodos(@RequestParam(value = "categoriaId", required = false) Long categoriaId) {
+        if (categoriaId != null) {
+            return tramiteService.obtenerPorCategoria(categoriaId);
+        }
         return tramiteService.obtenerTodos();
     }
     @GetMapping("/{id}/detalle")
@@ -28,4 +31,5 @@ public class TramiteController {
                                 @RequestParam(value = "tipo", required = false) String tipo) {
         return tramiteService.buscarTramites(q, categoria, tipo);
     }
+
 }

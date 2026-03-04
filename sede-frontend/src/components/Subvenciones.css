@@ -49,11 +49,6 @@
 
 .sub-vacio { text-align: center; padding: 40px; color: #718096; }/*Para cuando no hay subvencoines para cierto año*/
 
-.plazo-cerrado-badge {/*plazo de tramite cerrado*/
-  background: #fee2e2; color: #991b1b; padding: 10px 20px;
-  border-radius: 8px; font-weight: 700; font-size: 0.85rem;
-}
-
 /*RESPONSIVE*/
 @media (max-width: 768px) {
   .sub-card-header { flex-direction: column; gap: 12px; }

@@ -41,4 +41,7 @@ public class TramiteService {
     public List<Tramite> buscarTramites(String query, Long categoriaId, String tipo) {
         return tramiteRepository.searchByKeyword(query, categoriaId, tipo);
     }
+    public List<Tramite> obtenerPorCategoria(Long categoriaId) {
+        return tramiteRepository.findByCategoriaIdOrderByTituloAsc(categoriaId);
+    }
 }
