@@ -10,9 +10,8 @@ import java.util.Optional;
 
 @Repository
 public interface SubvencionRepository extends JpaRepository<Subvencion, Long> {
-    // Para el upsert — busca por id externo de SIGEM
     Optional<Subvencion> findByIdExternoSigem(String idExternoSigem);
 
-    // Para filtrar por año desde el frontend si lo necesitas en el futuro
+    // Para filtrar por año
     List<Subvencion> findByAnioOrderByFechaInicioDesc(Integer anio);
-}
+}  

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SubvencionesUI from '../components/Subvenciones';
+import { getSubvenciones } from '../services/subvencionService';
 
 const SubvencionesPage = ({ volver }) => {
   const [datos, setDatos]                     = useState([]);
@@ -7,17 +8,15 @@ const SubvencionesPage = ({ volver }) => {
   const [servicioAbierto, setServicioAbierto] = useState(null);
 
   useEffect(() => {
-    fetch('/api/subvenciones')
-      .then(res => res.json())
-      .then(data => {
-        const lista = Array.isArray(data) ? data : [];
-        setDatos(lista);
-        if (lista.length > 0) {
-          const maxAnio = Math.max(...lista.map(d => Number(d.anio)));
-          setAnioActivo(maxAnio);
-        }
-      })
-      .catch(err => console.error('Error cargando subvenciones:', err));
+    const cargar = async () => {
+      const lista = await getSubvenciones();
+      setDatos(lista);
+      if (lista.length > 0) {
+        const maxAnio = Math.max(...lista.map(d => Number(d.anio)));
+        setAnioActivo(maxAnio);
+      }
+    };
+    cargar();
   }, []);
 
   return (

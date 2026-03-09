@@ -25,7 +25,6 @@ public class SubvencionService {
     private SubvencionRepository repository;
 
     public List<Subvencion> listarTodas() {
-        // Aquí podrías añadir lógica extra en el futuro (ej: solo las vigentes)
         return repository.findAll();
     }
     public Optional<Subvencion> guardarOActualizar(String apiKey, Subvencion datos) {
@@ -35,7 +34,6 @@ public class SubvencionService {
             return Optional.empty();
         }
 
-        // Upsert: si ya existe por id_externo_sigem lo actualizamos, si no lo creamos
         Subvencion subvencion = repository
                 .findByIdExternoSigem(datos.getIdExternoSigem())
                 .orElse(new Subvencion());

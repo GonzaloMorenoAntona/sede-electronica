@@ -1,0 +1,14 @@
+2026/03/09 10:15:22 [warn] 13124#14184: the "listen ... http2" directive is deprecated, use the "http2" directive instead in C:\Users\administrador.AYTODOM\Desktop\sede-electronica\nginx-1.29.5\nginx-1.29.5/conf/nginx.conf:32
+2026/03/09 10:15:22 [emerg] 13124#14184: bind() to 0.0.0.0:443 failed (10013: Intento de acceso a un socket no permitido por sus permisos de acceso)
+2026/03/09 10:16:04 [warn] 7796#13424: the "listen ... http2" directive is deprecated, use the "http2" directive instead in C:\Users\administrador.AYTODOM\Desktop\sede-electronica\nginx-1.29.5\nginx-1.29.5/conf/nginx.conf:32
+2026/03/09 10:16:04 [emerg] 7796#13424: bind() to 0.0.0.0:443 failed (10013: Intento de acceso a un socket no permitido por sus permisos de acceso)
+2026/03/09 10:18:06 [warn] 7976#12456: the "listen ... http2" directive is deprecated, use the "http2" directive instead in C:\Users\administrador.AYTODOM\Desktop\sede-electronica\nginx-1.29.5\nginx-1.29.5/conf/nginx.conf:32
+2026/03/09 10:18:06 [emerg] 7976#12456: bind() to 0.0.0.0:443 failed (10013: Intento de acceso a un socket no permitido por sus permisos de acceso)
+2026/03/09 10:19:43 [warn] 15020#15076: the "listen ... http2" directive is deprecated, use the "http2" directive instead in C:\Users\administrador.AYTODOM\Desktop\sede-electronica\nginx-1.29.5\nginx-1.29.5/conf/nginx.conf:32
+2026/03/09 10:19:43 [emerg] 15020#15076: bind() to 0.0.0.0:443 failed (10013: Intento de acceso a un socket no permitido por sus permisos de acceso)
+2026/03/09 10:21:20 [emerg] 10784#6284: bind() to 0.0.0.0:8080 failed (10013: Intento de acceso a un socket no permitido por sus permisos de acceso)
+2026/03/09 10:22:15 [emerg] 14532#13056: bind() to 0.0.0.0:80 failed (10013: Intento de acceso a un socket no permitido por sus permisos de acceso)
+2026/03/09 10:24:11 [error] 7828#2176: *9 connect() failed (10061: No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /static/js/bundle.js HTTP/1.1", upstream: "http://[::1]:3000/static/js/bundle.js", host: "localhost:8443", referrer: "https://localhost:8443/"
+2026/03/09 10:26:36 [error] 7828#2176: *35 connect() failed (10061: No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /static/js/bundle.js.map HTTP/1.1", upstream: "http://[::1]:3000/static/js/bundle.js.map", host: "localhost:8443"
+2026/03/09 10:30:59 [notice] 14940#368: signal process started
+2026/03/09 10:31:13 [error] 14880#7796: *4 connect() failed (10061: No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "http://[::1]:3000/", host: "localhost:8443"
