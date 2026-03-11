@@ -1,0 +1,55 @@
+.proceso-card {
+  background: #fff;
+  border: 1px solid #dde3ed;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+
+.proceso-titulo {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color:var(--primary-hover);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.proceso-seccion {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eef0f4;
+}
+
+.proceso-seccion-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.proceso-seccion-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.proceso-enlace-activo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.proceso-plazo-fechas {
+  color: #888;
+  font-size: 0.8rem;
+}
+
+.proceso-vacio {
+  color: #888;
+  font-style: italic;
+}

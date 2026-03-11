@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import FichaTramitePage from './pages/FichaTramitePage';
 import SubvencionesPage from './pages/SubvencionesPage';
 import ListadoTramitesPage from './pages/ListadoTramitesPage';
+import ProcesosSelectivosPage from './pages/ProcesosSelectivosPage';
 
 const FichaWrapper = () => {
   const { id } = useParams();
@@ -45,9 +46,10 @@ function AppContent() {
   }, []);
 
   const abrirTramite = (id) => {
-    if (id === 16) navigate('/subvenciones');
-    else navigate(`/tramite/${id}`);
-  };
+  if (id === 16) navigate('/subvenciones');
+  else if (id === 14) navigate('/procesos-selectivos');
+  else navigate(`/tramite/${id}`);
+};
 
   return (
     <Layout>
@@ -62,6 +64,7 @@ function AppContent() {
         <Route path="/tramite/:id"    element={<FichaWrapper />} />
         <Route path="/categoria/:id"  element={<ListadoWrapper categorias={categorias} />} />
         <Route path="/subvenciones"   element={<SubvencionesPage volver={() => navigate('/')} />} />
+        <Route path="/procesos-selectivos" element={<ProcesosSelectivosPage volver={() => navigate('/')} />} />
       </Routes>
     </Layout>
   );

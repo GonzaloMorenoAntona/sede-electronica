@@ -22,28 +22,34 @@ const ProcesoCard = ({ proceso }) => {
 
       {bases.length > 0 && (
         <div className="proceso-seccion">
-          {bases.map((b, i) => (
-            <a key={i} href={b.url} target="_blank" rel="noreferrer" className="proceso-doc-link">
-             <IconoPro nombre="documento" /> {b.label}
-            </a>
-          ))}
+          <div className="proceso-seccion-label">Bases y convocatoria</div>
+          <div className="proceso-seccion-links">
+            {bases.map((b, i) => (
+              <a key={i} href={b.url} target="_blank" rel="noreferrer" className="enlace-sede-dinamico">
+                <IconoPro nombre="documento" /> {b.label}
+              </a>
+            ))}
+          </div>
         </div>
       )}
 
       {documentos.length > 0 && (
         <div className="proceso-seccion">
-          {documentos.map((d, i) => (
-            <a key={i} href={d.url} target="_blank" rel="noreferrer" className="proceso-doc-link">
-             <IconoPro nombre="documento" /> {d.label}
-            </a>
-          ))}
+          <div className="proceso-seccion-label">Documentación del proceso</div>
+          <div className="proceso-seccion-links">
+            {documentos.map((d, i) => (
+              <a key={i} href={d.url} target="_blank" rel="noreferrer" className="enlace-sede-dinamico">
+                <IconoPro nombre="documento" /> {d.label}
+              </a>
+            ))}
+          </div>
         </div>
       )}
 
       {enlace?.label && (
         <div className="proceso-enlace-activo">
           {plazoActivo ? (
-            <a href={enlace.url} target="_blank" rel="noreferrer" className="proceso-enlace-btn">
+            <a href={enlace.url} target="_blank" rel="noreferrer" className="enlace-sede-dinamico">
               → {enlace.label}
             </a>
           ) : (
@@ -63,7 +69,7 @@ const ProcesoCard = ({ proceso }) => {
 const ProcesosSelectivos = ({ datos, volver }) => {
   return (
     <div className="home-content-wrapper">
-      <button onClick={volver} className="btn-volver">← VOLVER AL BUSCADOR</button>
+      <button onClick={volver} className="btn-volver">← VOLVER</button>
       <h1 className="titulo-guia-interno">Procesos Selectivos</h1>
       {datos.length === 0 ? (
         <p className="proceso-vacio">No hay procesos selectivos registrados actualmente.</p>
