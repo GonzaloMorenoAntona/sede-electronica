@@ -47,7 +47,7 @@ function AppContent() {
 
   const abrirTramite = (id) => {
   if (id === 16) navigate('/subvenciones');
-  else if (id === 14) navigate('/procesos-selectivos');
+  else if (id === 14 || id === 59) navigate('/procesos-selectivos');
   else navigate(`/tramite/${id}`);
 };
 
