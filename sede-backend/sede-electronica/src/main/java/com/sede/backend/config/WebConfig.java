@@ -11,7 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 // Aquí autorizamos al puerto de React (Frontend)
-                .allowedOrigins("http://localhost:3000")
+                .allowedOrigins("http://localhost:3000", "https://172.27.100.42")
                 // Qué acciones permitimos (Leer, Crear, Editar, Borrar)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 // Permitimos cualquier cabecera (Tokens, etc.)
