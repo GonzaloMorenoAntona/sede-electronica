@@ -15,12 +15,13 @@
   line-height: 1.4;
 }
 
+/*Linea que hay entre medias de bases y otra documentacion*/
 .proceso-seccion {
   margin-bottom: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid #eef0f4;
 }
-
+ /*Titulo de bases y convocatoria*/
 .proceso-seccion-label {
   font-size: 0.7rem;
   font-weight: 700;
@@ -30,12 +31,14 @@
   margin-bottom: 6px;
 }
 
+/*Links de la sección*/
 .proceso-seccion-links {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
+/*Url justificacion*/
 .proceso-enlace-activo {
   display: flex;
   align-items: center;
