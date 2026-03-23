@@ -1,0 +1,26 @@
+.pleno-card {
+  background: #fff;
+  border: 1px solid #dde3ed;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+}
+
+.pleno-titulo {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a3a5c;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.pleno-docs {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.pleno-vacio {
+  color: #888;
+  font-style: italic;
+}

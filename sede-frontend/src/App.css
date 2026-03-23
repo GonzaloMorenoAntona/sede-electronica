@@ -70,7 +70,20 @@
 }
 
 /* ==========================================================================
-   5. RESPONSIVE COMPARTIDO
+   5. FILTRO AÑOS SUBVENCIOES Y PLENOS
+   ========================================================================== */
+.sub-anios { display: flex; gap: 10px; margin-bottom: 30px; justify-content: center; flex-wrap: wrap; }/*Pone los botones con la separacioon, en horizontal...*/
+
+.sub-anio-btn {
+  padding: 10px 20px; border-radius: 8px; border: 1px solid var(--border-color);
+  background: white; color: var(--primary-color); font-weight: 700;
+  cursor: pointer; font-family: inherit; transition: all 0.2s;
+}
+.sub-anio-btn:hover { border-color: var(--primary-color); }
+.sub-anio-btn--activo { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+
+/* ==========================================================================
+   6. RESPONSIVE COMPARTIDO
    ========================================================================== */
 @media (max-width: 768px) {
   .ficha-header { padding: 24px; }
