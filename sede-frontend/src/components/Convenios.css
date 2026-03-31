@@ -1,0 +1,44 @@
+.convenio-card {
+  background: #fff;
+  border: 1px solid #dde3ed;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+}
+
+.convenio-titulo {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1a3a5c;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.convenio-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.convenio-tag {
+  background: #eef4fb;
+  color: #1a5276;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 4px;
+}
+
+.convenio-firmantes {
+  font-size: 0.85rem;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+.convenio-vigencia {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0;
+}
