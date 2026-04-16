@@ -1,0 +1,74 @@
+.expediente-card {
+  background: #fff;
+  border: 1px solid #dde3ed;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.expediente-header {
+  margin-bottom: 12px;
+}
+
+.expediente-titulo {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a3a5c;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.expediente-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.expediente-concejalia {
+  background: #eef4fb;
+  color: #1a5276;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 4px;
+}
+
+.expediente-fecha {
+  font-size: 0.82rem;
+  color: #888;
+}
+
+.expediente-docs {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #eef0f4;
+}
+
+.expediente-alegaciones {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.expediente-plazo {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.expediente-seccion-titulo {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a3a5c;
+  margin: 24px 0 12px 0;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #dde3ed;
+}
+
+.expediente-vacio {
+  color: #888;
+  font-style: italic;
+}

@@ -42,7 +42,7 @@
 .ficha-header { padding: 40px 50px 30px; border-bottom: 1px solid var(--border-color); }
 .ficha-header-flex { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; }
 .ficha-body { padding: 50px; line-height: 1.8; color: #333; }
-.titulo-tramite-principal { margin: 0; flex: 1; font-size: 2rem; color: #222; line-height: 1.2; }
+.titulo-tramite-principal { margin: 0; flex: 1; font-size: 2rem; color: var(--primary-color); line-height: 1.2; }
 
 .btn-volver {
   border: none; background: none; cursor: pointer; padding: 0;
