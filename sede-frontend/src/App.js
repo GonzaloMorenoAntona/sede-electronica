@@ -10,6 +10,7 @@ import ProcesosSelectivosPage from './pages/ProcesosSelectivosPage';
 import PlenosPage from './pages/PlenosPage';
 import ConveniosPage from './pages/ConveniosPage';
 import ExpedientesInfoPublicaPage from './pages/ExpedientesInfoPublicaPage';
+import ParticipacionNormativaPage from './pages/ParticipacionNormativaPage';
 
 const FichaWrapper = () => {
   const { id } = useParams();
@@ -54,6 +55,7 @@ function AppContent() {
   else if (id === 115) navigate('/plenos');
   else if (id === 116) navigate('/convenios');
   else if (id === 117) navigate('/expedientes-info-publica');
+  else if (id === 118) navigate('/participacion-normativa');
   else navigate(`/tramite/${id}`);
 };
 
@@ -74,6 +76,7 @@ function AppContent() {
         <Route path="/plenos" element={<PlenosPage volver={() => navigate('/')} />} />
         <Route path="/convenios" element={<ConveniosPage volver={() => navigate('/')} />} />
         <Route path="/expedientes-info-publica" element={<ExpedientesInfoPublicaPage volver={() => navigate('/')} />} />
+        <Route path="/participacion-normativa" element={<ParticipacionNormativaPage volver={() => navigate('/')} />} />
       </Routes>
     </Layout>
   );

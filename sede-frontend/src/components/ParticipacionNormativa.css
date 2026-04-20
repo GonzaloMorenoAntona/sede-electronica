@@ -1,0 +1,146 @@
+.pn-descripcion {
+  color: #555;
+  font-size: 0.95rem;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.pn-seccion {
+  margin-bottom: 40px;
+}
+
+.pn-seccion-titulo {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a3a5c;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #dde3ed;
+}
+
+.pn-card {
+  background: #fff;
+  border: 1px solid #dde3ed;
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin-bottom: 12px;
+}
+
+.pn-titulo {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1a3a5c;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.pn-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.pn-tag {
+  background: #eef4fb;
+  color: #1a5276;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 4px;
+}
+
+.pn-plazo {
+  font-size: 0.83rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.pn-docs {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.pn-alegaciones {
+  margin-top: 10px;
+}
+
+.pn-btn-alegaciones {
+  background: #1a5276;
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: inline-block;
+}
+
+.pn-btn-alegaciones:hover {
+  background: #154360;
+}
+
+.pn-vacio {
+  color: #888;
+  font-style: italic;
+  padding: 16px 0;
+}
+
+.pn-finalizados {
+  margin-top: 16px;
+}
+
+.pn-btn-historial {
+  background: none;
+  border: 1px solid #dde3ed;
+  border-radius: 6px;
+  padding: 8px 16px;
+  color: #1a5276;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-bottom: 12px;
+  font-family: inherit;
+}
+
+.pn-btn-historial:hover {
+  background: #f5f9ff;
+}
+.pn-lista-finalizadas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.pn-fila-finalizada {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #eef0f4;
+  flex-wrap: wrap;
+}
+
+.pn-fila-titulo {
+  font-size: 0.88rem;
+  color: #1a3a5c;
+  flex: 1;
+  min-width: 200px;
+}
+
+.pn-fila-fecha {
+  font-size: 0.8rem;
+  color: #888;
+  white-space: nowrap;
+}
+
+.pn-fila-docs {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
