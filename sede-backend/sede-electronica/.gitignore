@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+sede-backend/sede-electronica/src/main/resources/application.properties
