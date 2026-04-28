@@ -1,0 +1,113 @@
+.susc-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.susc-desc {
+  color: #555;
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.susc-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.susc-input {
+  flex: 1;
+  padding: 12px 14px;
+  border: 1px solid #dde3ed;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  font-family: inherit;
+}
+
+.susc-input:focus { border-color: #1a3a5c; }
+
+.susc-btn {
+  background: #1a3a5c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.susc-btn:disabled { background: #aaa; cursor: not-allowed; }
+.susc-btn:hover:not(:disabled) { background: #122a42; }
+
+.susc-mensaje {
+  padding: 16px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.susc-ok { background: #E1F5EE; color: #0F6E56; border: 1px solid #b6e8d4; }
+.susc-info { background: #eef4fb; color: #185FA5; border: 1px solid #c5ddf7; }
+.susc-error { background: #fcebeb; color: #A32D2D; border: 1px solid #f5c0c0; }
+
+.susc-tipos {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.susc-tipo-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid #dde3ed;
+  border-radius: 6px;
+  cursor: pointer;
+  background: white;
+}
+
+.susc-tipo-card:hover { background: #faf9f6; }
+
+.susc-tipo-activo {
+  border-color: #1a3a5c;
+  background: #faf9f6;
+}
+
+.susc-tipo-check {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: white;
+  font-weight: 700;
+  flex-shrink: 0;
+  background: white;
+}
+
+.susc-tipo-activo .susc-tipo-check {
+  border-color: #1a3a5c;
+  background: #1a3a5c;
+}
+
+.susc-tipo-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #222;
+}
+
+.susc-tipo-desc {
+  font-size: 11px;
+  color: #888;
+  margin-top: 1px;
+}

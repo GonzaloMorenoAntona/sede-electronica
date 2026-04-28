@@ -2,6 +2,7 @@ package com.sede.backend.controller;
 
 import com.sede.backend.model.Convenio;
 import com.sede.backend.service.ConvenioService;
+import com.sede.backend.service.SuscripcionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,9 @@ public class ConvenioController {
     @Autowired
     private ConvenioService service;
 
+    @Autowired
+    private SuscripcionService suscripcionService;
+
     @GetMapping
     public List<Convenio> getConvenios() {
         return service.listarTodos();
@@ -24,7 +28,10 @@ public class ConvenioController {
             @RequestHeader("X-Api-Key") String apiKey,
             @RequestBody Convenio convenio) {
         return service.guardarOActualizar(apiKey, convenio)
-                .map(ResponseEntity::ok)
+                .map(s -> {
+                    suscripcionService.notificarSuscriptores("convenios", s.getTitulo());
+                    return ResponseEntity.ok(s);
+                })
                 .orElse(ResponseEntity.status(401).build());
     }
 

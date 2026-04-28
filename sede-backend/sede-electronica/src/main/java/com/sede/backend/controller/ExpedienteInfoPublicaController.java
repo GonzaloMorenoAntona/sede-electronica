@@ -3,6 +3,7 @@ package com.sede.backend.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sede.backend.model.ExpedienteInfoPublica;
 import com.sede.backend.service.ExpedienteInfoPublicaService;
+import com.sede.backend.service.SuscripcionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,9 @@ public class ExpedienteInfoPublicaController {
 
     @Autowired
     private ExpedienteInfoPublicaService service;
+
+    @Autowired
+    private SuscripcionService suscripcionService;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -41,7 +45,10 @@ public class ExpedienteInfoPublicaController {
             expediente.setDocumentos(objectMapper.writeValueAsString(body.get("documentos")));
 
             return service.guardarOActualizar(apiKey, expediente)
-                    .map(ResponseEntity::ok)
+                    .map(s -> {
+                        suscripcionService.notificarSuscriptores("expedientes_info_publica", s.getTitulo());
+                        return ResponseEntity.ok(s);
+                    })
                     .orElse(ResponseEntity.status(401).build());
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();

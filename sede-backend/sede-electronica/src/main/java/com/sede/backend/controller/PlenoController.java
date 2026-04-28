@@ -3,6 +3,7 @@ package com.sede.backend.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sede.backend.model.Pleno;
 import com.sede.backend.service.PlenoService;
+import com.sede.backend.service.SuscripcionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,9 @@ public class PlenoController {
 
     @Autowired
     private PlenoService service;
+
+    @Autowired
+    private SuscripcionService suscripcionService;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -36,7 +40,10 @@ public class PlenoController {
             pleno.setActa(objectMapper.writeValueAsString(body.get("acta")));
 
             return service.guardarOActualizar(apiKey, pleno)
-                    .map(ResponseEntity::ok)
+                    .map(s -> {
+                        suscripcionService.notificarSuscriptores("plenos", s.getTitulo());
+                        return ResponseEntity.ok(s);
+                    })
                     .orElse(ResponseEntity.status(401).build());
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();

@@ -3,6 +3,7 @@ package com.sede.backend.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sede.backend.model.ProcesoSelectivo;
 import com.sede.backend.service.ProcesoSelectivoService;
+import com.sede.backend.service.SuscripcionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,9 @@ public class ProcesoSelectivoController {
 
     @Autowired
     private ProcesoSelectivoService service;
+
+    @Autowired
+    private SuscripcionService suscripcionService;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -36,7 +40,10 @@ public class ProcesoSelectivoController {
             proceso.setEnlaceActivo(objectMapper.writeValueAsString(body.get("enlaceActivo")));
 
             return service.guardarOActualizar(apiKey, proceso)
-                    .map(ResponseEntity::ok)
+                    .map(s -> {
+                        suscripcionService.notificarSuscriptores("procesos_selectivos", s.getTitulo());
+                        return ResponseEntity.ok(s);
+                    })
                     .orElse(ResponseEntity.status(401).build());
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();

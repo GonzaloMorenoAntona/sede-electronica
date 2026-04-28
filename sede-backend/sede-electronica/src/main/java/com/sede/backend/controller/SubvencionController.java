@@ -3,6 +3,7 @@ package com.sede.backend.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sede.backend.model.Subvencion;
 import com.sede.backend.service.SubvencionService;
+import com.sede.backend.service.SuscripcionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,8 @@ public class SubvencionController {
 
     @Autowired
     private SubvencionService service;
+    @Autowired
+    private SuscripcionService suscripcionService;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -41,7 +44,10 @@ public class SubvencionController {
             subvencion.setAnexos(objectMapper.writeValueAsString(body.get("anexos")));
 
             return service.guardarOActualizar(apiKey, subvencion)
-                    .map(ResponseEntity::ok)
+                    .map(s -> {
+                        suscripcionService.notificarSuscriptores("subvenciones", s.getTitulo());
+                        return ResponseEntity.ok(s);
+                    })
                     .orElse(ResponseEntity.status(401).build());
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
