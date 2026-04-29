@@ -111,3 +111,26 @@
   color: #888;
   margin-top: 1px;
 }
+
+.susc-separador {
+  border: none;
+  border-top: 1px solid #e0ddd5;
+  margin: 24px 0;
+}
+
+.susc-gestion-toggle {
+  background: none;
+  border: none;
+  color: #1a3a5c;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: underline;
+  font-family: inherit;
+  padding: 0;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.susc-gestion {
+  margin-top: 12px;
+}

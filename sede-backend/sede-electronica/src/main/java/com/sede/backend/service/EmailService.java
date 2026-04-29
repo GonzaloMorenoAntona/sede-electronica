@@ -50,4 +50,17 @@ public class EmailService {
         );
         mailSender.send(msg);
     }
+    public void enviarEnlaceGestion(String email, String token) {
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setFrom(mailFrom);
+        msg.setTo(email);
+        msg.setSubject("Gestiona tus suscripciones — Sede Electrónica Ciudad Real");
+        msg.setText(
+                "Hola,\n\n" +
+                        "Pulsa el siguiente enlace para gestionar tus preferencias de suscripción:\n\n" +
+                        appUrl + "/suscripcion-confirmada?token=" + token + "\n\n" +
+                        "Ayuntamiento de Ciudad Real"
+        );
+        mailSender.send(msg);
+    }
 }

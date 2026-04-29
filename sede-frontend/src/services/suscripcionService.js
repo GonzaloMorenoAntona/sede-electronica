@@ -25,3 +25,27 @@ export const guardarPreferencias = async (token, tipos) => {
     return false;
   }
 };
+export const reenviarEnlaceGestion = async (email) => {
+  try {
+    const res = await fetch('/api/suscripciones/reenviar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+    return res.ok;
+  } catch (e) {
+    console.error('Error reenviando enlace:', e);
+    return false;
+  }
+};
+
+export const getPreferencias = async (token) => {
+  try {
+    const res = await fetch(`/api/suscripciones/preferencias/${token}`);
+    if (!res.ok) return [];
+    return await res.json();
+  } catch (e) {
+    console.error('Error obteniendo preferencias:', e);
+    return [];
+  }
+};
