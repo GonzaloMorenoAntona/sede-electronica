@@ -3,9 +3,8 @@ import SubvencionesUI from '../components/Subvenciones';
 import { getSubvenciones } from '../services/subvencionService';
 
 const SubvencionesPage = ({ volver }) => {
-  const [datos, setDatos]                     = useState([]);
-  const [anioActivo, setAnioActivo]           = useState(null);
-  const [servicioAbierto, setServicioAbierto] = useState(null);
+  const [datos, setDatos]           = useState([]);
+  const [anioActivo, setAnioActivo] = useState(null);
 
   useEffect(() => {
     const cargar = async () => {
@@ -24,8 +23,6 @@ const SubvencionesPage = ({ volver }) => {
       datos={datos}
       anioActivo={anioActivo}
       setAnioActivo={setAnioActivo}
-      servicioAbierto={servicioAbierto}
-      setServicioAbierto={setServicioAbierto}
       volver={volver}
     />
   );

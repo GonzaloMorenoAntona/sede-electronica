@@ -1,48 +1,217 @@
-/* ==========================================================================
-     COMPONENTE: SUBVENCIONES
-   ========================================================================== */
-
-/*ACORDEONES*/
-.sub-acordeones { display: flex; flex-direction: column; gap: 15px; }
-
-.sub-acordeon-header {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 20px 25px; background: white; border-radius: 10px;
-  border: 1px solid var(--border-color); border-left: 4px solid var(--primary-color);
-  cursor: pointer; transition: background 0.2s;
-  width: 100%; text-align: left; font-family: inherit; font-size: 1rem;
+/* ============================================================
+   SUBVENCIONES
+   ============================================================ */
+ 
+/* ---- Cabecera ---- */
+.home-content-wrapper .subv-header {
+  display: grid; grid-template-columns: 1fr auto; gap: 28px;
+  align-items: flex-start; margin-bottom: 32px;
 }
-.sub-acordeon-header:hover { background: #f5f9ff; }
-.sub-acordeon-header span { font-weight: 700; font-size: 1.1rem; color: #2d3748; }/*LETRA*/
-
-.sub-acordeon-body { padding: 20px 0; display: flex; flex-direction: column; gap: 20px; }
-
-/*TARJETAS DENTRO DE LOS ACORDEONES*/
-.sub-card {
-  background: white; border-radius: 10px; padding: 20px;
-  border: 1px solid var(--border-color); border-left: 4px solid var(--primary-color);
+ 
+.home-content-wrapper h1.subv-titulo {
+  margin: 0 0 10px;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
-
-.sub-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; gap: 20px; }
-
-.sub-card-fecha { color: #718096; font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 5px; text-transform: uppercase; }
-
-.sub-card-titulo { margin: 0; font-size: 1.1rem; color: #2d3748; line-height: 1.4; }
-
-.sub-card-acciones { display: flex; gap: 10px; flex-shrink: 0; }
-
-.sub-card-anexos {
-  border-top: 1px solid var(--border-color); padding-top: 12px;
-  display: flex; gap: 15px; flex-wrap: wrap; align-items: center;
+.home-content-wrapper .subv-subtitulo {
+  margin: 0; font-size: 0.95rem; color: #64748b;
+  line-height: 1.5; max-width: 620px;
 }
-.sub-card-anexos-label { font-size: 0.85rem; font-weight: 700; color: #4a5568; } /*titulo anexo*/
-
-.sub-vacio { text-align: center; padding: 40px; color: #718096; }/*Para cuando no hay subvencoines para cierto año*/
-
-/*RESPONSIVE*/
-@media (max-width: 768px) {
-  .sub-card-header { flex-direction: column; gap: 12px; }
-  .sub-card-acciones { width: 100%; justify-content: flex-start; }
-  .sub-anios { gap: 8px; }
-  .sub-anio-btn { padding: 8px 14px; font-size: 0.9rem; }
+ 
+.subv-stats { display: flex; gap: 12px; flex-wrap: wrap; }
+.subv-stats > div {
+  padding: 14px 18px; background-color: #ffffff;
+  border: 1px solid var(--border-color); border-radius: 10px;
+  min-width: 110px; display: flex; flex-direction: column;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
 }
+.subv-stats strong {
+  font-size: 1.6rem; color: var(--primary-color);
+  line-height: 1; font-weight: 700;
+}
+.subv-stats span { font-size: 0.72rem; color: #64748b; line-height: 1.3; margin-top: 4px; }
+ 
+/* ---- Controles ---- */
+.subv-controles {
+  display: grid; grid-template-columns: minmax(0, 1.7fr) repeat(3, minmax(0, 1fr));
+  gap: 14px; margin: 24px 0 32px;
+}
+ 
+/* INPUT BLINDADO — !important para descartar interferencias globales */
+.subv-controles .subv-search-input,
+.home-content-wrapper input.subv-search-input {
+  width: 100% !important;
+  padding: 15px 20px !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 10px !important;
+  font-size: 1rem !important;
+  font-family: inherit !important;
+  outline: none !important;
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  z-index: 10 !important;
+  pointer-events: auto !important;
+  cursor: text !important;
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  opacity: 1 !important;
+}
+.subv-controles .subv-search-input:focus {
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 3px rgba(0, 115, 171, 0.1) !important;
+}
+ 
+.subv-controles select {
+  padding: 15px 36px 15px 18px;
+  border: 1px solid var(--border-color); border-radius: 10px;
+  font-size: 0.92rem; font-family: inherit; font-weight: 600; color: #1e293b;
+  background-color: #ffffff; cursor: pointer; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center;
+  box-sizing: border-box;
+}
+ 
+/* ---- Lista ---- */
+.subv-lista { display: flex; flex-direction: column; gap: 16px; }
+ 
+.subv-vacio {
+  text-align: center; padding: 60px 20px; color: #64748b; font-size: 0.95rem;
+  background-color: #ffffff; border: 1px dashed #cbd5e1; border-radius: 10px;
+}
+ 
+/* ---- Tarjeta ---- */
+.subv-lista .subv-card {
+  display: grid;
+  grid-template-columns: 60px minmax(0, 1.8fr) minmax(0, 1.3fr) minmax(0, 1.2fr) auto;
+  gap: 24px; align-items: start;
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px 26px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+  transition: border-color .15s, box-shadow .15s, transform .15s;
+}
+.subv-lista .subv-card:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 10px 24px -8px rgba(15, 23, 42, 0.15);
+  transform: translateY(-2px);
+}
+ 
+.subv-icono {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.1);
+}
+ 
+.subv-info { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.subv-info h3 {
+  margin: 0; font-size: 1.1rem; font-weight: 700;
+  color: var(--primary-color); line-height: 1.3;
+}
+.subv-area {
+  align-self: flex-start; padding: 4px 12px;
+  background: rgba(0, 115, 171, 0.08); color: var(--primary-color);
+  font-size: 0.75rem; font-weight: 700; border-radius: 4px;
+}
+.subv-info p { margin: 2px 0 0; font-size: 0.88rem; color: #64748b; line-height: 1.5; }
+ 
+.subv-estado { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+ 
+.subv-badge {
+  align-self: flex-start; padding: 6px 14px; border-radius: 999px;
+  font-size: 0.78rem; font-weight: 600; white-space: nowrap;
+}
+.subv-badge--conv-abierta, .subv-badge--just-abierta {
+  background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0;
+}
+.subv-badge--conv-cerrada, .subv-badge--just-cerrada {
+  background: #e5e7eb; color: #4b5563; border: 1px solid #d1d5db;
+}
+ 
+.subv-fechas { display: flex; flex-direction: column; gap: 8px; }
+.subv-fechas > div {
+  display: grid; grid-template-columns: auto 1fr; column-gap: 8px; align-items: center;
+}
+.subv-fechas svg { color: #64748b; grid-row: 1 / 3; }
+.subv-fechas span { font-size: 0.72rem; color: #64748b; line-height: 1.2; }
+.subv-fechas strong {
+  font-size: 0.85rem; color: var(--primary-color);
+  line-height: 1.3; font-weight: 700;
+}
+ 
+.subv-tiempo {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 0.82rem; font-weight: 700;
+}
+.subv-tiempo.abierto { color: #059669; }
+.subv-tiempo.cerrado { color: #94a3b8; }
+ 
+.subv-docs { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.subv-doc {
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 12px; background-color: #f8fafc;
+  border: 1px solid var(--border-color); border-radius: 6px;
+  font-size: 0.83rem; color: var(--primary-color);
+  text-decoration: none; font-weight: 600;
+}
+.subv-doc:hover { background-color: rgba(0, 115, 171, 0.06); border-color: var(--primary-color); }
+.subv-doc > span:last-child {
+  font-size: 0.65rem; font-weight: 700; padding: 2px 6px;
+  background-color: #ffffff; border: 1px solid #cbd5e1; border-radius: 3px;
+  color: #64748b; margin-left: auto;
+}
+ 
+.subv-acciones { display: flex; flex-direction: column; gap: 8px; min-width: 170px; }
+ 
+.subv-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 11px 18px; border-radius: 8px; font-size: 0.85rem; font-weight: 600;
+  font-family: inherit; cursor: pointer; text-decoration: none;
+  border: 1px solid transparent; white-space: nowrap; line-height: 1.2;
+}
+.subv-btn--primario { background-color: var(--primary-color); color: white; }
+.subv-btn--primario:hover { background-color: var(--primary-hover); }
+.subv-btn--secundario {
+  background-color: #ffffff; color: var(--primary-color); border-color: var(--primary-color);
+}
+.subv-btn--secundario:hover { background-color: rgba(0, 115, 171, 0.06); }
+.subv-btn--inactivo {
+  background-color: #f1f5f9; color: #94a3b8; border-color: var(--border-color);
+  cursor: not-allowed; font-size: 0.8rem;
+}
+ 
+/* ---- Responsive ---- */
+@media (max-width: 1100px) {
+  .subv-lista .subv-card { grid-template-columns: 60px 1fr 1fr; }
+  .subv-acciones {
+    grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap;
+    justify-content: flex-end; min-width: 0;
+    border-top: 1px solid var(--border-color); padding-top: 14px; margin-top: 4px;
+  }
+  .subv-acciones .subv-btn { flex: 1 1 auto; min-width: 140px; }
+}
+ 
+@media (max-width: 900px) {
+  .subv-controles { grid-template-columns: 1fr 1fr; }
+  .subv-controles .subv-search-input { grid-column: 1 / -1; }
+  .home-content-wrapper .subv-header { grid-template-columns: 1fr; }
+}
+ 
+@media (max-width: 720px) {
+  .subv-lista .subv-card { grid-template-columns: 60px 1fr; }
+  .subv-estado, .subv-docs {
+    grid-column: 1 / -1; border-top: 1px solid var(--border-color); padding-top: 14px;
+  }
+  .home-content-wrapper h1.subv-titulo { font-size: 1.55rem; }
+}
+ 
+@media (max-width: 540px) {
+  .subv-controles { grid-template-columns: 1fr; }
+}
+ 

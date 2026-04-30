@@ -48,6 +48,10 @@ public class SubvencionService {
         subvencion.setUrlJustificacion(datos.getUrlJustificacion());
         subvencion.setAnexos(datos.getAnexos());
         subvencion.setFechaSincronizacion(LocalDateTime.now());
+        subvencion.setFechaInicioPresentacion(datos.getFechaInicioPresentacion());
+        subvencion.setFechaFinPresentacion(datos.getFechaFinPresentacion());
+        subvencion.setFechaInicioJustificacion(datos.getFechaInicioJustificacion());
+        subvencion.setFechaFinJustificacion(datos.getFechaFinJustificacion());
 
         Subvencion guardada = repository.save(subvencion);
         log.info("Subvención sincronizada: {} - {}", guardada.getIdExternoSigem(), guardada.getFechaSincronizacion());

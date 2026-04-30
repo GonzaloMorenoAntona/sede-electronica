@@ -38,4 +38,16 @@ public class Subvencion {
 
     @Column(name = "fecha_sincronizacion")
     private LocalDateTime fechaSincronizacion; // Mapeado de fecha_sincronizacion
+
+    @Column(name = "fecha_inicio_presentacion")
+    private LocalDate fechaInicioPresentacion;
+
+    @Column(name = "fecha_fin_presentacion")
+    private LocalDate fechaFinPresentacion;
+
+    @Column(name = "fecha_inicio_justificacion")
+    private LocalDate fechaInicioJustificacion;
+
+    @Column(name = "fecha_fin_justificacion")
+    private LocalDate fechaFinJustificacion;
 }

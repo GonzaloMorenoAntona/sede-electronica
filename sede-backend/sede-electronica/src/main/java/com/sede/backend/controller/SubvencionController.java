@@ -41,6 +41,14 @@ public class SubvencionController {
             subvencion.setFechaFin(LocalDate.parse((String) body.get("fechaFin")));
             subvencion.setUrlConvocatoria((String) body.get("urlConvocatoria"));
             subvencion.setUrlJustificacion((String) body.get("urlJustificacion"));
+            if (body.get("fechaInicioPresentacion") != null)
+                subvencion.setFechaInicioPresentacion(LocalDate.parse((String) body.get("fechaInicioPresentacion")));
+            if (body.get("fechaFinPresentacion") != null)
+                subvencion.setFechaFinPresentacion(LocalDate.parse((String) body.get("fechaFinPresentacion")));
+            if (body.get("fechaInicioJustificacion") != null)
+                subvencion.setFechaInicioJustificacion(LocalDate.parse((String) body.get("fechaInicioJustificacion")));
+            if (body.get("fechaFinJustificacion") != null)
+                subvencion.setFechaFinJustificacion(LocalDate.parse((String) body.get("fechaFinJustificacion")));
             subvencion.setAnexos(objectMapper.writeValueAsString(body.get("anexos")));
 
             return service.guardarOActualizar(apiKey, subvencion)
