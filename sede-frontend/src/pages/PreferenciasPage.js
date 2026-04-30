@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { guardarPreferencias } from '../services/suscripcionService';
+import { guardarPreferencias, getPreferencias } from '../services/suscripcionService';
 import '../components/Suscripcion.css';
 
 const TIPOS = [
@@ -20,6 +20,17 @@ const PreferenciasPage = () => {
   const [seleccionados, setSeleccionados] = useState([]);
   const [guardado, setGuardado] = useState(false);
   const [cargando, setCargando] = useState(false);
+  const [cargandoPrefs, setCargandoPrefs] = useState(true);
+
+  useEffect(() => {
+    if (!token) return;
+    const cargar = async () => {
+      const prefs = await getPreferencias(token);
+      setSeleccionados(prefs);
+      setCargandoPrefs(false);
+    };
+    cargar();
+  }, [token]);
 
   const toggleTipo = (id) => {
     setSeleccionados(prev =>
@@ -28,7 +39,6 @@ const PreferenciasPage = () => {
   };
 
   const handleGuardar = async () => {
-    if (seleccionados.length === 0) return;
     setCargando(true);
     const ok = await guardarPreferencias(token, seleccionados);
     setCargando(false);
@@ -36,14 +46,15 @@ const PreferenciasPage = () => {
   };
 
   if (!token) return <div className="home-content-wrapper"><p>Enlace no válido.</p></div>;
+  if (cargandoPrefs) return <div className="home-content-wrapper"><p>Cargando...</p></div>;
 
   return (
     <div className="home-content-wrapper">
       <div className="susc-container">
         {!guardado ? (
           <>
-            <h1 className="titulo-guia-interno">¡Email confirmado!</h1>
-            <p className="susc-desc">Elige las alertas que quieres recibir. Puedes marcar todas las que quieras.</p>
+            <h1 className="titulo-guia-interno">Gestiona tus alertas</h1>
+            <p className="susc-desc">Marca las categorías sobre las que quieres recibir notificaciones.</p>
             <div className="susc-tipos">
               {TIPOS.map(tipo => (
                 <div
@@ -64,14 +75,14 @@ const PreferenciasPage = () => {
             <button
               className="susc-btn"
               onClick={handleGuardar}
-              disabled={seleccionados.length === 0 || cargando}
+              disabled={cargando}
             >
-              {cargando ? 'Guardando...' : `Guardar preferencias (${seleccionados.length} seleccionadas)`}
+              {cargando ? 'Guardando...' : 'Guardar preferencias'}
             </button>
           </>
         ) : (
           <div className="susc-mensaje susc-ok">
-            ✓ Tus preferencias han sido guardadas. A partir de ahora recibirás alertas cuando haya novedades en las categorías que has elegido.
+            ✓ Tus preferencias han sido guardadas.
             <br /><br />
             <button className="susc-btn" onClick={() => navigate('/')}>Volver al inicio</button>
           </div>

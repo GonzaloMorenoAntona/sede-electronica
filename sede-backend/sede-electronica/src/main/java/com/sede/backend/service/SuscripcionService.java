@@ -58,7 +58,7 @@ public class SuscripcionService {
         Optional<Suscriptor> opt = suscriptorRepo.findByToken(token);
         if (opt.isEmpty() || !opt.get().getVerificado()) return false;
         Suscriptor s = opt.get();
-        suscripcionRepo.deleteAll(s.getSuscripciones());
+        suscripcionRepo.deleteBySuscriptorId(s.getId());
         for (String tipo : tipos) {
             Suscripcion sub = new Suscripcion();
             sub.setSuscriptor(s);
@@ -68,7 +68,6 @@ public class SuscripcionService {
         log.info("Preferencias actualizadas para: {}", s.getEmail());
         return true;
     }
-
     public boolean darDeBaja(String token) {
         Optional<Suscriptor> opt = suscriptorRepo.findByToken(token);
         if (opt.isEmpty()) return false;

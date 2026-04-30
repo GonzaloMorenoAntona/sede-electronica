@@ -8,4 +8,6 @@ import java.util.List;
 @Repository
 public interface SuscripcionRepository extends JpaRepository<Suscripcion, Long> {
     List<Suscripcion> findByTipo(String tipo);
+    void deleteBySuscriptorId(Long suscriptorId);
 }
+
