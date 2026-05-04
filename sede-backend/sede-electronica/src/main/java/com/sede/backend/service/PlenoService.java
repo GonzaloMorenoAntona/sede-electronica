@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -38,14 +39,16 @@ public class PlenoService {
 
         pleno.setIdExternoSigem(datos.getIdExternoSigem());
         pleno.setTitulo(datos.getTitulo());
+        pleno.setDescripcion(datos.getDescripcion());
         pleno.setAnio(datos.getAnio());
+        pleno.setSesion(datos.getSesion());
         pleno.setConvocatoria(datos.getConvocatoria());
         pleno.setActa(datos.getActa());
+        pleno.setOrdenDia(datos.getOrdenDia());
         pleno.setFechaSincronizacion(LocalDateTime.now());
 
         Pleno guardado = repository.save(pleno);
         log.info("Pleno sincronizado: {}", guardado.getIdExternoSigem());
-
         return Optional.of(guardado);
     }
 

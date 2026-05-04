@@ -106,7 +106,7 @@ const Card = ({ sub }) => {
       </div>
 
       <div className="subv-docs">
-        {sub.urlConvocatoria && (
+        {abierto && sub.urlConvocatoria && (
           <a href={sub.urlConvocatoria} target="_blank" rel="noreferrer" className="subv-doc">
             <Icon name="doc" /> Bases reguladoras <span>PDF</span>
           </a>
@@ -166,7 +166,7 @@ const Subvenciones = ({ datos, anioActivo, setAnioActivo, volver }) => {
     return true;
   }), [datos, anioActivo, busqueda, filtroArea, filtroEstado, filtroTramitacion]);
 
-  const justAbiertas = filtrados.filter(d => getEstado(d).tipo === 'just-abierta').length;
+ const justAbiertas = filtrados.filter(d => diasHasta(d.fechaFinJustificacion) !== null && diasHasta(d.fechaFinJustificacion) >= 0).length;
 
   return (
     <div className="home-content-wrapper">

@@ -7,6 +7,7 @@ import com.sede.backend.service.SuscripcionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Map;
 
@@ -35,9 +36,12 @@ public class PlenoController {
             Pleno pleno = new Pleno();
             pleno.setIdExternoSigem((String) body.get("idExternoSigem"));
             pleno.setTitulo((String) body.get("titulo"));
+            pleno.setDescripcion((String) body.get("descripcion"));
             pleno.setAnio((Integer) body.get("anio"));
+            pleno.setSesion(objectMapper.writeValueAsString(body.get("sesion")));
             pleno.setConvocatoria(objectMapper.writeValueAsString(body.get("convocatoria")));
             pleno.setActa(objectMapper.writeValueAsString(body.get("acta")));
+            pleno.setOrdenDia(objectMapper.writeValueAsString(body.get("ordenDia")));
 
             return service.guardarOActualizar(apiKey, pleno)
                     .map(s -> {
