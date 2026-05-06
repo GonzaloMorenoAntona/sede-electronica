@@ -33,6 +33,9 @@ public class Convenio {
     @Column(name = "entidades_firmantes", columnDefinition = "TEXT")
     private String entidadesFirmantes;
 
+    @Column(columnDefinition = "JSON")
+    private String documento;
+
     @Column(name = "fecha_sincronizacion")
     private LocalDateTime fechaSincronizacion;
 }

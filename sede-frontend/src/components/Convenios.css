@@ -1,44 +1,257 @@
-.convenio-card {
-  background: #fff;
-  border: 1px solid #dde3ed;
-  border-radius: 8px;
-  padding: 16px 20px;
-  margin-bottom: 12px;
+/* ============================================================
+   CONVENIOS — reusa .home-content-wrapper, .btn-volver,
+   .sub-anios, .sub-anio-btn de App.css
+   ============================================================ */
+
+/* ---- Cabecera ---- */
+.home-content-wrapper .conv-header {
+  display: flex; flex-direction: column;
+  gap: 16px; margin-bottom: 16px;
+}
+.home-content-wrapper h1.conv-titulo {
+  margin: 0 0 8px; font-size: 2rem; font-weight: 800;
+  color: var(--primary-color); letter-spacing: -0.02em;
+}
+.home-content-wrapper .conv-subtitulo {
+  margin: 0; font-size: 0.92rem; color: #64748b;
+  line-height: 1.5; max-width: 640px;
 }
 
-.convenio-titulo {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #1a3a5c;
-  margin-bottom: 10px;
-  line-height: 1.4;
+/* ---- Stats (4 cajas con icono) ---- */
+.conv-stats { display: flex; gap: 10px; flex-wrap: wrap; }
+.conv-stat {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px; background: #ffffff;
+  border: 1px solid var(--border-color); border-radius: 10px;
+  min-width: 130px;
+  box-shadow: 0 1px 3px rgba(15,23,42,0.04);
+}
+.conv-stat--azul    svg { color: #3b82f6; }
+.conv-stat--verde   svg { color: #10b981; }
+.conv-stat--naranja svg { color: #f97316; }
+.conv-stat--morado  svg { color: #a855f7; }
+.conv-stat strong { display: block; font-size: 1.5rem; color: var(--primary-color); font-weight: 700; line-height: 1; }
+.conv-stat span   { display: block; font-size: 0.7rem; color: #64748b; line-height: 1.3; margin-top: 3px; }
+
+/* ---- Controles ---- */
+.conv-controles {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr));
+  gap: 12px; margin: 20px 0 28px;
+}
+.conv-controles .conv-search-input,
+.home-content-wrapper input.conv-search-input {
+  width: 100% !important; padding: 13px 18px !important;
+  border: 1px solid var(--border-color) !important; border-radius: 10px !important;
+  font-size: 0.95rem !important; font-family: inherit !important;
+  outline: none !important; background-color: #ffffff !important;
+  color: #1e293b !important; box-sizing: border-box !important;
+  z-index: 10 !important; pointer-events: auto !important; cursor: text !important;
+}
+.conv-controles .conv-search-input:focus {
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 3px rgba(0,115,171,0.1) !important;
+}
+.conv-controles select {
+  padding: 13px 32px 13px 16px;
+  border: 1px solid var(--border-color); border-radius: 10px;
+  font-size: 0.88rem; font-family: inherit; font-weight: 600;
+  color: #1e293b; background-color: #ffffff; cursor: pointer; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+  box-sizing: border-box;
 }
 
-.convenio-meta {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
-  align-items: center;
+/* ---- Grupos (acordeón) ---- */
+.conv-grupo {
+  background: #ffffff; border: 1px solid var(--border-color);
+  border-radius: 12px; overflow: hidden;
+  box-shadow: 0 2px 6px rgba(15,23,42,0.04);
+  margin-bottom: 14px;
 }
+.conv-acordeon-header {
+  width: 100%; display: flex; align-items: center; gap: 14px;
+  padding: 16px 22px; background: transparent;
+  border: none; cursor: pointer; font-family: inherit;
+}
+.conv-acordeon-header:hover { background: #f8fafc; }
+.conv-acordeon-icono {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.conv-acordeon-nombre {
+  font-size: 1rem; font-weight: 700;
+  color: var(--primary-color); letter-spacing: 0.04em;
+}
+.conv-acordeon-count {
+  padding: 4px 12px; border-radius: 999px;
+  background: rgba(0,115,171,0.08); color: var(--primary-color);
+  font-size: 0.78rem; font-weight: 600;
+}
+.conv-acordeon-chev {
+  margin-left: auto; color: var(--primary-color); font-size: 0.85rem;
+}
+.conv-grupo-body { border-top: 1px solid var(--border-color); }
 
+/* ---- Tarjeta horizontal ---- */
+.conv-card {
+  display: grid;
+  grid-template-columns: 52px minmax(0,1.8fr) minmax(0,1.1fr) minmax(0,1.6fr);
+  gap: 0; align-items: center;
+  padding: 20px 22px;
+  border-bottom: 1px solid var(--border-color);
+  border-left: 4px solid transparent;
+  background: #ffffff;
+  transition: background .15s;
+}
+.conv-card:last-child { border-bottom: none; }
+.conv-card:hover { background: #f8fafc; }
+.conv-card--vigente  { border-left-color: #10b981; }
+.conv-card--expirado { border-left-color: #cbd5e1; }
+
+.conv-card-icono {
+  width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  align-self: center; margin-left: 4px;
+}
+.conv-card--vigente  .conv-card-icono { background: #d1fae5; color: #059669; }
+.conv-card--expirado .conv-card-icono { background: #f1f5f9; color: #94a3b8; }
+
+.conv-card-info { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.conv-card-id {
+  font-size: 0.78rem; font-weight: 700;
+  color: var(--primary-color); letter-spacing: 0.02em;
+}
+.conv-card-info h3 {
+  margin: 0; font-size: 0.92rem; font-weight: 700;
+  color: #1e293b; line-height: 1.4; text-transform: uppercase;
+}
+.conv-card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .convenio-tag {
-  background: #eef4fb;
-  color: #1a5276;
-  font-size: 0.78rem;
-  font-weight: 600;
-  padding: 3px 10px;
-  border-radius: 4px;
+  background: rgba(0,115,171,0.08); color: var(--primary-color);
+  font-size: 0.72rem; font-weight: 600; padding: 3px 10px; border-radius: 4px;
+}
+.conv-card-firmantes {
+  margin: 2px 0 0; font-size: 0.82rem; color: #64748b; line-height: 1.4;
+}
+.conv-card-firmantes strong { color: #1e293b; }
+
+.conv-card-estado { display: flex; flex-direction: column; gap: 10px; }
+.convenio-card-badge {
+  align-self: flex-start; padding: 5px 12px; border-radius: 999px;
+  font-size: 0.72rem; font-weight: 700; white-space: nowrap;
+}
+.convenio-card-badge.vigente  { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+.convenio-card-badge.expirado { background: #e5e7eb; color: #4b5563; border: 1px solid #d1d5db; }
+
+.conv-card-vigencia-bloque { font-size: 0.82rem; line-height: 1.6; }
+.conv-card-vig-label { display: block; font-size: 0.7rem; color: #64748b; }
+.conv-card-vigencia-bloque strong,
+.conv-card-vigencia-bloque span { display: block; color: var(--primary-color); font-weight: 700; }
+.conv-card-actualizado { font-size: 0.72rem; color: #94a3b8; }
+
+.conv-card-doc { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.conv-card-doc-titulo { font-size: 0.68rem; font-weight: 700; color: #64748b; letter-spacing: 0.06em; }
+.conv-card-doc-fila {
+  display: flex; align-items: center; gap: 8px;
+  background: #f8fafc; border: 1px solid var(--border-color);
+  border-radius: 6px; padding: 8px 10px;
+}
+.conv-card-doc-pdf {
+  background: #fee2e2; color: #b91c1c;
+  font-size: 0.65rem; font-weight: 800;
+  padding: 3px 6px; border-radius: 3px; flex-shrink: 0;
+}
+.conv-card-doc-nombre {
+  flex: 1; font-size: 0.8rem; color: var(--primary-color);
+  font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.conv-card-doc-vacio { font-size: 0.78rem; color: #94a3b8; font-style: italic; }
+.conv-card-acciones { align-self: center; }
+
+.conv-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 6px; padding: 10px 16px; border-radius: 8px;
+  font-size: 0.83rem; font-weight: 600; font-family: inherit;
+  cursor: pointer; text-decoration: none;
+  border: 1px solid transparent; white-space: nowrap; line-height: 1.2;
+  transition: background .15s;
+}
+.conv-btn--primario { background: var(--primary-color); color: white; }
+.conv-btn--primario:hover { background: var(--primary-hover); }
+.conv-btn--secundario {
+  background: #ffffff; color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.conv-btn--secundario:hover { background: rgba(0,115,171,0.06); }
+
+.conv-vacio {
+  text-align: center; padding: 40px 20px; color: #64748b;
+  background: #ffffff; border: 1px dashed #cbd5e1; border-radius: 10px;
 }
 
-.convenio-firmantes {
-  font-size: 0.85rem;
-  color: #444;
-  margin-bottom: 6px;
+/* ---- Responsive ---- */
+@media (max-width: 1100px) {
+  .conv-card { grid-template-columns: 52px 1fr 1fr; }
+  .conv-card-doc, .conv-card-acciones {
+    grid-column: 1 / -1; border-top: 1px solid var(--border-color); padding-top: 12px;
+  }
+  .conv-btn--primario { width: 100%; }
+}
+@media (max-width: 900px) {
+  
+  .conv-controles { grid-template-columns: 1fr 1fr; }
+  .conv-controles .conv-search-input { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .conv-card { grid-template-columns: 52px 1fr; }
+  .conv-card-estado { grid-column: 1 / -1; border-top: 1px solid var(--border-color); padding-top: 12px; }
+}
+@media (max-width: 540px) {
+  .conv-controles { grid-template-columns: 1fr; }
+  .conv-stats { flex-wrap: wrap; }
+  .conv-stat { flex: 1 1 130px; }
 }
 
-.convenio-vigencia {
-  font-size: 0.85rem;
-  color: #666;
-  margin: 0;
+/* ---- Badges de estado (4 variantes) ---- */
+.conv-badge {
+  align-self: flex-start; padding: 5px 12px; border-radius: 999px;
+  font-size: 0.72rem; font-weight: 700; white-space: nowrap;
+}
+.conv-badge--vigente      { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+.conv-badge--just-abierta { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
+.conv-badge--just-cerrada { background: #e5e7eb; color: #4b5563; border: 1px solid #d1d5db; }
+.conv-badge--finalizado   { background: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1; }
+
+/* Colores de borde izquierdo e icono por estado */
+.conv-card--vigente      { border-left-color: #10b981; }
+.conv-card--just-abierta { border-left-color: #f97316; }
+.conv-card--just-cerrada { border-left-color: #9ca3af; }
+.conv-card--finalizado   { border-left-color: #cbd5e1; }
+
+.conv-card--vigente      .conv-card-icono { background: #d1fae5; color: #059669; }
+.conv-card--just-abierta .conv-card-icono { background: #fff7ed; color: #f97316; }
+.conv-card--just-cerrada .conv-card-icono { background: #f3f4f6; color: #9ca3af; }
+.conv-card--finalizado   .conv-card-icono { background: #f1f5f9; color: #94a3b8; }
+
+/* ---- Separadores tipo tabla en la tarjeta ---- */
+.conv-card-info {
+  padding: 18px 20px 18px 0;
+  border-right: 1px solid var(--border-color);
+  align-self: stretch;
+}
+.conv-card-estado {
+  padding: 18px 20px;
+  border-right: 1px solid var(--border-color);
+  align-self: stretch;
+}
+.conv-card-doc {
+  padding: 18px 20px;
+  align-self: stretch;
+}
+
+.home-content-wrapper .sub-anios {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-color);
 }

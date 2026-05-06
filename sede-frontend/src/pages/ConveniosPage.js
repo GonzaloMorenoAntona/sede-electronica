@@ -4,8 +4,6 @@ import { getConvenios } from '../services/conveniosService';
 
 const ConveniosPage = ({ volver }) => {
   const [datos, setDatos] = useState([]);
-  const [materiaAbierta, setMateriaAbierta] = useState(null);
-  const [anioActivo, setAnioActivo] = useState({});
 
   useEffect(() => {
     const cargar = async () => {
@@ -15,16 +13,7 @@ const ConveniosPage = ({ volver }) => {
     cargar();
   }, []);
 
-  return (
-    <Convenios
-      datos={datos}
-      materiaAbierta={materiaAbierta}
-      setMateriaAbierta={setMateriaAbierta}
-      anioActivo={anioActivo}
-      setAnioActivo={setAnioActivo}
-      volver={volver}
-    />
-  );
+  return <Convenios datos={datos} volver={volver} />;
 };
 
 export default ConveniosPage;
