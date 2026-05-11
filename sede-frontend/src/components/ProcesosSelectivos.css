@@ -1,58 +1,213 @@
-.proceso-card {
+/* ============================================================
+   PROCESOS SELECTIVOS
+   Reusa: --primary-color, --primary-hover, --border-color,
+   .home-content-wrapper, .btn-volver
+   ============================================================ */
+
+/* ---- Cabecera ---- */
+.home-content-wrapper .ps-header {
+  display: flex; flex-direction: column;
+  gap: 16px; margin-bottom: 16px;
+}
+.home-content-wrapper h1.ps-titulo {
+  margin: 0 0 8px; font-size: 2rem; font-weight: 800;
+  color: var(--primary-color); letter-spacing: -0.02em;
+}
+.home-content-wrapper .ps-subtitulo {
+  margin: 0; font-size: 0.92rem; color: #64748b;
+  line-height: 1.5; max-width: 640px;
+}
+
+/* ---- Stats ---- */
+.ps-stats { display: flex; gap: 10px; flex-wrap: wrap; }
+.ps-stat {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px; background: #fff;
+  border: 1px solid var(--border-color); border-radius: 10px;
+  min-width: 130px;
+  box-shadow: 0 1px 3px rgba(15,23,42,0.04);
+}
+.ps-stat--azul  svg { color: #3b82f6; }
+.ps-stat--verde svg { color: #10b981; }
+.ps-stat--gris  svg { color: #64748b; }
+.ps-stat strong {
+  display: block; font-size: 1.5rem;
+  color: var(--primary-color); font-weight: 700; line-height: 1;
+}
+.ps-stat span {
+  display: block; font-size: 0.72rem; color: #64748b;
+  line-height: 1.3; margin-top: 3px;
+}
+
+/* ---- Controles ---- */
+.ps-controles {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 12px; margin: 20px 0 28px;
+}
+.ps-controles .ps-search-input,
+.home-content-wrapper input.ps-search-input {
+  width: 100% !important; padding: 13px 18px !important;
+  border: 1px solid var(--border-color) !important; border-radius: 10px !important;
+  font-size: 0.95rem !important; font-family: inherit !important;
+  outline: none !important; background-color: #fff !important;
+  color: #1e293b !important; box-sizing: border-box !important;
+  z-index: 10 !important; pointer-events: auto !important; cursor: text !important;
+}
+.ps-controles .ps-search-input:focus {
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 3px rgba(0,115,171,0.1) !important;
+}
+.ps-controles select {
+  padding: 13px 32px 13px 16px;
+  border: 1px solid var(--border-color); border-radius: 10px;
+  font-size: 0.88rem; font-family: inherit; font-weight: 600;
+  color: #1e293b; background-color: #fff; cursor: pointer; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+}
+
+/* ---- Lista ---- */
+.ps-lista { display: flex; flex-direction: column; gap: 16px; }
+.ps-vacio {
+  text-align: center; padding: 50px 20px; color: #64748b;
+  background: #fff; border: 1px dashed #cbd5e1; border-radius: 10px;
+}
+
+/* ---- Tarjeta (5 columnas) ---- */
+.ps-card {
+  display: grid;
+  grid-template-columns: 60px minmax(0, 1.8fr) minmax(0, 1fr) minmax(0, 1.4fr) auto;
+  gap: 0; align-items: stretch;
   background: #fff;
-  border: 1px solid #dde3ed;
-  border-radius: 8px;
-  padding: 16px 20px;
-  margin-bottom: 16px;
+  border: 1px solid var(--border-color);
+  border-left: 4px solid transparent;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(15,23,42,0.05);
+  transition: box-shadow .15s;
+  overflow: hidden;
+}
+.ps-card:hover { box-shadow: 0 6px 18px -6px rgba(15,23,42,0.12); }
+.ps-card--activo  { border-left-color: #10b981; }
+.ps-card--cerrado { border-left-color: #cbd5e1; }
+
+/* Icono */
+.ps-card-icono {
+  display: flex; align-items: center; justify-content: center;
+  padding: 22px 0 22px 22px;
+}
+.ps-card-icono svg {
+  width: 48px; height: 48px;
+  padding: 12px; box-sizing: border-box;
+  background: rgba(0,115,171,0.1);
+  color: var(--primary-color);
+  border-radius: 12px;
 }
 
-.proceso-titulo {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color:var(--primary-hover);
-  margin-bottom: 12px;
+/* Info */
+.ps-card-info {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 20px;
+  align-self: center; min-width: 0;
+}
+.ps-card-id {
+  font-size: 0.78rem; font-weight: 700;
+  color: var(--primary-color); letter-spacing: 0.02em;
+}
+.ps-card-info h3 {
+  margin: 0; font-size: 1rem; font-weight: 700;
+  color: var(--primary-color); line-height: 1.35;
   text-transform: uppercase;
-  line-height: 1.4;
+}
+.ps-card-sync {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 0.75rem; color: #94a3b8;
 }
 
-/*Linea que hay entre medias de bases y otra documentacion*/
-.proceso-seccion {
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eef0f4;
+/* Estado */
+.ps-card-estado {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 20px;
+  align-self: center;
+  border-left: 1px solid var(--border-color);
 }
- /*Titulo de bases y convocatoria*/
-.proceso-seccion-label {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #888;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 6px;
+.ps-badge {
+  align-self: flex-start; padding: 5px 12px; border-radius: 999px;
+  font-size: 0.75rem; font-weight: 700; white-space: nowrap;
+}
+.ps-badge.activo  { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+.ps-badge.cerrado { background: #e5e7eb; color: #4b5563; border: 1px solid #d1d5db; }
+
+.ps-card-plazo { display: flex; flex-direction: column; gap: 2px; }
+.ps-card-plazo-label {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 0.75rem; color: #64748b;
+}
+.ps-card-plazo strong { font-size: 0.88rem; color: #1e293b; font-weight: 700; }
+.ps-plazo-estado { font-size: 0.78rem; font-weight: 700; margin-top: 2px; }
+.ps-plazo-estado.verde { color: #059669; }
+.ps-plazo-estado.gris  { color: #94a3b8; }
+
+/* Documentos */
+.ps-card-docs {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 20px;
+  align-self: center;
+  border-left: 1px solid var(--border-color);
+  min-width: 0;
+}
+.ps-docs-label {
+  font-size: 0.68rem; font-weight: 700; color: #64748b;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.ps-doc {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 10px; background: #f8fafc;
+  border: 1px solid var(--border-color); border-radius: 6px;
+  font-size: 0.82rem; color: var(--primary-color);
+  text-decoration: none; font-weight: 600;
+}
+.ps-doc:hover { background: rgba(0,115,171,0.06); border-color: var(--primary-color); }
+.ps-doc-pdf {
+  background: #fee2e2; color: #b91c1c;
+  font-size: 0.62rem; font-weight: 800;
+  padding: 2px 6px; border-radius: 3px; flex-shrink: 0;
+}
+.ps-doc-nombre {
+  flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ps-docs-vacio { font-size: 0.78rem; color: #94a3b8; font-style: italic; }
+
+/* Acciones */
+.ps-card-acciones { padding: 20px; align-self: center; }
+.ps-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 6px; padding: 11px 18px; border-radius: 8px;
+  font-size: 0.85rem; font-weight: 600; font-family: inherit;
+  cursor: pointer; text-decoration: none;
+  border: 1px solid transparent; white-space: nowrap;
+  min-width: 160px; transition: background .15s;
+}
+.ps-btn--primario { background: var(--primary-color); color: white; }
+.ps-btn--primario:hover { background: var(--primary-hover); }
+.ps-btn--inactivo {
+  background: #f1f5f9; color: #94a3b8;
+  border-color: var(--border-color); cursor: not-allowed;
 }
 
-/*Links de la sección*/
-.proceso-seccion-links {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+/* ---- Responsive ---- */
+@media (max-width: 1100px) {
+  .ps-card { grid-template-columns: 60px 1fr 1fr; }
+  .ps-card-docs, .ps-card-acciones {
+    grid-column: 1 / -1; border-top: 1px solid var(--border-color);
+    border-left: none;
+  }
+  .ps-btn { width: 100%; }
 }
-
-/*Url justificacion*/
-.proceso-enlace-activo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 10px;
-  flex-wrap: wrap;
+@media (max-width: 900px) {
+  .ps-controles { grid-template-columns: 1fr; }
 }
-
-.proceso-plazo-fechas {
-  color: #888;
-  font-size: 0.8rem;
-}
-
-.proceso-vacio {
-  color: #888;
-  font-style: italic;
+@media (max-width: 720px) {
+  .ps-card { grid-template-columns: 60px 1fr; }
+  .ps-card-estado { grid-column: 1 / -1; border-left: none; border-top: 1px solid var(--border-color); }
 }
