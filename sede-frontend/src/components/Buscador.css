@@ -1,16 +1,19 @@
 /* ==========================================================================
    COMPONENTE: BUSCADOR
    ========================================================================== */
-.buscador-wrapper { max-width: 900px; margin: 40px auto; } /*Contenedor exterior donde se coloca el buscador*/
 
-.buscador-form { display: flex; gap: 10px; margin-bottom: 20px; } /*Contiene el busacdor y el boton */
+/* Contenedor exterior */
+.buscador-wrapper { max-width: 900px; margin: 40px auto; }
 
-.buscador-input { /*campo de texto donde escribe en el buscador, esta dentro del buscador-form*/
+/* Formulario de búsqueda */
+.buscador-form { display: flex; gap: 10px; margin-bottom: 20px; }
+
+.buscador-input {
   flex-grow: 1; padding: 14px 20px; font-size: 1rem; font-family: inherit;
   border-radius: 10px; border: 1px solid #e2e8f0; outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
-.buscador-input:focus { /*cuando el usuario hace click en el busacdor para escribir*/
+.buscador-input:focus {
   border-color: var(--primary-color);
   box-shadow: 0 0 0 3px rgba(0, 115, 171, 0.1);
 }
@@ -22,7 +25,7 @@
 }
 .buscador-btn-buscar:hover { background-color: var(--primary-hover); }
 
-/*PANEL DE FILTROS*/
+/* Botón filtros */
 .buscador-btn-filtros {
   background: none; border: none; padding: 0; margin-bottom: 16px;
   color: var(--primary-color); font-weight: 600; font-size: 0.9rem;
@@ -30,10 +33,17 @@
 }
 .buscador-btn-filtros:hover { text-decoration: underline; }
 
+/* Contador de filtros activos */
+.buscador-filtros-count {
+  background: var(--primary-color); color: white; border-radius: 50%;
+  width: 18px; height: 18px; font-size: 11px;
+  display: inline-flex; align-items: center; justify-content: center; margin-left: 6px;
+}
+
+/* Panel de filtros */
 .buscador-filter-panel {
   background: white; padding: 25px; border-radius: 12px;
   border: 1px solid #e2e8f0; margin-bottom: 20px;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
 }
 .buscador-filter-title {
   margin: 0 0 10px; font-size: 0.75rem; font-weight: 700;
@@ -41,16 +51,23 @@
 }
 .buscador-filter-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 
-/*ELEMENTOS DENTRO DE LOS FILTROS*/
+/* Tags de filtro */
 .buscador-tag {
   padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600;
   font-family: inherit; cursor: pointer; transition: all 0.15s;
   border: 1px solid #e2e8f0; background: white; color: #4a5568;
 }
-.buscador-tag:hover { border-color: var(--primary-color); color: var(--primary-color); } /*letras cuadno pasas con el raton por encimad e los filtros */
-.buscador-tag--activo { background: var(--primary-color); border-color: var(--primary-color); color: white; }/*cuando pulsas en un filtro*/
+.buscador-tag:hover { border-color: var(--primary-color); color: var(--primary-color); }
+.buscador-tag--activo { background: var(--primary-color); border-color: var(--primary-color); color: white; }
+.buscador-tag--activo:hover { background: var(--primary-hover); border-color: var(--primary-hover); color: white; }
 
-/*tarjetas de los resultados*/
+/* Limpiar filtros */
+.buscador-limpiar-filtros {
+  background: none; border: none; color: var(--primary-color); font-size: 12px;
+  cursor: pointer; text-decoration: underline; font-family: inherit; margin-top: 8px; padding: 0;
+}
+
+/* Resultados */
 .buscador-resultados { display: grid; gap: 12px; }
 
 .buscador-card {
@@ -63,10 +80,36 @@
   box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
   border-left-color: var(--primary-hover);
 }
-.buscador-card-tipo { font-size: 0.7rem; color: #a0aec0; font-weight: 700; text-transform: uppercase; display: block; }
-.buscador-card-titulo { margin: 5px 0 0; color: #2d3748; font-size: 1.15rem; font-weight: 600; }
 
+.buscador-card-titulo { margin: 0; color: #2d3748; font-size: 1.1rem; font-weight: 600; }
+.buscador-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.buscador-card-separador {
+  color: #a0aec0;
+  font-size: 0.75rem;
+}
+
+.buscador-card-tipo {
+  font-size: 0.7rem;
+  color: #a0aec0;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.buscador-card-categoria {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive */
 @media (max-width: 640px) {
-  .buscador-filter-panel { grid-template-columns: 1fr; }
   .buscador-btn-buscar { padding: 0 16px; font-size: 0.9rem; }
 }

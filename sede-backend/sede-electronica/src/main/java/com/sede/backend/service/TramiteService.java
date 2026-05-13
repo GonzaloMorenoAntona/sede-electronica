@@ -38,8 +38,11 @@ public class TramiteService {
     public List<Tramite> obtenerTodos() {
         return tramiteRepository.findAll();
     }
-    public List<Tramite> buscarTramites(String query, Long categoriaId, String tipo) {
-        return tramiteRepository.searchByKeyword(query, categoriaId, tipo);
+    public List<Tramite> buscar(String keyword, List<Long> categoriaIds) {
+        return tramiteRepository.buscarConFiltros(
+                keyword != null && !keyword.isBlank() ? keyword : null,
+                categoriaIds
+        );
     }
     public List<Tramite> obtenerPorCategoria(Long categoriaId) {
         return tramiteRepository.findByCategoriaIdOrderByTituloAsc(categoriaId);

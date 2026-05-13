@@ -1,10 +1,10 @@
-export const buscarTramites = async (query, categoria, tipo) => {
+export const buscarTramites = async (keyword, categorias = []) => {
   try {
-    let url = `/api/tramites/buscar?q=${encodeURIComponent(query || '')}`;
-    if (categoria) url += `&categoria=${categoria}`;
-    if (tipo) url += `&tipo=${encodeURIComponent(tipo)}`;
-    const response = await fetch(url);
-    return await response.json();
+    const params = new URLSearchParams();
+    if (keyword) params.append('q', keyword);
+    categorias.forEach(id => params.append('categoriaId', id));
+    const res = await fetch(`/api/tramites/buscar?${params.toString()}`);
+    return await res.json();
   } catch (error) {
     console.error('Error buscando trámites:', error);
     return [];

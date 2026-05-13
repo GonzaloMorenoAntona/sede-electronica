@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import BuscadorPage from './BuscadorPage';
 import IconoMuni from './IconoMuni';
+import UltimasPublicaciones from '../components/UltimasPublicaciones';
 
 const HomePage = ({ categorias, alSeleccionarTramite, abrirCategoria }) => {
+  const [noticias, setNoticias] = useState([]);
+
   const areasPrincipales = categorias.filter(cat => cat.id <= 9);
   const otrasCategorias  = categorias.filter(cat => cat.id >= 11);
+
+  useEffect(() => {
+    fetch('/api/noticias?limit=24')
+      .then(r => r.json())
+      .then(setNoticias)
+      .catch(() => setNoticias([]));
+  }, []);
 
   return (
     <div className="home-main">
@@ -46,6 +56,9 @@ const HomePage = ({ categorias, alSeleccionarTramite, abrirCategoria }) => {
             ))}
           </div>
         </section>
+
+        {/* Últimas publicaciones — se rellena automáticamente con cualquier novedad */}
+        <UltimasPublicaciones noticias={noticias} />
       </div>
     </div>
   );

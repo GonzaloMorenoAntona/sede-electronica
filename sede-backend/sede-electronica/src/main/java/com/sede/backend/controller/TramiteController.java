@@ -26,10 +26,10 @@ public class TramiteController {
         return tramiteService.getDetalleCompleto(id);
     }
     @GetMapping("/buscar")
-    public List<Tramite> buscar(@RequestParam("q") String q,
-                                @RequestParam(value = "categoria", required = false) Long categoria,
-                                @RequestParam(value = "tipo", required = false) String tipo) {
-        return tramiteService.buscarTramites(q, categoria, tipo);
+    public List<Tramite> buscar(
+            @RequestParam(required = false) String q,
+            @RequestParam(required = false) List<Long> categoriaId) {
+        return tramiteService.buscar(q, categoriaId != null ? categoriaId : List.of());
     }
 
 }

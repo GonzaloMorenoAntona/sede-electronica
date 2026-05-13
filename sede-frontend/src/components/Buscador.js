@@ -12,9 +12,8 @@ const Buscador = ({
   searchTerm, setSearchTerm,
   handleSearch, results,
   abrirTramite, isLoading,
-  filtroCategoria, setFiltroCategoria,
-  filtroTipo, setFiltroTipo,
-  categorias
+  filtroCategoria = [], setFiltroCategoria,
+  categorias = []
 }) => {
   const [showFilters, setShowFilters] = useState(false);
 
@@ -26,25 +25,20 @@ const Buscador = ({
     }
   };
 
-  const seccionesFiltro = [
-    {
-      titulo: 'ÁREAS',
-      lista: categorias,
-      estado: filtroCategoria,
-      setter: setFiltroCategoria,
-    },
-    {
-      titulo: 'TIPO',
-      lista: ['TRAMITE', 'NOTICIA', 'INFORMACIÓN MUNICIPAL', 'DOCUMENTACIÓN PARA CONCEJALES/AS', 'NOTAS DE INTERÉS'],
-      estado: filtroTipo,
-      setter: setFiltroTipo,
-    },
-  ];
+  const toggleCategoria = (id) => {
+    setFiltroCategoria(prev =>
+      prev.includes(id) ? prev.filter(c => c !== id) : [...prev, id]
+    );
+  };
+
+  const getNombreCategoria = (item) => {
+  const cat = categorias.find(c => c.id === item.categoriaId);
+  return cat ? cat.nombre : null;
+};
 
   return (
     <div className="buscador-wrapper">
 
-      {/* Formulario */}
       <form onSubmit={handleSearch} className="buscador-form">
         <input
           type="text"
@@ -58,54 +52,67 @@ const Buscador = ({
         </button>
       </form>
 
-      {/* Botón filtros */}
       <button
         onClick={() => setShowFilters(!showFilters)}
         className="buscador-btn-filtros"
       >
         <Icon d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z" size={14} color="var(--primary-color)" />
         {showFilters ? 'OCULTAR FILTROS' : 'FILTROS'}
+        {filtroCategoria.length > 0 && (
+          <span className="buscador-filtros-count">{filtroCategoria.length}</span>
+        )}
       </button>
 
-      {/* Panel de filtros */}
       {showFilters && (
         <div className="buscador-filter-panel">
-          {seccionesFiltro.map((seccion, idx) => (
-            <div key={idx}>
-              <h4 className="buscador-filter-title">{seccion.titulo}</h4>
-              <div className="buscador-filter-tags">
-                {seccion.lista.map(obj => {
-                  const val    = typeof obj === 'string' ? obj : obj.id;
-                  const label  = typeof obj === 'string' ? obj : obj.nombre;
-                  const activo = seccion.estado === val;
-                  return (
-                    <button
-                      key={val}
-                      onClick={() => seccion.setter(activo ? null : val)}
-                      className={`buscador-tag ${activo ? 'buscador-tag--activo' : ''}`}
-                    >
-                      {label}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
+          <h4 className="buscador-filter-title">ÁREAS MUNICIPALES</h4>
+          <div className="buscador-filter-tags">
+            {categorias.map(cat => {
+              const activo = filtroCategoria.includes(cat.id);
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => toggleCategoria(cat.id)}
+                  className={`buscador-tag ${activo ? 'buscador-tag--activo' : ''}`}
+                >
+                  {cat.nombre}
+                </button>
+              );
+            })}
+          </div>
+          {filtroCategoria.length > 0 && (
+            <button
+              className="buscador-limpiar-filtros"
+              onClick={() => setFiltroCategoria([])}
+            >
+              Limpiar filtros
+            </button>
+          )}
         </div>
       )}
 
-      {/* Resultados */}
       <div className="buscador-resultados">
-        {results.map(item => (
-          <div
+        {results.map(item => {
+          const nombreCat = getNombreCategoria(item);
+          return (
+            <div
             key={item.id}
             onClick={() => manejarSeleccion(item)}
             className="buscador-card"
           >
-            <span className="buscador-card-tipo">{item.tipo}</span>
+            <div className="buscador-card-meta">
+              <span className="buscador-card-tipo">{item.tipo || 'TRÁMITE'}</span>
+              {getNombreCategoria(item) && (
+                <>
+                  <span className="buscador-card-separador">·</span>
+                  <span className="buscador-card-categoria">{getNombreCategoria(item)}</span>
+                </>
+              )}
+            </div>
             <h3 className="buscador-card-titulo">{item.titulo}</h3>
           </div>
-        ))}
+          );
+        })}
       </div>
 
     </div>
