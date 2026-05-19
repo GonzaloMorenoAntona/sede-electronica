@@ -9,8 +9,8 @@ import imgAyuntamiento from '../assets/ayuntamiento.jpg';
 import imgPrado from '../assets/parque-prado.jpg';
 import imgPuerta from '../assets/puerta-toledo.jpg';
 import imgLogo from '../assets/logo-ayuntamiento.jpg';
-import imgSkyline from '../assets/skyline-footer.jpg';
-
+import imgSkyline from '../assets/skyline-footer.png';
+console.log('Imágenes cargadas:', { imgAyuntamiento, imgPrado, imgPuerta, imgLogo, imgSkyline });
 /* ===== Iconos SVG ===== */
 const SVG_PATHS = {
   search:   <><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></>,
@@ -228,23 +228,19 @@ const SearchSection = ({ categorias, abrirTramite }) => (
   </section>
 );
 
-const AlertsBanner = ({ onSuscribir }) => {
-  const [hide, setHide] = useState(false);
-  if (hide) return null;
-  return (
-    <section className="sede-alertas-banner">
-      <div className="sede-alertas-inner">
-        <div className="sede-alertas-icon"><Icon name="bell" size={22}/></div>
-        <div className="sede-alertas-text">
-          <strong>Alertas y Suscripciones Municipales</strong>
-          <p>Recibe notificaciones sobre subvenciones, empleo público, plenos y novedades que te interesan</p>
-        </div>
-        <button onClick={onSuscribir} className="sede-alertas-btn"><Icon name="bell" size={13}/> Suscribirse</button>
-        <button onClick={() => setHide(true)} className="sede-alertas-close" aria-label="Cerrar"><Icon name="x" size={15}/></button>
+const AlertsBanner = ({ onSuscribir, onCerrar }) => (
+  <section className="sede-alertas-banner">
+    <div className="sede-alertas-inner">
+      <div className="sede-alertas-icon"><Icon name="bell" size={22}/></div>
+      <div className="sede-alertas-text">
+        <strong>Alertas y Suscripciones Municipales</strong>
+        <p>Recibe notificaciones sobre subvenciones, empleo público, plenos y novedades que te interesan</p>
       </div>
-    </section>
-  );
-};
+      <button onClick={onSuscribir} className="sede-alertas-btn"><Icon name="bell" size={13}/> Suscribirse</button>
+      <button onClick={onCerrar} className="sede-alertas-close" aria-label="Cerrar"><Icon name="x" size={15}/></button>
+    </div>
+  </section>
+);
 
 const ThematicAreas = ({ categorias, abrirCategoria }) => {
   const areas = categorias.filter(c => c.id <= 9);
@@ -299,8 +295,8 @@ const MunicipalLinksGrid = ({ abrirTramite }) => (
 
 const Footer = ({ navigate, abrirTramite }) => (
   <footer className="sede-footer">
-    <div className="sede-footer-skyline-wrap" aria-hidden="true">
-      <img src={imgSkyline} alt="" className="sede-footer-skyline-img"/>
+    <div className="sede-skyline-wrap" aria-hidden="true">
+      <img src={imgSkyline} alt="" />
     </div>
     <div className="sede-footer-inner">
       <div className="sede-footer-cols">
@@ -363,6 +359,7 @@ const Footer = ({ navigate, abrirTramite }) => (
 const HomePage = ({ categorias, alSeleccionarTramite, abrirCategoria }) => {
   const navigate = useNavigate();
   const [noticias, setNoticias] = useState([]);
+  const [hideAlertas, setHideAlertas] = useState(false);
 
   useEffect(() => {
     fetch('/api/noticias?limit=24')
@@ -397,7 +394,7 @@ const HomePage = ({ categorias, alSeleccionarTramite, abrirCategoria }) => {
         <QuickShortcuts abrirTramite={alSeleccionarTramite}/>
         <Banners/>
         <SearchSection categorias={categorias} abrirTramite={alSeleccionarTramite}/>
-        <AlertsBanner onSuscribir={irASuscripcion}/>
+        {!hideAlertas && <AlertsBanner onSuscribir={irASuscripcion} onCerrar={() => setHideAlertas(true)}/>}
         <ThematicAreas categorias={categorias} abrirCategoria={abrirCategoria}/>
         <section id="publicaciones" className="sede-publicaciones">
           <div className="sede-publicaciones-inner">
@@ -412,3 +409,4 @@ const HomePage = ({ categorias, alSeleccionarTramite, abrirCategoria }) => {
 };
 
 export default HomePage;
+

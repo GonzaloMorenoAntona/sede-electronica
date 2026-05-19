@@ -293,7 +293,7 @@ body.font-xlarge  { font-size: 122%; }
   flex-shrink: 0;
 }
 .sede-area-card:hover .sede-area-icon {
-  background: var(--primary-color); color: #fff;
+  color: #fff;
 }
 .sede-area-body { flex: 1; min-width: 0; }
 .sede-area-body h3 {
@@ -307,7 +307,7 @@ body.font-xlarge  { font-size: 122%; }
 /* ============================================================
    ÚLTIMAS PUBLICACIONES (envoltorio)
    ============================================================ */
-.sede-publicaciones { background: #fff; padding: 0 0 60px; }
+.sede-publicaciones { background: #f8fafc; padding: 0 0 60px; }
 .sede-publicaciones-inner {
   max-width: 1200px; margin: 0 auto; padding: 0 24px;
 }
@@ -316,7 +316,7 @@ body.font-xlarge  { font-size: 122%; }
 /* ============================================================
    INFORMACIÓN MUNICIPAL
    ============================================================ */
-.sede-municipal { background: #f8fafc; padding: 50px 0; }
+.sede-municipal { background: #fff; padding: 50px 0; }
 .sede-municipal-inner {
   max-width: 1200px; margin: 0 auto; padding: 0 24px;
 }
@@ -347,36 +347,39 @@ body.font-xlarge  { font-size: 122%; }
 }
 .sede-municipal-link svg { color: var(--primary-color); flex-shrink: 0; }
 
-/* ============================================================
-   FOOTER
-   ============================================================ */
-.sede-footer { background: #0f172a; color: #cbd5e1; position: relative; }
-
-/* Skyline integrado como parte superior del footer
-   filter: invert hace que el blanco → negro (se camufla con el fondo oscuro)
-   y el azul oscuro → claro/blanco (queda como silueta visible)
-   mix-blend-mode: screen elimina el negro y deja solo la silueta clara */
-.sede-footer-skyline-wrap {
+/* ---- Skyline: multiply elimina el blanco, deja el azul visible ---- */
+.sede-skyline-wrap {
+  position: relative;
   width: 100%;
-  background: #0f172a;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  height: clamp(140px, 16vw, 210px);
+  background: #fff;
   overflow: hidden;
-  padding: 0;
-  margin: 0;
+  line-height: 0;
 }
-.sede-footer-skyline-img {
+.sede-skyline-wrap > img {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: fill !important;
+  filter: grayscale(1) contrast(22) brightness(1.05);
   display: block;
-  width: 100%;
-  max-width: 1400px;
-  height: auto;
-  object-fit: contain;
-  object-position: bottom;
-  filter: invert(1);
-  mix-blend-mode: screen;
-  vertical-align: bottom;
+  margin: 0;
+  padding: 0;
 }
+.sede-skyline-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #0f172a;
+  mix-blend-mode: lighten;
+  pointer-events: none;
+}
+.sede-footer {
+  background: #0f172a; color: #cbd5e1;
+}
+
 .sede-footer-inner {
   max-width: 1200px; margin: 0 auto; padding: 50px 24px 24px;
 }
@@ -430,6 +433,8 @@ body.font-xlarge  { font-size: 122%; }
 }
 .sede-footer-bottom ul li a { color: #64748b; font-size: 0.78rem; text-decoration: none; }
 .sede-footer-bottom ul li a:hover { color: #fff; }
+
+
 
 /* ============================================================
    RESPONSIVE
