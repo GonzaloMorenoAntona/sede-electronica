@@ -13,7 +13,8 @@ import ExpedientesInfoPublicaPage from './pages/ExpedientesInfoPublicaPage';
 import ParticipacionNormativaPage from './pages/ParticipacionNormativaPage';
 import SuscripcionPage from './pages/SuscripcionPage';
 import PreferenciasPage from './pages/PreferenciasPage';
-
+import BusquedaPage from './pages/BusquedaPage';
+console.log('Sede Electrónica - Frontend');
 const FichaWrapper = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -79,22 +80,25 @@ function AppContent() {
         <Route path="/convenios" element={<ConveniosPage volver={() => navigate('/')} />} />
         <Route path="/expedientes-info-publica" element={<ExpedientesInfoPublicaPage volver={() => navigate('/')} />} />
         <Route path="/participacion-normativa" element={<ParticipacionNormativaPage volver={() => navigate('/')} />} />
-          <Route path="/suscripcion" element={<SuscripcionPage volver={() => navigate('/')} />} />
-<Route path="/suscripcion-confirmada" element={<PreferenciasPage />} />
-<Route path="/suscripcion-baja" element={
-  <div className="home-content-wrapper">
-    <div style={{maxWidth:500,margin:'0 auto',padding:'40px 0'}}>
-      <p style={{color:'#555'}}>Te has dado de baja correctamente. Ya no recibirás alertas de la Sede Electrónica.</p>
-    </div>
-  </div>
-} />
-<Route path="/suscripcion-error" element={
-  <div className="home-content-wrapper">
-    <div style={{maxWidth:500,margin:'0 auto',padding:'40px 0'}}>
-      <p style={{color:'#A32D2D'}}>El enlace no es válido o ha caducado.</p>
-    </div>
-  </div>
-} />
+        <Route path="/suscripcion" element={<SuscripcionPage volver={() => navigate('/')} />} />
+        <Route path="/suscripcion-confirmada" element={<PreferenciasPage />} />
+        <Route path="/suscripcion-baja" element={
+          <div className="home-content-wrapper">
+            <div style={{maxWidth:500,margin:'0 auto',padding:'40px 0'}}>
+              <p style={{color:'#555'}}>Te has dado de baja correctamente. Ya no recibirás alertas de la Sede Electrónica.</p>
+            </div>
+          </div>
+        } />
+        <Route path="/suscripcion-error" element={
+          <div className="home-content-wrapper">
+            <div style={{maxWidth:500,margin:'0 auto',padding:'40px 0'}}>
+              <p style={{color:'#A32D2D'}}>El enlace no es válido o ha caducado.</p>
+            </div>
+          </div>
+        } />
+        <Route path="/buscar" element={
+          <BusquedaPage categorias={categorias} />
+        } />
       </Routes>
     </Layout>
   );

@@ -33,7 +33,7 @@
 .others-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
 
 /* ==========================================================================
-   3. CONTENEDOR FICHA (compartido por FichaTramite, ListadoTramites, Subvenciones)
+   3. CONTENEDOR FICHA (compartido por FichaTramite, ListadoTramites)
    ========================================================================== */
 .ficha-container {
   max-width: 1100px; margin: 0 auto; background: white; border-radius: 20px; overflow: hidden;
@@ -52,6 +52,30 @@
 .btn-volver:hover { color: var(--primary-hover); background-color: rgba(0,115,171,0.05); }
 
 .plazo-cerrado-badge { background: #fee2e2; color: #991b1b; padding: 10px 20px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; }
+
+/* Compartido por ListadoTramites y BusquedaPage */
+.listado-grupo { margin-bottom: 30px; }
+
+.listado-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 20px; border-bottom: 1px solid #eee;
+  cursor: pointer; transition: background 0.2s; border-radius: 8px;
+}
+.listado-item:hover { background: #f5f9ff; }
+
+.listado-item-titulo { font-size: 1rem; font-weight: 600; color: #2d3748; }
+
+.listado-item-subgrupo { font-size: 0.8rem; color: #718096; font-weight: 500; text-transform: uppercase; }
+
+.listado-item-arrow { color: var(--primary-color); font-weight: 700; font-size: 1.1rem; flex-shrink: 0; margin-left: 15px; }
+
+.listado-vacio { text-align: center; padding: 40px; color: #718096; }
+
+.listado-contador { font-size: 0.9rem; color: #718096; font-weight: 600; align-self: flex-end; padding-bottom: 6px; }
+
+@media (max-width: 768px) {
+  .listado-item { padding: 14px; }
+}
 
 /* ==========================================================================
    4. CONTENIDO DINÁMICO (SQL / Guías)

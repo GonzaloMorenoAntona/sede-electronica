@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Buscador.css';
+import { useNavigate } from 'react-router-dom';
 
 const Icon = ({ d, size = 18, color = "var(--primary-color)" }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
@@ -16,6 +17,7 @@ const Buscador = ({
   categorias = []
 }) => {
   const [showFilters, setShowFilters] = useState(false);
+  const navigate = useNavigate();
 
   const manejarSeleccion = (item) => {
     if (Number(item.esEnlaceExterno) === 1 && item.urlExterna) {
@@ -39,7 +41,7 @@ const Buscador = ({
   return (
     <div className="buscador-wrapper">
 
-      <form onSubmit={handleSearch} className="buscador-form">
+      <form onSubmit={(e) => { e.preventDefault(); if (searchTerm.trim()) { navigate(`/buscar?q=${encodeURIComponent(searchTerm)}`); } else { handleSearch(e); } }} className="buscador-form">
         <input
           type="text"
           value={searchTerm}
