@@ -14,7 +14,7 @@ import ParticipacionNormativaPage from './pages/ParticipacionNormativaPage';
 import SuscripcionPage from './pages/SuscripcionPage';
 import PreferenciasPage from './pages/PreferenciasPage';
 import BusquedaPage from './pages/BusquedaPage';
-console.log('Sede Electrónica - Frontend');
+
 const FichaWrapper = () => {
   const { id } = useParams();
   const navigate = useNavigate();

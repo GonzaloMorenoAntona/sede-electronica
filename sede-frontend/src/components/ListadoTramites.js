@@ -1,5 +1,4 @@
 import React from 'react';
-import './ListadoTramites.css';
 
 const ListadoTramites = ({ tramites, categoriaNombre, abrirTramite, volver }) => {
 
