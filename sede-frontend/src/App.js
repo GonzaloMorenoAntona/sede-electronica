@@ -26,7 +26,7 @@ const FichaWrapper = () => {
   );
 };
 
-const ListadoWrapper = ({ categorias }) => {
+const ListadoWrapper = ({ categorias, onAbrirTramite }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const categoria = categorias.find(c => c.id === Number(id));
@@ -35,7 +35,8 @@ const ListadoWrapper = ({ categorias }) => {
     <ListadoTramitesPage
       categoriaId={Number(id)}
       categoriaNombre={categoria?.nombre || ''}
-      abrirTramite={(tramiteId) => navigate(`/tramite/${tramiteId}`)}
+      categoriaIcono={categoria?.icono}
+      abrirTramite={onAbrirTramite}
       volver={() => navigate(-1)}
     />
   );
@@ -72,8 +73,8 @@ function AppContent() {
             abrirCategoria={(cat) => navigate(`/categoria/${cat.id}`)}
           />
         } />
-        <Route path="/tramite/:id"    element={<FichaWrapper />} />
-        <Route path="/categoria/:id"  element={<ListadoWrapper categorias={categorias} />} />
+        <Route path="/tramite/:id" element={<FichaWrapper categorias={categorias} />} />
+        <Route path="/categoria/:id"  element={<ListadoWrapper categorias={categorias} onAbrirTramite={abrirTramite} />} />
         <Route path="/subvenciones"   element={<SubvencionesPage volver={() => navigate('/')} />} />
         <Route path="/procesos-selectivos" element={<ProcesosSelectivosPage volver={() => navigate('/')} />} />
         <Route path="/plenos" element={<PlenosPage volver={() => navigate('/')} />} />
@@ -97,7 +98,7 @@ function AppContent() {
           </div>
         } />
         <Route path="/buscar" element={
-          <BusquedaPage categorias={categorias} />
+          <BusquedaPage categorias={categorias} onAbrirTramite={abrirTramite} />
         } />
       </Routes>
     </Layout>

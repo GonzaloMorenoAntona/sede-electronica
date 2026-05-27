@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ListadoTramitesUI from '../components/ListadoTramites';
 import { getTramitesPorCategoria } from '../services/tramiteService';
-
-const ListadoTramitesPage = ({ categoriaId, categoriaNombre, abrirTramite, volver }) => {
+console.log('ListadoTramitesPage.js cargado');
+const ListadoTramitesPage = ({ categoriaId, categoriaNombre, categoriaIcono, abrirTramite, volver }) => {
   const [tramites, setTramites] = useState([]);
   const [loading, setLoading]   = useState(true);
 
@@ -22,6 +22,7 @@ const ListadoTramitesPage = ({ categoriaId, categoriaNombre, abrirTramite, volve
     <ListadoTramitesUI
       tramites={tramites}
       categoriaNombre={categoriaNombre}
+      categoriaIcono={categoriaIcono}
       abrirTramite={abrirTramite}
       volver={volver}
     />

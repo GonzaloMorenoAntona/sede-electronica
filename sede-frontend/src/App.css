@@ -115,5 +115,120 @@
   .ficha-body { padding: 24px; }
   .titulo-tramite-principal { font-size: 1.4rem; }
 }
+/* ==========================================================================
+   LISTADO Y BÚSQUEDA 
+   ========================================================================== */
 
+/* Contador con badge estilo pill */
+.listado-contador-badge {
+  display: inline-flex; align-items: center;
+  background: rgba(0,115,171,0.08); color: var(--primary-color);
+  font-size: 0.82rem; font-weight: 700;
+  padding: 6px 14px; border-radius: 999px;
+  align-self: flex-start; white-space: nowrap;
+}
+
+/* Cabecera de subgrupo */
+.listado-subgrupo-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px; margin-bottom: 4px;
+  background: #f1f5f9; border-radius: 8px;
+  font-size: 0.78rem; font-weight: 700;
+  color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.05em;
+}
+.listado-subgrupo-count {
+  background: var(--primary-color); color: white;
+  font-size: 0.72rem; font-weight: 700;
+  padding: 2px 8px; border-radius: 999px;
+}
+
+/* Bloque de grupo */
+.listado-grupo-bloque { margin-bottom: 28px; }
+
+/* Contenedor de items */
+.listado-items-wrap {
+  border: 1px solid var(--border-color);
+  border-radius: 10px; overflow: hidden;
+}
+
+/* Item mejorado */
+.listado-item-pro {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  cursor: pointer; background: white;
+  transition: background 0.15s, border-left-color 0.15s;
+  border-left: 3px solid transparent;
+}
+.listado-item-pro:last-child { border-bottom: none; }
+.listado-item-pro:hover {
+  background: #f8faff;
+  border-left-color: var(--primary-color);
+}
+
+/* Icono del item */
+.listado-item-icono {
+  width: 38px; height: 38px; border-radius: 8px;
+  background: rgba(0,115,171,0.08); color: var(--primary-color);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.listado-item-pro:hover .listado-item-icono {
+  background: var(--primary-color); color: white;
+}
+
+/* Cuerpo del item */
+.listado-item-body {
+  display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0;
+}
+.listado-item-titulo { font-size: 0.95rem; font-weight: 600; color: #1e293b; line-height: 1.3; }
+.listado-item-unidad { font-size: 0.75rem; color: #94a3b8; }
+
+/* Derecha del item */
+.listado-item-right {
+  display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+}
+.listado-flecha {
+  color: #cbd5e1; font-size: 1.5rem; line-height: 1;
+  transition: color 0.15s, transform 0.15s;
+}
+.listado-item-pro:hover .listado-flecha {
+  color: var(--primary-color); transform: translateX(3px);
+}
+
+/* Badge externo */
+.listado-badge-ext {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 0.68rem; font-weight: 700;
+  background: rgba(0,115,171,0.08); color: var(--primary-color);
+  padding: 3px 8px; border-radius: 4px;
+}
+
+/* Búsqueda — meta texto */
+.busqueda-meta-texto { color: #64748b; font-size: 0.88rem; margin: 4px 0 0; }
+
+/* Búsqueda — cargando */
+.busqueda-cargando {
+  display: flex; align-items: center; gap: 12px;
+  padding: 30px 0; color: #64748b;
+}
+.busqueda-spinner {
+  width: 22px; height: 22px;
+  border: 2px solid #e2e8f0; border-top-color: var(--primary-color);
+  border-radius: 50%; animation: girar 0.7s linear infinite;
+}
+@keyframes girar { to { transform: rotate(360deg); } }
+
+/* Búsqueda — sin resultados */
+.busqueda-sin-resultados {
+  text-align: center; padding: 50px 20px; color: #64748b;
+}
+.busqueda-sin-resultados svg { margin: 0 auto 16px; display: block; }
+.busqueda-sin-resultados h3 {
+  font-size: 1.05rem; font-weight: 700; color: #1e293b; margin: 0 0 8px;
+}
+.busqueda-sin-resultados p { font-size: 0.9rem; margin: 0; }
+
+/* Cabecera búsqueda */
+.busqueda-header { background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); }
 

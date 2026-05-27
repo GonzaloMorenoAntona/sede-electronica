@@ -26,10 +26,10 @@ const FichaTramitePage = ({ tramiteId, volver }) => {
 
   if (loading) return <div style={{ textAlign: 'center', padding: '50px', color: 'var(--primary-color)' }}>Cargando detalles del trámite...</div>;
   if (!tramite) return <div style={{ textAlign: 'center', padding: '50px', color: 'var(--primary-color)' }}>No se ha podido encontrar la información del trámite.</div>;
-  
+
   return (
     <FichaTramiteUI 
-      tramite={tramite} 
+      tramite={tramite}
       volver={volver} 
       activeTab={activeTab} 
       setActiveTab={setActiveTab} 

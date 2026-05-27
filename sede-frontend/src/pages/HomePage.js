@@ -59,14 +59,26 @@ const BANNERS = [
 ];
 
 const MUNICIPAL_LINKS = [
-  { id: 1,  title: 'Estado de tus expedientes',       icon: 'folder' },
-  { id: 2,  title: 'Tablón de Edictos',                icon: 'doc',        externo: true, url: 'https://etablon.dipucr.es:4443/eTablon/tablon.jsf?entidad=002' },
-  { id: 5,  title: 'Perfil del Contratante',           icon: 'briefcase',  externo: true, url: 'https://www.ciudadreal.es/ayuntamiento/perfil-contratante.html' },
-  { id: 6,  title: 'Transparencia y Buen Gobierno',    icon: 'building',   externo: true, url: 'https://www.ciudadreal.es/gobierno-abierto/transparencia-y-buen-gobierno.html' },
-  { id: 11, title: 'Línea Verde',                      icon: 'leaf',       externo: true, url: 'https://www.lineaverdeciudadreal.com/' },
-  { id: 12, title: 'Canal de Denuncias',               icon: 'shield',     externo: true, url: 'https://www.ciudadreal.es/canal-de-denuncias.html' },
-  { id: 91, title: 'Verificación de Documentos (CVE)', icon: 'doc',        externo: true, url: 'https://se7.dipucr.es:4443/SIGEM_GestionCSVWeb/action/documento/form?idEntidad=002' },
-  { id: 53, title: 'Plataforma ZBE Ciudad Real',        icon: 'car',        externo: true, url: 'https://zbe.ciudadreal.es/landing' },
+  { id: 2,   title: 'Tablón de edictos electrónico',                                icon: 'building',   externo: true, url: 'https://etablon.dipucr.es:4443/eTablon/tablon.jsf?entidad=002' },
+  { id: 3,   title: 'Tablón de edictos electrónico IMPEFE',                         icon: 'building',   externo: true, url: 'https://etablon.dipucr.es:4443/eTablon/tablon.jsf?entidad=081' },
+  { id: 4,   title: 'Tablón Patronato Municipal de Personas con Discapacidad',      icon: 'building',   externo: true, url: 'https://etablon.dipucr.es:4443/eTablon/tablon.jsf?entidad=082' },
+  { id: 5,   title: 'Perfil del Contratante',                                       icon: 'briefcase',  externo: true, url: 'https://www.ciudadreal.es/ayuntamiento/perfil-contratante.html' },
+  { id: 6,   title: 'Transparencia y Buen Gobierno',                                icon: 'building',   externo: true, url: 'https://www.ciudadreal.es/gobierno-abierto/transparencia-y-buen-gobierno.html' },
+  { id: 53,  title: 'Plataforma ZBE Ciudad Real',                                   icon: 'car',        externo: true, url: 'https://zbe.ciudadreal.es/landing' },
+  { id: 9,   title: 'Consulta tu Registro telemático',                              icon: 'doc',        externo: true, url: 'https://se3.dipucr.es:4443/SIGEM_AutenticacionWeb/seleccionEntidad.do?REDIRECCION=ConsultaRegistroTelematico&tramiteId=&SESION_ID=&ENTIDAD_ID=002' },
+  { id: 95,  title: 'Empleo — Procesos selectivos',                                 icon: 'briefcase',  externo: true, url: 'https://www.ciudadreal.es/ayuntamiento/ofertas-de-empleo.html' },
+  {
+    id: 'cve', title: 'Verificación de documentos electrónicos', icon: 'shield',
+    subLinks: [
+      { label: 'Documentos del Ayuntamiento con CVE',                        url: 'https://se7.dipucr.es:4443/SIGEM_GestionCSVWeb/action/documento/form?idEntidad=002' },
+      { label: 'Documentos del Patronato Municipal de Deportes con CVE',     url: 'https://se7.dipucr.es:4443/SIGEM_GestionCSVWeb/action/documento/form?idEntidad=078' },
+      { label: 'Documentos del IMPEFE con CVE',                              url: 'https://se7.dipucr.es:4443/SIGEM_GestionCSVWeb/action/documento/form?idEntidad=081' },
+      { label: 'Documentos del Patronato de Personas con Discapacidad con CVE', url: 'https://se7.dipucr.es:4443/SIGEM_GestionCSVWeb/action/documento/form?idEntidad=082' },
+    ]
+  },
+  { id: 11,  title: 'Línea Verde',                                                  icon: 'leaf',       externo: true, url: 'https://www.lineaverdeciudadreal.com/' },
+  { id: 13,  title: 'Oficina de Sugerencias y Reclamaciones',                       icon: 'doc',        externo: true, url: 'https://www.ciudadreal.es/gobierno-abierto/oficina-sugerencias-reclamaciones.html' },
+  { id: 12,  title: 'Canal de denuncias',                                           icon: 'shield',     externo: true, url: 'https://www.ciudadreal.es/canal-de-denuncias.html' },
 ];
 
 /* ===== Subcomponentes de contenido ===== */

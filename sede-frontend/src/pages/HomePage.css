@@ -464,3 +464,27 @@ body.font-xlarge  { font-size: 122%; }
   .sede-municipal-grid { grid-template-columns: 1fr; }
   .sede-alertas-inner { flex-wrap: wrap; }
 }
+/* ---- CVE dropdown en Información Municipal ---- */
+.sede-municipal-cve {
+  position: relative; cursor: pointer;
+  flex-direction: row; justify-content: space-between;
+}
+.sede-municipal-cve.open {
+  border-color: var(--primary-color);
+  background: rgba(0,115,171,0.04);
+  border-radius: 10px 10px 0 0;
+}
+.sede-municipal-cve-drop {
+  position: absolute; top: 100%; left: 0; right: 0; z-index: 10;
+  background: #fff; border: 1px solid var(--primary-color);
+  border-top: none; border-radius: 0 0 10px 10px;
+  overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,.1);
+}
+.sede-municipal-cve-opt {
+  display: block; padding: 11px 16px;
+  font-size: 0.8rem; font-weight: 600; color: #475569;
+  text-decoration: none; border-bottom: 1px solid #f1f5f9;
+  transition: background .15s, color .15s;
+}
+.sede-municipal-cve-opt:last-child { border-bottom: none; }
+.sede-municipal-cve-opt:hover { background: #eff6ff; color: var(--primary-color); }
