@@ -37,8 +37,6 @@ public class SubvencionController {
             subvencion.setTitulo((String) body.get("titulo"));
             subvencion.setAnio((Integer) body.get("anio"));
             subvencion.setServicio((String) body.get("servicio"));
-            subvencion.setFechaInicio(LocalDate.parse((String) body.get("fechaInicio")));
-            subvencion.setFechaFin(LocalDate.parse((String) body.get("fechaFin")));
             subvencion.setUrlConvocatoria((String) body.get("urlConvocatoria"));
             subvencion.setUrlJustificacion((String) body.get("urlJustificacion"));
             if (body.get("fechaInicioPresentacion") != null)

@@ -254,7 +254,7 @@ const HomePage = ({ categorias, alSeleccionarTramite, abrirCategoria }) => {
       <ThematicAreas categorias={categorias} abrirCategoria={abrirCategoria}/>
       <section id="publicaciones" className="sede-publicaciones">
         <div className="sede-publicaciones-inner">
-          <UltimasPublicaciones noticias={noticias}/>
+          <UltimasPublicaciones noticias={noticias} abrirTramite={alSeleccionarTramite}/>
         </div>
       </section>
       <MunicipalLinksGrid abrirTramite={alSeleccionarTramite}/>

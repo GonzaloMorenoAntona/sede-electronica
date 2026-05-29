@@ -1,31 +1,46 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './UltimasPublicaciones.css';
 
 /* ===== Config visual por tipo ===== */
 const TIPO_CONFIG = {
-  tramite:      { label: 'Trámite',                color: '#305985', bg: '#e6f1fb' },
-  subvencion:   { label: 'Subvención',             color: '#065f46', bg: '#d1fae5' },
-  pleno:        { label: 'Pleno',                  color: '#6841a3', bg: '#ede9fe' },
-  convenio:     { label: 'Convenio',               color: '#831843', bg: '#fce7f3' },
-  proceso:      { label: 'Proceso selectivo',      color: '#78350f', bg: '#fef3c7' },
-  expediente:   { label: 'Expediente Información pública',    color: '#ce8211', bg: '#fef1cf' },
-  info_publica: { label: 'Información pública',        color: '#1f4fd3', bg: '#dbeafe' },
-  consulta:     { label: 'Consulta pública previa',       color: '#157279', bg: '#dbeafe' },
+  tramite:        { label: 'Trámite',                  color: '#305985', bg: '#e6f1fb' },
+  subvencion:     { label: 'Subvención',               color: '#065f46', bg: '#d1fae5' },
+  pleno:          { label: 'Pleno',                    color: '#6841a3', bg: '#ede9fe' },
+  convenio:       { label: 'Convenio',                 color: '#831843', bg: '#fce7f3' },
+  proceso:        { label: 'Proceso selectivo',        color: '#78350f', bg: '#fef3c7' },
+  expediente:     { label: 'Expediente Inf. pública',  color: '#ce8211', bg: '#fef1cf' },
+  info_publica:   { label: 'Información pública',      color: '#1f4fd3', bg: '#dbeafe' },
+  consulta:       { label: 'Consulta pública previa',  color: '#157279', bg: '#dbeafe' },
+  junta_gobierno: { label: 'Junta de Gobierno Local',  color: '#0b3d91', bg: '#e0e7ff' },
+};
+
+/* Ruta a la que navega cada tipo al pulsar la tarjeta */
+const TIPO_RUTA = {
+  subvencion:     '/subvenciones',
+  pleno:          '/plenos',
+  junta_gobierno: '/juntas-gobierno',
+  convenio:       '/convenios',
+  proceso:        '/procesos-selectivos',
+  expediente:     '/expedientes-info-publica',
+  info_publica:   '/participacion-normativa',
+  consulta:       '/participacion-normativa',
+  tramite:        null, // los trámites usan abrirTramite que gestiona casos especiales.
 };
 
 const TIPOS_FILTRO = [
-  { key: 'todos',       label: 'Todos' },
-  { key: 'tramite',     label: 'Trámites' },
-  { key: 'subvencion',  label: 'Subvenciones' },
-  { key: 'pleno',       label: 'Plenos' },
-  { key: 'convenio',    label: 'Convenios' },
-  { key: 'proceso',     label: 'Procesos selectivos' },
-  { key: 'expediente',  label: 'Expediente Inf. pública' },
-  { key: 'info_publica', label: 'Información pública' },
-  { key: 'consulta', label: 'Consulta pública previa' },
+  { key: 'todos',          label: 'Todos' },
+  { key: 'tramite',        label: 'Trámites' },
+  { key: 'subvencion',     label: 'Subvenciones' },
+  { key: 'pleno',          label: 'Plenos' },
+  { key: 'junta_gobierno', label: 'Junta de Gobierno' },
+  { key: 'convenio',       label: 'Convenios' },
+  { key: 'proceso',        label: 'Procesos selectivos' },
+  { key: 'expediente',     label: 'Expediente Inf. pública' },
+  { key: 'info_publica',   label: 'Información pública' },
+  { key: 'consulta',       label: 'Consulta pública previa' },
 ];
 
-/* ===== Icono SVG — JSX dentro del componente, no a nivel de módulo ===== */
 const Icono = ({ tipo, size = 26 }) => {
   const props = {
     width: size, height: size,
@@ -34,26 +49,22 @@ const Icono = ({ tipo, size = 26 }) => {
     strokeLinecap: 'round', strokeLinejoin: 'round',
   };
   switch (tipo) {
-    case 'subvencion': // Billete con moneda (Dinero/Ayudas)
+    case 'subvencion':
       return <svg {...props}><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>;
-    
-    case 'pleno': // Edificio con columnas (Ayuntamiento/Institución)
+    case 'pleno':
       return <svg {...props}><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>;
-    
-    case 'convenio': // Apreton de manos (Acuerdo)
-      return <svg {...props}><path d="m11 17 2 2 6-6"/><path d="m18 14 2.5 2.5a3.3 3.3 0 0 0 4.7-4.7L19 5a4.5 4.5 0 0 0-6.3 0l-1.3 1.3"/><path d="m3 14 2.5 2.5a3.3 3.3 0 0 0 4.7-4.7L4 5a4.5 4.5 0 0 0-6.3 0L-3.6 6.3"/><path d="m8 11 5 5"/></svg>;
-    
-    case 'proceso': // Maletín (Empleo Público/Oposiciones)
+    case 'junta_gobierno':
+      return <svg {...props}><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>;
+    case 'convenio':
+      return <svg {...props}><path d="m11 17 2 2 6-6"/><path d="M18 14v6"/><path d="M6 14v6"/><path d="M2 10h20"/><path d="M2 6h20"/></svg>;
+    case 'proceso':
       return <svg {...props}><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>;
-    
-    case 'expediente': // Carpeta con lupa (Búsqueda de archivos)
+    case 'expediente':
       return <svg {...props}><path d="M4 20V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><circle cx="12" cy="13" r="2"/><path d="m14 15 1 1"/></svg>;
-    
     case 'info_publica':
-    case 'consulta': // Megáfono (Participación Ciudadana)
+    case 'consulta':
       return <svg {...props}><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>;
-    
-    default: // Documento genérico
+    default:
       return <svg {...props}><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>;
   }
 };
@@ -71,11 +82,23 @@ const formatFecha = (f) => {
   return new Date(f).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
 };
 
-/* ===== Tarjeta ===== */
-const NoticiaCard = ({ item }) => {
-  const cfg = TIPO_CONFIG[item.tipo] || TIPO_CONFIG.tramite;
+const NoticiaCard = ({ item, abrirTramite }) => {
+  const navigate = useNavigate();
+  const cfg  = TIPO_CONFIG[item.tipo] || TIPO_CONFIG.tramite;
+  const ruta = TIPO_RUTA[item.tipo];
+
+  const handleClick = () => {
+    if (ruta) {
+      navigate(ruta);
+    } else {
+      // tramite → usa abrirTramite que ya gestiona los casos especiales (id 16→subvenciones, etc.)
+      abrirTramite(item.id);
+    }
+  };
+
   return (
-    <article className="up-card">
+    <article className="up-card up-card--clickable" onClick={handleClick} role="button" tabIndex={0}
+      onKeyDown={e => e.key === 'Enter' && handleClick()}>
       <div className="up-card-header" style={{ background: cfg.color }}>
         <span className="up-card-badge">{cfg.label}</span>
         <div className="up-card-icon"><Icono tipo={item.tipo} size={40} /></div>
@@ -92,8 +115,7 @@ const NoticiaCard = ({ item }) => {
   );
 };
 
-/* ===== Componente principal ===== */
-const UltimasPublicaciones = ({ noticias = [] }) => {
+const UltimasPublicaciones = ({ noticias = [], abrirTramite = () => {} }) => {
   const [filtro, setFiltro]        = useState('todos');
   const [mostrarTodas, setMostrar] = useState(false);
 
@@ -129,7 +151,7 @@ const UltimasPublicaciones = ({ noticias = [] }) => {
       {visibles.length > 0 ? (
         <div className="up-grid">
           {visibles.map((item, i) => (
-            <NoticiaCard key={`${item.tipo}-${item.id}-${i}`} item={item} />
+            <NoticiaCard key={`${item.tipo}-${item.id}-${i}`} item={item} abrirTramite={abrirTramite} />
           ))}
         </div>
       ) : (
@@ -144,4 +166,3 @@ const UltimasPublicaciones = ({ noticias = [] }) => {
 };
 
 export default UltimasPublicaciones;
-

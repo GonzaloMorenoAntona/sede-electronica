@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ListadoTramitesUI from '../components/ListadoTramites';
 import { getTramitesPorCategoria } from '../services/tramiteService';
-console.log('ListadoTramitesPage.js cargado');
+
 const ListadoTramitesPage = ({ categoriaId, categoriaNombre, categoriaIcono, abrirTramite, volver }) => {
   const [tramites, setTramites] = useState([]);
   const [loading, setLoading]   = useState(true);

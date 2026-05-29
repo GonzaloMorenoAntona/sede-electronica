@@ -1,9 +1,8 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo } from 'react';
 import './Subvenciones.css';
-
-/* ===== Iconos genéricos (calendario, reloj, doc, externo) ===== */
+console.log('Subvenciones.js cargado');
+/* ===== Iconos ===== */
 const PATHS = {
-  cal:   <><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></>,
   clock: <><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></>,
   doc:   <><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></>,
   ext:   <><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></>,
@@ -13,7 +12,7 @@ const Icon = ({ name, size = 14 }) => (
     strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{PATHS[name]}</svg>
 );
 
-/* ===== ICONOS POR ÁREA — SVGs reales, no letras ===== */
+/* ===== Iconos por área ===== */
 const AREA_ICONOS = {
   educacion:     { color: '#3b82f6', paths: <><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></> },
   cultura:       { color: '#a855f7', paths: <><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></> },
@@ -43,12 +42,6 @@ const parseAnexos = (j) => {
   try { return typeof j === 'string' ? JSON.parse(j) : (j || []); } catch { return []; }
 };
 
-const formatFecha = (f) => {
-  if (!f) return '—';
-  const d = new Date(f);
-  return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
-};
-
 const diasHasta = (f) => {
   if (!f) return null;
   const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
@@ -56,26 +49,28 @@ const diasHasta = (f) => {
   return Math.ceil((fin - hoy) / 86400000);
 };
 
+/* Justificación tiene prioridad sobre convocatoria si ambas están abiertas */
 const getEstado = (sub) => {
   const dP = diasHasta(sub.fechaFinPresentacion);
   const dJ = diasHasta(sub.fechaFinJustificacion);
-  if (dP !== null && dP >= 0) return { tipo: 'conv-abierta', label: 'Convocatoria abierta', dias: dP, fase: 'pres' };
-  if (dJ !== null && dJ >= 0) return { tipo: 'just-abierta', label: 'Justificación abierta', dias: dJ, fase: 'just' };
-  if (dJ !== null && dJ < 0)  return { tipo: 'just-cerrada', label: 'Justificación cerrada', dias: null, fase: 'just' };
-  return { tipo: 'conv-cerrada', label: 'Convocatoria cerrada', dias: null, fase: 'pres' };
+  if (dJ !== null && dJ >= 0) return { tipo: 'just-abierta', label: 'Justificación abierta', dias: dJ };
+  if (dP !== null && dP >= 0) return { tipo: 'conv-abierta', label: 'Convocatoria abierta', dias: dP };
+  if (dJ !== null && dJ < 0)  return { tipo: 'just-cerrada', label: 'Justificación cerrada', dias: null };
+  return { tipo: 'conv-cerrada', label: 'Convocatoria cerrada', dias: null };
 };
 
 /* ===== Tarjeta ===== */
 const Card = ({ sub }) => {
-  const anexos = parseAnexos(sub.anexos);
-  const e = getEstado(sub);
-  const ai = getAreaIcono(sub.servicio);
-  const enJus = e.fase === 'just';
-  const fIni = enJus ? sub.fechaInicioJustificacion : sub.fechaInicioPresentacion;
-  const fFin = enJus ? sub.fechaFinJustificacion    : sub.fechaFinPresentacion;
-  const lIni = enJus ? 'Inicio justificación' : 'Inicio convocatoria';
-  const lFin = enJus ? 'Fin justificación'    : 'Fin convocatoria';
+  const anexos  = parseAnexos(sub.anexos);
+  const e       = getEstado(sub);
+  const ai      = getAreaIcono(sub.servicio);
   const abierto = e.dias !== null && e.dias >= 0;
+
+  // Botón principal: tramitar usa urlConvocatoria, justificar usa urlJustificacion
+  const btnUrl   = e.tipo === 'conv-abierta' ? sub.urlConvocatoria : sub.urlJustificacion;
+  const btnLabel = e.tipo === 'conv-abierta' ? 'Tramitar solicitud' : 'Presentar justificación';
+
+
 
   return (
     <article className="subv-card">
@@ -94,23 +89,12 @@ const Card = ({ sub }) => {
 
       <div className="subv-estado">
         <span className={`subv-badge subv-badge--${e.tipo}`}>{e.label}</span>
-        {fIni && fFin && (
-          <div className="subv-fechas">
-            <div><Icon name="cal" /><span>{lIni}</span><strong>{formatFecha(fIni)}</strong></div>
-            <div><Icon name="cal" /><span>{lFin}</span><strong>{formatFecha(fFin)}</strong></div>
-          </div>
-        )}
         <span className={`subv-tiempo ${abierto ? 'abierto' : 'cerrado'}`}>
           <Icon name="clock" /> {abierto ? `Quedan ${e.dias} día${e.dias !== 1 ? 's' : ''}` : 'Plazo cerrado'}
         </span>
       </div>
 
       <div className="subv-docs">
-        {abierto && sub.urlConvocatoria && (
-          <a href={sub.urlConvocatoria} target="_blank" rel="noreferrer" className="subv-doc">
-            <Icon name="doc" /> Bases reguladoras <span>PDF</span>
-          </a>
-        )}
         {anexos.map((an, i) => (
           <a key={i} href={an.url} target="_blank" rel="noreferrer" className="subv-doc">
             <Icon name="doc" /> {an.label} <span>PDF</span>
@@ -119,17 +103,13 @@ const Card = ({ sub }) => {
       </div>
 
       <div className="subv-acciones">
-        {abierto && sub.urlJustificacion && (
-          <a href={sub.urlJustificacion} target="_blank" rel="noreferrer" className="subv-btn subv-btn--primario">
-            {e.tipo === 'conv-abierta' ? 'Tramitar solicitud' : 'Presentar justificación'} <Icon name="ext" size={12} />
+        {abierto && btnUrl ? (
+          <a href={btnUrl} target="_blank" rel="noreferrer" className="subv-btn subv-btn--primario">
+            {btnLabel} <Icon name="ext" size={12} />
           </a>
+        ) : (
+          <span className="subv-btn subv-btn--inactivo">{e.label}</span>
         )}
-        {!abierto && sub.urlConvocatoria && (
-          <a href={sub.urlConvocatoria} target="_blank" rel="noreferrer" className="subv-btn subv-btn--secundario">
-            Ver bases <Icon name="ext" size={12} />
-          </a>
-        )}
-        {!abierto && <span className="subv-btn subv-btn--inactivo">{e.label}</span>}
       </div>
     </article>
   );
@@ -137,8 +117,6 @@ const Card = ({ sub }) => {
 
 /* ===== Componente principal ===== */
 const Subvenciones = ({ datos, anioActivo, setAnioActivo, volver }) => {
-  /* Búsqueda interna. El input es UNCONTROLLED — sin value, sin defaultValue.
-     React solo escucha el evento input para actualizar el filtro. */
   const [busqueda, setBusqueda]                   = useState('');
   const [filtroArea, setFiltroArea]               = useState('todas');
   const [filtroEstado, setFiltroEstado]           = useState('todas');
@@ -166,7 +144,7 @@ const Subvenciones = ({ datos, anioActivo, setAnioActivo, volver }) => {
     return true;
   }), [datos, anioActivo, busqueda, filtroArea, filtroEstado, filtroTramitacion]);
 
- const justAbiertas = filtrados.filter(d => diasHasta(d.fechaFinJustificacion) !== null && diasHasta(d.fechaFinJustificacion) >= 0).length;
+  const justAbiertas = filtrados.filter(d => diasHasta(d.fechaFinJustificacion) !== null && diasHasta(d.fechaFinJustificacion) >= 0).length;
 
   return (
     <div className="home-content-wrapper">
@@ -196,7 +174,6 @@ const Subvenciones = ({ datos, anioActivo, setAnioActivo, volver }) => {
       </div>
 
       <div className="subv-controles">
-        {/* INPUT UNCONTROLLED — sin value ni defaultValue. Imposible que React lo bloquee. */}
         <input
           type="text"
           className="subv-search-input"

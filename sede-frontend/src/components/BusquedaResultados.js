@@ -1,6 +1,6 @@
 import React from 'react';
 import IconoMuni from '../pages/IconoMuni'; // Asegúrate de que esta ruta coincida con tu estructura de carpetas
-console.log('BusquedaResultados.js cargado');
+
 
 const IconoDoc = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"

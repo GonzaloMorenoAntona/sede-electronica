@@ -13,14 +13,15 @@ import java.util.stream.*;
 @RequestMapping("/api/noticias")
 public class NoticiasController {
 
-    @Autowired private TramiteRepository             tramiteRepo;
-    @Autowired private SubvencionRepository          subvencionRepo;
-    @Autowired private PlenoRepository               plenoRepo;
-    @Autowired private ConvenioRepository            convenioRepo;
-    @Autowired private ProcesoSelectivoRepository    procesoRepo;
+    @Autowired private TramiteRepository               tramiteRepo;
+    @Autowired private SubvencionRepository            subvencionRepo;
+    @Autowired private PlenoRepository                 plenoRepo;
+    @Autowired private ConvenioRepository              convenioRepo;
+    @Autowired private ProcesoSelectivoRepository      procesoRepo;
     @Autowired private ExpedienteInfoPublicaRepository expedienteRepo;
-    @Autowired private InformacionPublicaRepository  infoPublicaRepo;
-    @Autowired private ConsultaPublicaRepository     consultaRepo;
+    @Autowired private InformacionPublicaRepository    infoPublicaRepo;
+    @Autowired private ConsultaPublicaRepository       consultaRepo;
+    @Autowired private JuntaGobiernoRepository         juntaGobiernoRepo;
 
     @GetMapping
     public List<Noticia> getNoticias(
@@ -28,7 +29,7 @@ public class NoticiasController {
 
         List<Noticia> todas = new ArrayList<>();
 
-        // ---- Trámites ---- (fechaPublicacion es LocalDate → convertir a LocalDateTime)
+        // ---- Trámites ----
         tramiteRepo.findAll().forEach(t -> {
             if (t.getFechaPublicacion() != null && "VIGENTE".equals(t.getEstado())) {
                 todas.add(new Noticia(
@@ -118,7 +119,17 @@ public class NoticiasController {
             }
         });
 
-        // Ordenar por fecha desc y limitar
+        // ---- Juntas de Gobierno Local ----
+        juntaGobiernoRepo.findAll().forEach(j -> {
+            if (j.getFechaSincronizacion() != null) {
+                todas.add(new Noticia(
+                        j.getId(), "junta_gobierno", "Junta de Gobierno Local",
+                        j.getTitulo(), j.getDescripcion(),
+                        j.getFechaSincronizacion(), j.getIdExternoSigem()
+                ));
+            }
+        });
+
         return todas.stream()
                 .sorted(Comparator.comparing(Noticia::getFecha).reversed())
                 .limit(limit)

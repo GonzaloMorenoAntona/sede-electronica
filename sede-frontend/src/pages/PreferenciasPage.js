@@ -7,6 +7,7 @@ const TIPOS = [
   { id: 'subvenciones', label: 'Subvenciones', desc: 'Nuevas convocatorias de ayudas municipales' },
   { id: 'procesos_selectivos', label: 'Procesos selectivos', desc: 'Oposiciones y empleo público' },
   { id: 'plenos', label: 'Plenos', desc: 'Convocatorias y actas del Pleno municipal' },
+  { id: 'juntas-gobierno',        label: 'Junta de Gobierno Local',         desc: 'Sesiones de la Junta de Gobierno Local' },
   { id: 'convenios', label: 'Convenios', desc: 'Nuevos convenios municipales' },
   { id: 'expedientes_info_publica', label: 'Expedientes de información pública', desc: 'Expedientes abiertos a alegaciones' },
   { id: 'consultas_publicas', label: 'Consulta pública previa', desc: 'Consultas antes de elaborar ordenanzas' },

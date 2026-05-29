@@ -1,7 +1,5 @@
 import React from 'react';
 import IconoMuni from '../pages/IconoMuni';
-
-console.log('BusquedaResultados renderizado');
 const IconoDoc = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
     strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
