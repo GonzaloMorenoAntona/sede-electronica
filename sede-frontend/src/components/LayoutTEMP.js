@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../pages/HomePage.css';
+import './Layout.css';
 
 import imgLogo    from '../assets/logo-ayuntamiento.jpg';
 import imgSkyline from '../assets/skyline-footer.png';
@@ -57,19 +58,27 @@ const Header = () => (
   </header>
 );
 
-/* ===== MainNav ===== */
+/* ===== MainNav =====
+   Solo "Web Municipal" (enlaza a la web del Ayuntamiento) y "Sede Electrónica" (activo).
+   Si la URL de la web municipal debe salir de BD/config, sustituye WEB_MUNICIPAL. */
+const WEB_MUNICIPAL = 'https://www.ciudadreal.es';
+
 const MainNav = ({ onAlertas }) => {
   const [open, setOpen] = useState(false);
-  const items = ['Inicio', 'Trámites', 'Noticias', 'Transparencia', 'Sede Electrónica'];
+  const items = [
+    { label: 'Web Municipal',   href: WEB_MUNICIPAL, externo: true },
+    { label: 'Sede Electrónica', href: '#main',      activo: true },
+  ];
   return (
     <nav className="sede-nav">
       <div className="sede-nav-inner">
         <ul className="sede-nav-links">
-          {items.map((it, i) => (
-            <li key={it}>
-              <a href={i === items.length - 1 ? '#main' : '#'}
-                className={i === items.length - 1 ? 'sede-nav-link sede-nav-link--activo' : 'sede-nav-link'}>
-                {it}
+          {items.map(it => (
+            <li key={it.label}>
+              <a href={it.href}
+                 {...(it.externo ? { target: '_blank', rel: 'noreferrer' } : {})}
+                 className={it.activo ? 'sede-nav-link sede-nav-link--activo' : 'sede-nav-link'}>
+                {it.label}
               </a>
             </li>
           ))}
@@ -83,7 +92,12 @@ const MainNav = ({ onAlertas }) => {
       </div>
       {open && (
         <div className="sede-nav-mobile">
-          {items.map(it => <a key={it} href="#">{it}</a>)}
+          {items.map(it => (
+            <a key={it.label} href={it.href}
+               {...(it.externo ? { target: '_blank', rel: 'noreferrer' } : {})}>
+              {it.label}
+            </a>
+          ))}
           <button onClick={onAlertas} className="sede-nav-alertas sede-nav-alertas--mobile">
             <Icon name="bell" size={14}/> Alertas y Suscripciones
           </button>
@@ -93,7 +107,7 @@ const MainNav = ({ onAlertas }) => {
   );
 };
 
-/* ===== Footer ===== */
+/* ===== Footer (se mantiene igual) ===== */
 const Footer = ({ navigate, abrirTramite }) => (
   <footer className="sede-footer">
     <div className="sede-skyline-wrap" aria-hidden="true">
@@ -198,3 +212,4 @@ const Layout = ({ children }) => {
 };
 
 export default Layout;
+

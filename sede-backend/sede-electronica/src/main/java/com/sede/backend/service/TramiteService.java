@@ -47,4 +47,7 @@ public class TramiteService {
     public List<Tramite> obtenerPorCategoria(Long categoriaId) {
         return tramiteRepository.findByCategoriaIdOrderByTituloAsc(categoriaId);
     }
+    public Optional<Tramite> obtenerPorId(Long id) {
+        return tramiteRepository.findById(id);
+    }
 }

@@ -27,7 +27,11 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
   };
 
   const linkCabecera = getLinkCabecera();
+  
+  // 1. Definimos los 3 posibles estados reales
   const esVigente = tramite.estado === 'VIGENTE';
+  const esCerrado = tramite.estado === 'CERRADO';
+  const sinEstado = !esVigente && !esCerrado; // Para los que tienen estado NULL o vacío
 
   const tabs = ['información', 'documentación', 'normativa'].filter(tab => {
     if (tab === 'información')   return true;
@@ -38,17 +42,23 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
 
   return (
     <div className="home-content-wrapper">
-      <div className={`ficha-container ${esVigente ? 'ficha-vigente' : 'ficha-cerrada'}`}>
+      {/* Si es cerrado, rojo. Si es vigente o no tiene estado (null), azul/normal */}
+      <div className={`ficha-container ${esCerrado ? 'ficha-cerrada' : 'ficha-vigente'}`}>
 
         <header className="ficha-header">
           <button onClick={volver} className="btn-volver">← VOLVER</button>
           <div className="ficha-header-flex">
             <div className="ficha-header-main">
               <div className="ficha-meta-row">
-                <span className={`ficha-estado-pill ${esVigente ? 'vigente' : 'cerrado'}`}>
-                  <span className="ficha-estado-dot"/>
-                  {esVigente ? 'Trámite vigente' : 'Plazo cerrado'}
-                </span>
+                
+                {/* 2. La pastilla pequeña SOLO sale si es VIGENTE o CERRADO */}
+                {!sinEstado && (
+                  <span className={`ficha-estado-pill ${esVigente ? 'vigente' : 'cerrado'}`}>
+                    <span className="ficha-estado-dot"/>
+                    {esVigente ? 'Trámite vigente' : 'Plazo cerrado'}
+                  </span>
+                )}
+
                 {tramite.tipo && (
                   <span className="ficha-tipo-pill">{tramite.tipo}</span>
                 )}
@@ -62,7 +72,10 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
             </div>
 
             <div className="acciones-wrapper">
-              {esVigente ? (
+              {/* 3. Si está CERRADO, mostramos la etiqueta gigante. Si no (VIGENTE o NULL), mostramos botones */}
+              {esCerrado ? (
+                <div className="plazo-cerrado-badge">PLAZO CERRADO</div>
+              ) : (
                 <>
                   {tramite.urlExterna && (
                     <button
@@ -82,8 +95,6 @@ const FichaTramite = ({ tramite: tramiteRecibido, volver, activeTab, setActiveTa
                     </a>
                   )}
                 </>
-              ) : (
-                <div className="plazo-cerrado-badge">PLAZO CERRADO</div>
               )}
             </div>
           </div>

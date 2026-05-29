@@ -4,6 +4,7 @@ import './App.css';
 import Layout from './components/LayoutTEMP';
 import HomePage from './pages/HomePage';
 import FichaTramitePage from './pages/FichaTramitePage';
+import ConsultarPage from './pages/ConsultarPage';
 import SubvencionesPage from './pages/SubvencionesPage';
 import ListadoTramitesPage from './pages/ListadoTramitesPage';
 import ProcesosSelectivosPage from './pages/ProcesosSelectivosPage';
@@ -77,6 +78,7 @@ function AppContent() {
         } />
         <Route path="/tramite/:id" element={<FichaWrapper categorias={categorias} />} />
         <Route path="/categoria/:id"  element={<ListadoWrapper categorias={categorias} onAbrirTramite={abrirTramite} />} />
+        <Route path="/consultar" element={<ConsultarPage />} />
         <Route path="/subvenciones"   element={<SubvencionesPage volver={() => navigate('/')} />} />
         <Route path="/procesos-selectivos" element={<ProcesosSelectivosPage volver={() => navigate('/')} />} />
         <Route path="/plenos" element={<PlenosPage volver={() => navigate('/')} />} />

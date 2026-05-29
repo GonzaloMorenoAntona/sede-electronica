@@ -3,6 +3,7 @@ package com.sede.backend.controller;
 import com.sede.backend.model.Tramite;
 import com.sede.backend.service.TramiteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +31,12 @@ public class TramiteController {
             @RequestParam(required = false) String q,
             @RequestParam(required = false) List<Long> categoriaId) {
         return tramiteService.buscar(q, categoriaId != null ? categoriaId : List.of());
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Tramite> getById(@PathVariable Long id) {
+        return tramiteService.obtenerPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
 }

@@ -25,6 +25,8 @@ const SVG_PATHS = {
   x:         <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>,
   bell:      <><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></>,
   car:       <><path d="M5 17h-2v-6l2-5h13l4 5v6h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></>,
+  headset:   <><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></>,
+  zap:       <><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></>,
 };
 const Icon = ({ name, size = 16 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
@@ -33,7 +35,6 @@ const Icon = ({ name, size = 16 }) => (
   </svg>
 );
 
-/* ===== Datos ===== */
 const HERO_SLIDES = [
   { id: 1, image: imgAyuntamiento, title: 'Sede Electrónica del Ayuntamiento de Ciudad Real',
     subtitle: 'Accede a todos los trámites y servicios municipales desde cualquier lugar', cta: 'Acceder a trámites' },
@@ -43,45 +44,19 @@ const HERO_SLIDES = [
     subtitle: 'Tu opinión construye la ciudad. Consultas y proyectos normativos abiertos', cta: 'Participar ahora' },
 ];
 
-const QUICK_SHORTCUTS = [
-  { id: 25,  label: 'Certificado de empadronamiento', icon: 'doc' },
-  { id: 8,   label: 'Portal Tributario',             icon: 'creditcard', externo: true, url: 'https://carpetatributaria.ciudadreal.es/' },
-  { id: 1,   label: 'Estado de mis expedientes',     icon: 'folder' },
-  { id: 7,   label: 'Carpeta Ciudadana',             icon: 'user', externo: true, url: 'https://carpetaciudadana.gob.es/carpeta/clave.htm' },
-  { id: 14,  label: 'Procesos selectivos',           icon: 'briefcase' },
-  { id: 110, label: 'Instancia General',             icon: 'doc' },
+const ACCESOS = [
+  { id: 'tramitar',  icon: 'doc',        tono: 'azul',   titulo: 'Tramitar',
+    desc: 'Presenta solicitudes, instancia general, subvenciones y trámites municipales.', cta: 'Ir a trámites' },
+  { id: 'consultar', icon: 'folder',     tono: 'verde',  titulo: 'Consultar',
+    desc: 'Consulta tus expedientes, registros, documentos y notificaciones.',             cta: 'Consultar expedientes' },
+  { id: 'pagar',     icon: 'creditcard', tono: 'morado', titulo: 'Pagar y gestionar',
+    desc: 'Gestiona tributos, tasas, recibos y paga de forma segura.',                     cta: 'Ir a portal tributario' },
 ];
 
-const BANNERS = [
-  { id: 8, title: 'Portal Tributario',      desc: 'Consulta y paga tus recibos online',          icon: 'creditcard', url: 'https://carpetatributaria.ciudadreal.es/',                                    color1: '#1e40af', color2: '#1e3a8a' },
-  { id: 7, title: 'Carpeta Ciudadana',      desc: 'Accede a tus expedientes y notificaciones',   icon: 'folder',     url: 'https://carpetaciudadana.gob.es/carpeta/clave.htm',                            color1: '#334155', color2: '#1e293b' },
-  { id: 5, title: 'Perfil del Contratante', desc: 'Licitaciones y contratos municipales',        icon: 'briefcase',  url: 'https://www.ciudadreal.es/ayuntamiento/perfil-contratante.html',               color1: '#065f46', color2: '#064e3b' },
-];
+/* IDs cubiertos en otros sitios — no mostrar en Información Municipal */
+const OCULTAR_IDS = new Set([1, 8, 91, 92, 93, 94, 106]);
 
-const MUNICIPAL_LINKS = [
-  { id: 2,   title: 'Tablón de edictos electrónico',                                icon: 'building',   externo: true, url: 'https://etablon.dipucr.es:4443/eTablon/tablon.jsf?entidad=002' },
-  { id: 3,   title: 'Tablón de edictos electrónico IMPEFE',                         icon: 'building',   externo: true, url: 'https://etablon.dipucr.es:4443/eTablon/tablon.jsf?entidad=081' },
-  { id: 4,   title: 'Tablón Patronato Municipal de Personas con Discapacidad',      icon: 'building',   externo: true, url: 'https://etablon.dipucr.es:4443/eTablon/tablon.jsf?entidad=082' },
-  { id: 5,   title: 'Perfil del Contratante',                                       icon: 'briefcase',  externo: true, url: 'https://www.ciudadreal.es/ayuntamiento/perfil-contratante.html' },
-  { id: 6,   title: 'Transparencia y Buen Gobierno',                                icon: 'building',   externo: true, url: 'https://www.ciudadreal.es/gobierno-abierto/transparencia-y-buen-gobierno.html' },
-  { id: 53,  title: 'Plataforma ZBE Ciudad Real',                                   icon: 'car',        externo: true, url: 'https://zbe.ciudadreal.es/landing' },
-  { id: 9,   title: 'Consulta tu Registro telemático',                              icon: 'doc',        externo: true, url: 'https://se3.dipucr.es:4443/SIGEM_AutenticacionWeb/seleccionEntidad.do?REDIRECCION=ConsultaRegistroTelematico&tramiteId=&SESION_ID=&ENTIDAD_ID=002' },
-  { id: 95,  title: 'Empleo — Procesos selectivos',                                 icon: 'briefcase',  externo: true, url: 'https://www.ciudadreal.es/ayuntamiento/ofertas-de-empleo.html' },
-  {
-    id: 'cve', title: 'Verificación de documentos electrónicos', icon: 'shield',
-    subLinks: [
-      { label: 'Documentos del Ayuntamiento con CVE',                        url: 'https://se7.dipucr.es:4443/SIGEM_GestionCSVWeb/action/documento/form?idEntidad=002' },
-      { label: 'Documentos del Patronato Municipal de Deportes con CVE',     url: 'https://se7.dipucr.es:4443/SIGEM_GestionCSVWeb/action/documento/form?idEntidad=078' },
-      { label: 'Documentos del IMPEFE con CVE',                              url: 'https://se7.dipucr.es:4443/SIGEM_GestionCSVWeb/action/documento/form?idEntidad=081' },
-      { label: 'Documentos del Patronato de Personas con Discapacidad con CVE', url: 'https://se7.dipucr.es:4443/SIGEM_GestionCSVWeb/action/documento/form?idEntidad=082' },
-    ]
-  },
-  { id: 11,  title: 'Línea Verde',                                                  icon: 'leaf',       externo: true, url: 'https://www.lineaverdeciudadreal.com/' },
-  { id: 13,  title: 'Oficina de Sugerencias y Reclamaciones',                       icon: 'doc',        externo: true, url: 'https://www.ciudadreal.es/gobierno-abierto/oficina-sugerencias-reclamaciones.html' },
-  { id: 12,  title: 'Canal de denuncias',                                           icon: 'shield',     externo: true, url: 'https://www.ciudadreal.es/canal-de-denuncias.html' },
-];
-
-/* ===== Subcomponentes de contenido ===== */
+/* ===== Subcomponentes ===== */
 const HeroCarousel = ({ onCta }) => {
   const [idx, setIdx]   = useState(0);
   const [fade, setFade] = useState(false);
@@ -117,44 +92,6 @@ const HeroCarousel = ({ onCta }) => {
   );
 };
 
-const QuickShortcuts = ({ abrirTramite }) => (
-  <section className="sede-quick">
-    <div className="sede-quick-inner">
-      <span className="sede-quick-label">Lo más buscado:</span>
-      {QUICK_SHORTCUTS.map(s => (
-        s.externo ? (
-          <a key={s.id} href={s.url} target="_blank" rel="noreferrer" className="sede-quick-btn">
-            <Icon name={s.icon} size={12}/> {s.label}
-          </a>
-        ) : (
-          <button key={s.id} onClick={() => abrirTramite(s.id)} className="sede-quick-btn">
-            <Icon name={s.icon} size={12}/> {s.label}
-          </button>
-        )
-      ))}
-    </div>
-  </section>
-);
-
-const Banners = () => (
-  <section className="sede-banners">
-    <div className="sede-banners-inner">
-      {BANNERS.map(b => (
-        <a key={b.id} href={b.url} target="_blank" rel="noreferrer"
-           className="sede-banner"
-           style={{ background: `linear-gradient(135deg, ${b.color1}, ${b.color2})` }}>
-          <div className="sede-banner-icon"><Icon name={b.icon} size={22}/></div>
-          <div className="sede-banner-text">
-            <strong>{b.title}</strong>
-            <span>{b.desc}</span>
-          </div>
-          <Icon name="arrow" size={16}/>
-        </a>
-      ))}
-    </div>
-  </section>
-);
-
 const SearchSection = ({ categorias, abrirTramite }) => (
   <section className="sede-search">
     <div className="sede-search-inner">
@@ -165,19 +102,75 @@ const SearchSection = ({ categorias, abrirTramite }) => (
   </section>
 );
 
-const AlertsBanner = ({ onSuscribir, onCerrar }) => (
-  <section className="sede-alertas-banner">
-    <div className="sede-alertas-inner">
-      <div className="sede-alertas-icon"><Icon name="bell" size={22}/></div>
-      <div className="sede-alertas-text">
-        <strong>Alertas y Suscripciones Municipales</strong>
-        <p>Recibe notificaciones sobre subvenciones, empleo público, plenos y novedades que te interesan</p>
-      </div>
-      <button onClick={onSuscribir} className="sede-alertas-btn"><Icon name="bell" size={13}/> Suscribirse</button>
-      <button onClick={onCerrar} className="sede-alertas-close" aria-label="Cerrar"><Icon name="x" size={15}/></button>
+const AccesosPrincipales = ({ onTramitar, onConsultar, urlPagar }) => (
+  <section className="sede-accesos">
+    <div className="sede-accesos-inner">
+      {ACCESOS.map(a => {
+        const inner = (
+          <>
+            <div className="sede-acceso-icon"><Icon name={a.icon} size={26}/></div>
+            <div className="sede-acceso-body">
+              <h3>{a.titulo}</h3>
+              <p>{a.desc}</p>
+              <span className="sede-acceso-cta">{a.cta} <Icon name="arrow" size={15}/></span>
+            </div>
+          </>
+        );
+        if (a.id === 'pagar') {
+          return (
+            <a key={a.id} href={urlPagar} target="_blank" rel="noreferrer"
+               className={`sede-acceso sede-acceso--${a.tono}`}>{inner}</a>
+          );
+        }
+        return (
+          <button key={a.id} onClick={a.id === 'tramitar' ? onTramitar : onConsultar}
+                  className={`sede-acceso sede-acceso--${a.tono}`}>{inner}</button>
+        );
+      })}
     </div>
   </section>
 );
+
+const SoporteAlertas = ({ onSuscribir }) => {
+  const [visible, setVisible] = useState(true);
+  if (!visible) return null;
+  const enviarIncidencia = () => {
+    window.location.href =
+      'mailto:soporte@ciudadreal.es?subject=' +
+      encodeURIComponent('Incidencia Sede Electrónica') +
+      '&body=' +
+      encodeURIComponent('Describa la incidencia:\n\nNavegador / dispositivo:\nURL donde ocurre:\n');
+  };
+  return (
+    <section className="sede-banners-descartables">
+      <button className="sede-banner-cerrar" onClick={() => setVisible(false)} aria-label="Cerrar avisos">
+        <Icon name="x" size={18}/>
+      </button>
+      <div className="sede-banners-inner">
+        <div className="sede-banner-item azul">
+          <div className="sede-banner-icon"><Icon name="headset" size={24}/></div>
+          <div className="sede-banner-texto">
+            <strong>Ayuda y Soporte Técnico</strong>
+            <span>¿Tienes problemas? Contacta con soporte o lee nuestras guías.</span>
+          </div>
+          <button onClick={enviarIncidencia} className="sede-banner-btn">
+            Ver ayuda <Icon name="arrow" size={14}/>
+          </button>
+        </div>
+        <div className="sede-banner-item naranja">
+          <div className="sede-banner-icon"><Icon name="bell" size={24}/></div>
+          <div className="sede-banner-texto">
+            <strong>Suscripciones Municipales</strong>
+            <span>Recibe en tu correo las novedades que te interesan.</span>
+          </div>
+          <button onClick={onSuscribir} className="sede-banner-btn">
+            Gestionar alertas <Icon name="arrow" size={14}/>
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const ThematicAreas = ({ categorias, abrirCategoria }) => {
   const areas = categorias.filter(c => c.id <= 9);
@@ -207,61 +200,135 @@ const ThematicAreas = ({ categorias, abrirCategoria }) => {
   );
 };
 
-const MunicipalLinksGrid = ({ abrirTramite }) => (
-  <section className="sede-municipal">
-    <div className="sede-municipal-inner">
-      <h2><span className="sede-municipal-bar"/> Información Municipal</h2>
-      <div className="sede-municipal-grid">
-        {MUNICIPAL_LINKS.map(l => (
-          l.externo ? (
-            <a key={l.id} href={l.url} target="_blank" rel="noreferrer" className="sede-municipal-link">
-              <Icon name={l.icon} size={16}/><span>{l.title}</span>
-            </a>
-          ) : (
-            <button key={l.id} onClick={() => abrirTramite(l.id)} className="sede-municipal-link">
-              <Icon name={l.icon} size={16}/><span>{l.title}</span>
-            </button>
-          )
-        ))}
+const MunicipalLinksGrid = ({ items = [], abrirTramite }) => {
+  const [cveOpen, setCveOpen] = useState(false);
+
+  const visibles = (Array.isArray(items) ? items : [])
+    .filter(i => !OCULTAR_IDS.has(Number(i.id)));
+
+  const esCve    = i => /\bCVE\b/i.test(i.titulo || '');
+  const cve      = visibles.filter(esCve);
+  const normales = visibles.filter(i => !esCve(i));
+
+  if (!visibles.length) return null;
+
+  return (
+    <section className="sede-municipal">
+      <div className="sede-municipal-inner">
+        <h2><span className="sede-municipal-bar"/> Información Municipal</h2>
+        <div className="sede-municipal-grid">
+          {normales.map(i => {
+            if (i.urlExterna) {
+              return (
+                <a key={i.id} href={i.urlExterna} target="_blank" rel="noreferrer" className="sede-municipal-link">
+                  <Icon name="doc" size={16}/><span>{i.titulo}</span>
+                </a>
+              );
+            }
+            return (
+              <button key={i.id} onClick={() => abrirTramite(i.id)} className="sede-municipal-link">
+                <Icon name="doc" size={16}/><span>{i.titulo}</span>
+              </button>
+            );
+          })}
+
+          {cve.length > 0 && (
+            <div className={`sede-municipal-link sede-municipal-cve ${cveOpen ? 'open' : ''}`}
+                 onClick={() => setCveOpen(o => !o)}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <Icon name="shield" size={16}/> Verificación de documentos electrónicos
+              </span>
+              <Icon name={cveOpen ? 'chevL' : 'chevR'} size={14}/>
+              {cveOpen && (
+                <div className="sede-municipal-cve-drop">
+                  {cve.map(c => (
+                    <a key={c.id} href={c.urlExterna} target="_blank" rel="noreferrer"
+                       className="sede-municipal-cve-opt">{c.titulo}</a>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
+
+const AccesosRapidos = ({ onVerTodos }) => {
+  const [accesos, setAccesos] = useState([]);
+  useEffect(() => {
+    fetch('/api/accesos-rapidos')
+      .then(r => r.json()).then(setAccesos).catch(() => setAccesos([]));
+  }, []);
+  if (!accesos.length) return null;
+  return (
+    <section className="sede-rapidos">
+      <div className="sede-rapidos-inner">
+        <div className="sede-rapidos-head">
+          <h2><Icon name="zap" size={22}/> Accesos rápidos</h2>
+          <button className="sede-rapidos-vertodos" onClick={onVerTodos}>
+            Ver todos los servicios <Icon name="chevR" size={14}/>
+          </button>
+        </div>
+        <p className="sede-rapidos-sub">Accede de forma directa a los servicios electrónicos más utilizados.</p>
+        <div className="sede-rapidos-grid">
+          {accesos.map(a => (
+            <a key={a.id} href={a.url} target="_blank" rel="noreferrer"
+               className="sede-rapido-card" title={a.nombre}>
+              <img src={a.logo} alt={a.nombre} loading="lazy"/>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
 
 /* ===== HomePage ===== */
 const HomePage = ({ categorias, alSeleccionarTramite, abrirCategoria }) => {
   const navigate = useNavigate();
-  const [noticias, setNoticias]     = useState([]);
-  const [hideAlertas, setHideAlertas] = useState(false);
+  const [noticias,      setNoticias]      = useState([]);
+  const [infoMunicipal, setInfoMunicipal] = useState([]);
 
   useEffect(() => {
     fetch('/api/noticias?limit=24')
+      .then(r => r.json()).then(setNoticias).catch(() => setNoticias([]));
+
+    fetch('/api/tramites?categoriaId=13')
       .then(r => r.json())
-      .then(setNoticias)
-      .catch(() => setNoticias([]));
+      .then(data => {
+        if (Array.isArray(data)) setInfoMunicipal(data);
+        else if (data?.content) setInfoMunicipal(data.content);
+        else setInfoMunicipal([]);
+      })
+      .catch(() => setInfoMunicipal([]));
   }, []);
 
+  const urlPagar =
+    infoMunicipal.find(i => /portal tributario/i.test(i.titulo || ''))?.urlExterna || null;
+
   const irASuscripcion = () => navigate('/suscripcion');
+  const irAConsultar   = () => navigate('/consultar');
   const scrollTramites = () => document.getElementById('tramites')?.scrollIntoView({ behavior: 'smooth' });
 
   return (
     <>
       <HeroCarousel onCta={scrollTramites}/>
-      <QuickShortcuts abrirTramite={alSeleccionarTramite}/>
-      <Banners/>
+      <div className="sede-barra-fina-azul"/>
       <SearchSection categorias={categorias} abrirTramite={alSeleccionarTramite}/>
-      {!hideAlertas && <AlertsBanner onSuscribir={irASuscripcion} onCerrar={() => setHideAlertas(true)}/>}
+      <AccesosPrincipales onTramitar={scrollTramites} onConsultar={irAConsultar} urlPagar={urlPagar}/>
+      <SoporteAlertas onSuscribir={irASuscripcion}/>
       <ThematicAreas categorias={categorias} abrirCategoria={abrirCategoria}/>
       <section id="publicaciones" className="sede-publicaciones">
         <div className="sede-publicaciones-inner">
           <UltimasPublicaciones noticias={noticias} abrirTramite={alSeleccionarTramite}/>
         </div>
       </section>
-      <MunicipalLinksGrid abrirTramite={alSeleccionarTramite}/>
+      <MunicipalLinksGrid items={infoMunicipal} abrirTramite={alSeleccionarTramite}/>
+      <AccesosRapidos onVerTodos={scrollTramites}/>
     </>
   );
 };
 
 export default HomePage;
-
-

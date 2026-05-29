@@ -1,0 +1,290 @@
+/* ============================================================
+   CONSULTAR — PÁGINA DE CONSULTA DE EXPEDIENTES
+   Totalmente integrado con index.css y App.css
+   ============================================================ */
+
+.consultar-page {
+  max-width: 1140px;
+  /* Damos aire por arriba y abajo para separarlo de la cabecera/footer */
+  margin: 40px auto 60px; 
+  padding: 40px 50px 70px;
+  background: #fff;
+  /* Lo convertimos en una tarjeta flotante igual que FichaTramite */
+  border-radius: 20px; 
+  border: 1px solid var(--border-color);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+}
+
+/* ---- Cabecera de la página ---- */
+.consultar-head { margin-bottom: 26px; }
+
+.consultar-volver {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: none; border: none; cursor: pointer; font-family: inherit;
+  color: var(--text-muted); font-size: 0.85rem; font-weight: 600;
+  padding: 0; margin-bottom: 14px;
+  transition: color .15s;
+}
+.consultar-volver:hover { color: var(--primary-color); }
+
+.consultar-head h1 {
+  margin: 0 0 6px; font-size: 1.9rem; font-weight: 800;
+  color: var(--primary-color); letter-spacing: -0.02em;
+}
+
+.consultar-head p { 
+  margin: 0; 
+  color: var(--text-muted); 
+  font-size: 0.95rem; 
+  max-width: 640px; 
+}
+
+/* ============================================================
+   TARJETAS SUPERIORES (4)
+   ============================================================ */
+.consultar-cards {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  margin-bottom: 28px;
+}
+
+.consultar-card {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
+  text-align: left;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 22px 20px;
+  cursor: pointer; text-decoration: none; font-family: inherit;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.consultar-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 25px -5px rgba(0,115,171,0.1); /* Sombra global del TFG */
+}
+
+/* Tono del borde al pasar el ratón según color */
+.consultar-card.azul:hover    { border-color: var(--primary-color); }
+.consultar-card.verde:hover   { border-color: #059669; }
+.consultar-card.morado:hover  { border-color: #7c3aed; }
+.consultar-card.naranja:hover { border-color: #f59e0b; }
+
+/* Tarjeta "Estado de tus expedientes" cuando el panel está desplegado */
+.consultar-card.activa {
+  border-color: var(--primary-color);
+  border-width: 2px;
+  background: rgba(0,115,171,0.02);
+  box-shadow: 0 8px 20px -10px rgba(0,115,171,0.25);
+}
+
+.consultar-card-icon {
+  width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Usamos primary-color para la caja azul */
+.consultar-card-icon.azul    { background: rgba(0,115,171,0.08); color: var(--primary-color); }
+.consultar-card-icon.verde   { background: rgba(5,150,105,0.12); color: #059669; }
+.consultar-card-icon.morado  { background: rgba(124,58,237,0.12); color: #7c3aed; }
+.consultar-card-icon.naranja { background: rgba(245,158,11,0.15); color: #ea8a04; }
+
+/* Círculo del icono más sólido en la tarjeta activa */
+.consultar-card.activa .consultar-card-icon.azul { background: var(--primary-color); color: #fff; }
+
+.consultar-card-body { width: 100%; }
+
+.consultar-card-body h3 {
+  margin: 0 0 6px; font-size: 1rem; font-weight: 800; line-height: 1.25;
+  color: var(--text-main);
+}
+
+.consultar-card-body p {
+  margin: 0 0 14px; font-size: 0.82rem; color: var(--text-muted); line-height: 1.45;
+}
+
+.consultar-card-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.82rem; font-weight: 700;
+}
+
+.consultar-card.azul    .consultar-card-cta { color: var(--primary-color); }
+.consultar-card.verde   .consultar-card-cta { color: #059669; }
+.consultar-card.morado  .consultar-card-cta { color: #7c3aed; }
+.consultar-card.naranja .consultar-card-cta { color: #ea8a04; }
+
+/* ============================================================
+   PANEL DESPLEGABLE "ESTADO DE TUS EXPEDIENTES"
+   ============================================================ */
+.consultar-panel {
+  background: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 30px 28px;
+}
+
+.consultar-panel > h2 {
+  margin: 0 0 8px; font-size: 1.5rem; font-weight: 800;
+  color: var(--primary-color); letter-spacing: -0.01em;
+}
+
+.consultar-panel > p {
+  margin: 0 0 24px; font-size: 0.92rem; color: var(--text-muted);
+  line-height: 1.55; max-width: 760px;
+}
+
+/* ---- Los tres canales ---- */
+.consultar-canales {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-bottom: 24px;
+}
+
+.consultar-canal {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 22px 20px;
+  transition: all 0.2s;
+}
+
+.consultar-canal:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 8px 15px -5px rgba(0,115,171,0.08);
+}
+
+.consultar-canal-icon {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.consultar-canal-icon.azul   { background: rgba(0,115,171,0.08); color: var(--primary-color); }
+.consultar-canal-icon.verde  { background: rgba(5,150,105,0.12); color: #059669; }
+.consultar-canal-icon.morado { background: rgba(124,58,237,0.12); color: #7c3aed; }
+
+.consultar-canal h4 {
+  margin: 0; font-size: 0.98rem; font-weight: 800;
+  color: var(--text-main);
+}
+
+.consultar-canal p {
+  margin: 0; font-size: 0.82rem; color: var(--text-muted); line-height: 1.5;
+  flex: 1;
+}
+
+.consultar-canal-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 6px;
+  padding: 9px 18px; border-radius: 8px;
+  font-size: 0.82rem; font-weight: 700; text-decoration: none;
+  background: #fff; border: 1.5px solid currentColor;
+  transition: background .15s, color .15s;
+}
+
+.consultar-canal-btn.azul   { color: var(--primary-color); }
+.consultar-canal-btn.verde  { color: #059669; }
+.consultar-canal-btn.morado { color: #7c3aed; }
+
+.consultar-canal-btn.azul:hover   { background: var(--primary-color); color: #fff; }
+.consultar-canal-btn.verde:hover  { background: #059669; color: #fff; }
+.consultar-canal-btn.morado:hover { background: #7c3aed; color: #fff; }
+
+.consultar-canal-btn.disabled {
+  opacity: .5; pointer-events: none; cursor: default;
+}
+
+/* ============================================================
+   BANNER CARTA DE SERVICIOS
+   ============================================================ */
+.consultar-carta-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(0,115,171,0.03); /* Fondo azul clarito corporativo */
+  border: 1px solid rgba(0,115,171,0.15); /* Borde sutil corporativo */
+  border-radius: 12px;
+  padding: 14px 20px;
+  margin-top: 10px;
+}
+
+.consultar-carta-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(0,115,171,0.1); 
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.consultar-carta-texto {
+  font-size: 0.9rem;
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+.consultar-carta-texto strong {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.consultar-carta-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--primary-color);
+  text-decoration: underline;
+  font-weight: 600;
+  transition: color 0.15s;
+  margin-left: 6px;
+}
+
+.consultar-carta-link:hover {
+  color: var(--primary-hover);
+}
+
+.consultar-carta-link-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 2px 4px;
+  margin-right: 6px;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   RESPONSIVE (Layout.css)
+   ============================================================ */
+@media (max-width: 900px) {
+  /* En tablets/móviles grandes, escondemos los links largos y el botón de alertas */
+  .sede-nav-links { display: none; }
+  .sede-nav-alertas { display: none; }
+  
+  /* Activamos el botón de menú y el contenedor móvil */
+  .sede-nav-burger { display: block; }
+  .sede-nav-mobile { display: block; }
+  
+  /* El botón de alertas ahora vive DENTRO del menú móvil, arriba del todo */
+  .sede-nav-alertas--mobile { 
+    display: flex; 
+    width: 100%; 
+    justify-content: center; 
+    border-radius: 0;
+    padding: 16px;
+    background: #d97706; /* Un tono un poco más oscuro para diferenciarlo */
+  }
+}
+
+@media (max-width: 768px) {
+  /* Ajustes extra para móviles pequeños */
+  .sede-header-inner { flex-direction: column; text-align: center; gap: 8px; }
+  .sede-footer-cols { grid-template-columns: 1fr; gap: 24px; text-align: center; }
+  .sede-footer-contact { align-items: center; }
+  .sede-footer-social { justify-content: center; }
+  .sede-footer-bottom { justify-content: center; text-align: center; }
+}
