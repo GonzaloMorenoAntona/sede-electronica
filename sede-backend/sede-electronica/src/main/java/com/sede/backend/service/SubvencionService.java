@@ -43,6 +43,7 @@ public class SubvencionService {
         subvencion.setServicio(datos.getServicio());
         subvencion.setUrlConvocatoria(datos.getUrlConvocatoria());
         subvencion.setUrlJustificacion(datos.getUrlJustificacion());
+        subvencion.setBases(datos.getBases());
         subvencion.setAnexos(datos.getAnexos());
         subvencion.setFechaInicioPresentacion(datos.getFechaInicioPresentacion());
         subvencion.setFechaFinPresentacion(datos.getFechaFinPresentacion());

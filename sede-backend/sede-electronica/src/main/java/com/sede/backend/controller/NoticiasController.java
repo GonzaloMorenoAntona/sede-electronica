@@ -31,12 +31,21 @@ public class NoticiasController {
 
         // ---- Trámites ----
         tramiteRepo.findAll().forEach(t -> {
-            if (t.getFechaPublicacion() != null && "VIGENTE".equals(t.getEstado())) {
+            // 1. Condición estricta: Solo los que en la columna 'tipo' ponga "TRAMITE" y estén "VIGENTE"
+            if ("TRAMITE".equalsIgnoreCase(t.getTipo()) && "VIGENTE".equalsIgnoreCase(t.getEstado())) {
+
+                // 2. Escudo anti-errores: Si a algún trámite se le olvidó poner la fecha en BD, le ponemos la de hoy para que aparezca sí o sí y no se pierda.
+                java.time.LocalDate fechaAplicar = t.getFechaPublicacion() != null
+                        ? t.getFechaPublicacion()
+                        : java.time.LocalDate.now();
+
                 todas.add(new Noticia(
-                        t.getId(), "tramite", "Trámite",
+                        t.getId(),
+                        "tramite",  // ID del filtro para React (coincide con TIPO_CONFIG)
+                        "Trámite",  // Etiqueta visual que se pinta en la tarjeta
                         t.getTitulo(),
                         stripHtml(t.getDescripcionHtml()),
-                        t.getFechaPublicacion().atStartOfDay(),
+                        fechaAplicar.atStartOfDay(),
                         t.getId().toString()
                 ));
             }

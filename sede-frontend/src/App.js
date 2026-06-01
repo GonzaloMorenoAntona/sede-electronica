@@ -67,7 +67,7 @@ function AppContent() {
 };
 
   return (
-    <Layout>
+    <Layout abrirTramite={abrirTramite}>
       <Routes>
         <Route path="/" element={
           <HomePage

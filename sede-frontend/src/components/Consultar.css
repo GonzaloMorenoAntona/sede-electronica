@@ -258,33 +258,33 @@
 }
 
 /* ============================================================
-   RESPONSIVE (Layout.css)
+   RESPONSIVE
    ============================================================ */
-@media (max-width: 900px) {
-  /* En tablets/móviles grandes, escondemos los links largos y el botón de alertas */
-  .sede-nav-links { display: none; }
-  .sede-nav-alertas { display: none; }
+@media (max-width: 768px) {
+  .consultar-page {
+    margin: 20px 15px; /* Dejamos margen a los lados en el móvil */
+    padding: 24px 20px 40px;
+    border-radius: 16px; /* Redondeo un poco más suave en pantallas pequeñas */
+  }
+}
+@media (max-width: 1024px) {
+  .consultar-cards   { grid-template-columns: repeat(2, 1fr); }
+  .consultar-canales { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .consultar-cards   { grid-template-columns: 1fr; }
+  .consultar-panel   { padding: 22px 18px; }
   
-  /* Activamos el botón de menú y el contenedor móvil */
-  .sede-nav-burger { display: block; }
-  .sede-nav-mobile { display: block; }
-  
-  /* El botón de alertas ahora vive DENTRO del menú móvil, arriba del todo */
-  .sede-nav-alertas--mobile { 
-    display: flex; 
-    width: 100%; 
-    justify-content: center; 
-    border-radius: 0;
-    padding: 16px;
-    background: #d97706; /* Un tono un poco más oscuro para diferenciarlo */
+  .consultar-carta-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+  .consultar-carta-link {
+    margin-left: 0;
+    margin-top: 6px;
+    justify-content: center;
   }
 }
 
-@media (max-width: 768px) {
-  /* Ajustes extra para móviles pequeños */
-  .sede-header-inner { flex-direction: column; text-align: center; gap: 8px; }
-  .sede-footer-cols { grid-template-columns: 1fr; gap: 24px; text-align: center; }
-  .sede-footer-contact { align-items: center; }
-  .sede-footer-social { justify-content: center; }
-  .sede-footer-bottom { justify-content: center; text-align: center; }
-}

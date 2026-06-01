@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../pages/HomePage.css';
 import './Layout.css';
 
 import imgLogo    from '../assets/logo-ayuntamiento.jpg';
 import imgSkyline from '../assets/skyline-footer.png';
+
 console.log('Layout renderizado');
+
 /* ===== Iconos SVG ===== */
 const SVG_PATHS = {
   bell:     <><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></>,
@@ -58,9 +60,7 @@ const Header = () => (
   </header>
 );
 
-/* ===== MainNav =====
-   Solo "Web Municipal" (enlaza a la web del Ayuntamiento) y "Sede Electrónica" (activo).
-   Si la URL de la web municipal debe salir de BD/config, sustituye WEB_MUNICIPAL. */
+/* ===== MainNav ===== */
 const WEB_MUNICIPAL = 'https://www.ciudadreal.es';
 
 const MainNav = ({ onAlertas }) => {
@@ -92,87 +92,126 @@ const MainNav = ({ onAlertas }) => {
       </div>
       {open && (
         <div className="sede-nav-mobile">
+          <button onClick={onAlertas} className="sede-nav-alertas sede-nav-alertas--mobile">
+            <Icon name="bell" size={14}/> Alertas y Suscripciones
+          </button>
           {items.map(it => (
             <a key={it.label} href={it.href}
                {...(it.externo ? { target: '_blank', rel: 'noreferrer' } : {})}>
               {it.label}
             </a>
           ))}
-          <button onClick={onAlertas} className="sede-nav-alertas sede-nav-alertas--mobile">
-            <Icon name="bell" size={14}/> Alertas y Suscripciones
-          </button>
         </div>
       )}
     </nav>
   );
 };
 
-/* ===== Footer (se mantiene igual) ===== */
-const Footer = ({ navigate, abrirTramite }) => (
-  <footer className="sede-footer">
-    <div className="sede-skyline-wrap" aria-hidden="true">
-      <img src={imgSkyline} alt=""/>
-    </div>
-    <div className="sede-footer-inner">
-      <div className="sede-footer-cols">
-        <div className="sede-footer-col">
-          <h4>Sede Electrónica</h4>
-          <ul>
-            <li><button onClick={() => abrirTramite(1)}>Estado de tus expedientes</button></li>
-            <li><a href="https://carpetaciudadana.gob.es/carpeta/clave.htm" target="_blank" rel="noreferrer">Carpeta Ciudadana</a></li>
-            <li><a href="https://se7.dipucr.es:4443/SIGEM_GestionCSVWeb/action/documento/form?idEntidad=002" target="_blank" rel="noreferrer">Verificación de documentos</a></li>
-            <li><button onClick={() => abrirTramite(110)}>Instancia general</button></li>
-          </ul>
-        </div>
-        <div className="sede-footer-col">
-          <h4>Información</h4>
-          <ul>
-            <li><a href="https://etablon.dipucr.es:4443/eTablon/tablon.jsf?entidad=002" target="_blank" rel="noreferrer">Tablón de edictos</a></li>
-            <li><a href="https://www.ciudadreal.es/ayuntamiento/perfil-contratante.html" target="_blank" rel="noreferrer">Perfil del contratante</a></li>
-            <li><a href="https://www.ciudadreal.es/gobierno-abierto/transparencia-y-buen-gobierno.html" target="_blank" rel="noreferrer">Transparencia</a></li>
-            <li><a href="https://carpetatributaria.ciudadreal.es/" target="_blank" rel="noreferrer">Portal tributario</a></li>
-          </ul>
-        </div>
-        <div className="sede-footer-col">
-          <h4>Servicios</h4>
-          <ul>
-            <li><button onClick={() => navigate('/subvenciones')}>Subvenciones</button></li>
-            <li><button onClick={() => navigate('/plenos')}>Plenos municipales</button></li>
-            <li><button onClick={() => navigate('/convenios')}>Convenios</button></li>
-            <li><button onClick={() => navigate('/procesos-selectivos')}>Procesos selectivos</button></li>
-            <li><button onClick={() => navigate('/expedientes-info-publica')}>Información pública</button></li>
-            <li><button onClick={() => navigate('/participacion-normativa')}>Participación normativa</button></li>
-          </ul>
-        </div>
-        <div className="sede-footer-col">
-          <h4>Contacto</h4>
-          <ul className="sede-footer-contact">
-            <li><Icon name="mapPin" size={13}/> Plaza Mayor, 1 · 13001 Ciudad Real</li>
-            <li><Icon name="phone" size={13}/> <a href="tel:+34926211044">926 21 10 44</a></li>
-            <li><Icon name="mail" size={13}/> <a href="mailto:sede@ciudadreal.es">sede@ciudadreal.es</a></li>
-            <li><Icon name="clock" size={13}/> Lunes a Viernes 09:00 – 14:00</li>
-          </ul>
-          <div className="sede-footer-social">
-            <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><Icon name="fb" size={14}/></a>
-            <a href="https://twitter.com/"      target="_blank" rel="noreferrer" aria-label="Twitter"><Icon name="tw" size={14}/></a>
-            <a href="https://youtube.com/"      target="_blank" rel="noreferrer" aria-label="YouTube"><Icon name="yt" size={14}/></a>
+/* ===== Footer Dinámico ===== */
+const Footer = ({ navigate, abrirTramite }) => {
+  // Estado para guardar las URLs de la base de datos
+  const [urls, setUrls] = useState({
+    tablon: '#', perfil: '#', transparencia: '#', carpeta: '#', tributario: '#', cve: '#'
+  });
+
+  useEffect(() => {
+    // Hacemos las llamadas silenciosas a los IDs correspondientes
+    Promise.all([
+      fetch('/api/tramites/2').then(r => r.json()).catch(() => null),   // Tablón
+      fetch('/api/tramites/5').then(r => r.json()).catch(() => null),   // Perfil Contratante
+      fetch('/api/tramites/6').then(r => r.json()).catch(() => null),   // Transparencia
+      fetch('/api/tramites/7').then(r => r.json()).catch(() => null),   // Carpeta Ciudadana
+      fetch('/api/tramites/8').then(r => r.json()).catch(() => null),   // Tributario
+      fetch('/api/tramites/91').then(r => r.json()).catch(() => null),  // CVE
+    ]).then(([r2, r5, r6, r7, r8, r91]) => {
+      // Función defensiva para extraer la URL venga en Array o en Objeto
+      const extraerUrl = (res) => {
+        const data = Array.isArray(res) ? res[0] : res;
+        return data?.urlExterna || data?.url || '#';
+      };
+
+      setUrls({
+        tablon: extraerUrl(r2),
+        perfil: extraerUrl(r5),
+        transparencia: extraerUrl(r6),
+        carpeta: extraerUrl(r7),
+        tributario: extraerUrl(r8),
+        cve: extraerUrl(r91),
+      });
+    });
+  }, []);
+
+  // Función para bloquear clics si la URL aún no ha cargado ('#')
+  const manejarClickExterno = (url, e) => {
+    if (!url || url === '#') e.preventDefault();
+  };
+
+  return (
+    <footer className="sede-footer">
+      <div className="sede-skyline-wrap" aria-hidden="true">
+        <img src={imgSkyline} alt=""/>
+      </div>
+      <div className="sede-footer-inner">
+        <div className="sede-footer-cols">
+          <div className="sede-footer-col">
+            <h4>Sede Electrónica</h4>
+            <ul>
+              <li><button onClick={() => abrirTramite(1)}>Estado de tus expedientes</button></li>
+              <li><a href={urls.carpeta} target="_blank" rel="noreferrer" onClick={(e) => manejarClickExterno(urls.carpeta, e)}>Carpeta Ciudadana</a></li>
+              <li><a href={urls.cve} target="_blank" rel="noreferrer" onClick={(e) => manejarClickExterno(urls.cve, e)}>Verificación de documentos</a></li>
+              <li><button onClick={() => abrirTramite(110)}>Instancia general</button></li>
+            </ul>
+          </div>
+          <div className="sede-footer-col">
+            <h4>Información</h4>
+            <ul>
+              <li><a href={urls.tablon} target="_blank" rel="noreferrer" onClick={(e) => manejarClickExterno(urls.tablon, e)}>Tablón de edictos</a></li>
+              <li><a href={urls.perfil} target="_blank" rel="noreferrer" onClick={(e) => manejarClickExterno(urls.perfil, e)}>Perfil del contratante</a></li>
+              <li><a href={urls.transparencia} target="_blank" rel="noreferrer" onClick={(e) => manejarClickExterno(urls.transparencia, e)}>Transparencia</a></li>
+              <li><a href={urls.tributario} target="_blank" rel="noreferrer" onClick={(e) => manejarClickExterno(urls.tributario, e)}>Portal tributario</a></li>
+            </ul>
+          </div>
+          <div className="sede-footer-col">
+            <h4>Servicios</h4>
+            <ul>
+              <li><button onClick={() => navigate('/subvenciones')}>Subvenciones</button></li>
+              <li><button onClick={() => navigate('/plenos')}>Plenos municipales</button></li>
+              <li><button onClick={() => navigate('/convenios')}>Convenios</button></li>
+              <li><button onClick={() => navigate('/procesos-selectivos')}>Procesos selectivos</button></li>
+              <li><button onClick={() => navigate('/expedientes-info-publica')}>Información pública</button></li>
+              <li><button onClick={() => navigate('/participacion-normativa')}>Participación normativa</button></li>
+              <li><button onClick={() => navigate('/juntas-gobierno')}>Juntas de gobierno</button></li>
+            </ul>
+          </div>
+          <div className="sede-footer-col">
+            <h4>Contacto</h4>
+            <ul className="sede-footer-contact">
+              <li><Icon name="mapPin" size={13}/> Plaza Mayor, 1 · 13001 Ciudad Real</li>
+              <li><Icon name="phone" size={13}/> <a href="tel:+34926211044">926 21 10 44</a></li>
+              <li><Icon name="mail" size={13}/> <a href="mailto:sede@ciudadreal.es">sede@ciudadreal.es</a></li>
+              <li><Icon name="clock" size={13}/> Lunes a Viernes 09:00 – 14:00</li>
+            </ul>
+            <div className="sede-footer-social">
+              <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><Icon name="fb" size={14}/></a>
+              <a href="https://twitter.com/"      target="_blank" rel="noreferrer" aria-label="Twitter"><Icon name="tw" size={14}/></a>
+              <a href="https://youtube.com/"      target="_blank" rel="noreferrer" aria-label="YouTube"><Icon name="yt" size={14}/></a>
+            </div>
           </div>
         </div>
+        <div className="sede-footer-bottom">
+          <p>© {new Date().getFullYear()} Ayuntamiento de Ciudad Real · Sede Electrónica</p>
+          <ul>
+            <li><a href="https://www.ciudadreal.es/aviso-legal">Política de privacidad y Aviso legal</a></li>
+            <li><a href="https://www.ciudadreal.es/servicios-municipales/urbanismo/accesibilidad/declaraci%C3%B3n-de-accesibilidad-web.html">Declaración de accesibilidad web</a></li>
+          </ul>
+        </div>
       </div>
-      <div className="sede-footer-bottom">
-        <p>© {new Date().getFullYear()} Ayuntamiento de Ciudad Real · Sede Electrónica</p>
-        <ul>
-          <li><a href="#">Aviso legal</a></li>
-          <li><a href="#">Política de privacidad</a></li>
-          <li><a href="#">Accesibilidad</a></li>
-        </ul>
-      </div>
-    </div>
-  </footer>
-);
+    </footer>
+  );
+};
 
-/* ===== Layout ===== */
-const Layout = ({ children }) => {
+/* ===== Layout (Ahora recibe abrirTramite por props) ===== */
+const Layout = ({ children, abrirTramite }) => {
   const navigate = useNavigate();
 
   const handleFontSize = (dir) => {
@@ -186,16 +225,6 @@ const Layout = ({ children }) => {
     } else {
       b.classList.remove('font-xlarge', 'font-large');
     }
-  };
-
-  const abrirTramite = (id) => {
-    if (id === 16) navigate('/subvenciones');
-    else if (id === 14 || id === 59) navigate('/procesos-selectivos');
-    else if (id === 115) navigate('/plenos');
-    else if (id === 116) navigate('/convenios');
-    else if (id === 117) navigate('/expedientes-info-publica');
-    else if (id === 118) navigate('/participacion-normativa');
-    else navigate(`/tramite/${id}`);
   };
 
   return (
@@ -212,4 +241,3 @@ const Layout = ({ children }) => {
 };
 
 export default Layout;
-

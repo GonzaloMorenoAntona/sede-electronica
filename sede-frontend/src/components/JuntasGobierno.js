@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import './JuntasGobierno.css';
-console.log('Cargando componente JuntasGobierno...');
+
 const MESES = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
 
 const PATHS = {

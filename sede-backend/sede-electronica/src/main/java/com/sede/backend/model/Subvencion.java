@@ -28,7 +28,10 @@ public class Subvencion {
     private String urlJustificacion;
 
     @Column(columnDefinition = "JSON")
-    private String anexos;
+    private String bases;   // Bases reguladoras y convocatoria
+
+    @Column(columnDefinition = "JSON")
+    private String anexos;  // Documentación adicional (anexos)
 
     @Column(name = "fecha_inicio_presentacion")
     private LocalDate fechaInicioPresentacion;

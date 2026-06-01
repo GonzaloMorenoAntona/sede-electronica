@@ -15,10 +15,8 @@ import java.util.Map;
 @RequestMapping("/api/subvenciones")
 public class SubvencionController {
 
-    @Autowired
-    private SubvencionService service;
-    @Autowired
-    private SuscripcionService suscripcionService;
+    @Autowired private SubvencionService service;
+    @Autowired private SuscripcionService suscripcionService;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -39,6 +37,8 @@ public class SubvencionController {
             subvencion.setServicio((String) body.get("servicio"));
             subvencion.setUrlConvocatoria((String) body.get("urlConvocatoria"));
             subvencion.setUrlJustificacion((String) body.get("urlJustificacion"));
+            subvencion.setBases(objectMapper.writeValueAsString(body.get("bases")));
+            subvencion.setAnexos(objectMapper.writeValueAsString(body.get("anexos")));
             if (body.get("fechaInicioPresentacion") != null)
                 subvencion.setFechaInicioPresentacion(LocalDate.parse((String) body.get("fechaInicioPresentacion")));
             if (body.get("fechaFinPresentacion") != null)
@@ -47,7 +47,6 @@ public class SubvencionController {
                 subvencion.setFechaInicioJustificacion(LocalDate.parse((String) body.get("fechaInicioJustificacion")));
             if (body.get("fechaFinJustificacion") != null)
                 subvencion.setFechaFinJustificacion(LocalDate.parse((String) body.get("fechaFinJustificacion")));
-            subvencion.setAnexos(objectMapper.writeValueAsString(body.get("anexos")));
 
             return service.guardarOActualizar(apiKey, subvencion)
                     .map(s -> {

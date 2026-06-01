@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import './Subvenciones.css';
-console.log('Subvenciones.js cargado');
+
 /* ===== Iconos ===== */
 const PATHS = {
   clock: <><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></>,
@@ -38,8 +38,9 @@ const getAreaIcono = (servicio) => {
 };
 
 /* ===== Helpers ===== */
-const parseAnexos = (j) => {
-  try { return typeof j === 'string' ? JSON.parse(j) : (j || []); } catch { return []; }
+const parseArr = (j) => {
+  try { const r = typeof j === 'string' ? JSON.parse(j) : j; return Array.isArray(r) ? r : []; }
+  catch { return []; }
 };
 
 const diasHasta = (f) => {
@@ -49,7 +50,6 @@ const diasHasta = (f) => {
   return Math.ceil((fin - hoy) / 86400000);
 };
 
-/* Justificación tiene prioridad sobre convocatoria si ambas están abiertas */
 const getEstado = (sub) => {
   const dP = diasHasta(sub.fechaFinPresentacion);
   const dJ = diasHasta(sub.fechaFinJustificacion);
@@ -61,16 +61,14 @@ const getEstado = (sub) => {
 
 /* ===== Tarjeta ===== */
 const Card = ({ sub }) => {
-  const anexos  = parseAnexos(sub.anexos);
+  const bases   = parseArr(sub.bases);
+  const anexos  = parseArr(sub.anexos);
   const e       = getEstado(sub);
   const ai      = getAreaIcono(sub.servicio);
   const abierto = e.dias !== null && e.dias >= 0;
 
-  // Botón principal: tramitar usa urlConvocatoria, justificar usa urlJustificacion
   const btnUrl   = e.tipo === 'conv-abierta' ? sub.urlConvocatoria : sub.urlJustificacion;
   const btnLabel = e.tipo === 'conv-abierta' ? 'Tramitar solicitud' : 'Presentar justificación';
-
-
 
   return (
     <article className="subv-card">
@@ -95,11 +93,31 @@ const Card = ({ sub }) => {
       </div>
 
       <div className="subv-docs">
-        {anexos.map((an, i) => (
-          <a key={i} href={an.url} target="_blank" rel="noreferrer" className="subv-doc">
-            <Icon name="doc" /> {an.label} <span>PDF</span>
-          </a>
-        ))}
+        {bases.length > 0 && (
+          <>
+            <span className="subv-docs-label">Bases reguladoras</span>
+            {bases.map((b, i) => (
+              <a key={i} href={b.url} target="_blank" rel="noreferrer" className="subv-doc">
+                <span className="subv-doc-pdf">PDF</span>
+                <span className="subv-doc-nombre">{b.label}</span>
+              </a>
+            ))}
+          </>
+        )}
+        {anexos.length > 0 && (
+          <>
+            <span className="subv-docs-label" style={{ marginTop: bases.length ? 8 : 0 }}>Documentación</span>
+            {anexos.map((an, i) => (
+              <a key={i} href={an.url} target="_blank" rel="noreferrer" className="subv-doc">
+                <span className="subv-doc-pdf">PDF</span>
+                <span className="subv-doc-nombre">{an.label}</span>
+              </a>
+            ))}
+          </>
+        )}
+        {bases.length === 0 && anexos.length === 0 && (
+          <span className="subv-docs-vacio">Sin documentación adjunta</span>
+        )}
       </div>
 
       <div className="subv-acciones">
@@ -128,13 +146,11 @@ const Subvenciones = ({ datos, anioActivo, setAnioActivo, volver }) => {
   const filtrados = useMemo(() => datos.filter(d => {
     if (Number(d.anio) !== anioActivo) return false;
     if (filtroArea !== 'todas' && d.servicio !== filtroArea) return false;
-
     const e = getEstado(d);
     if (filtroEstado === 'abiertas' && !['conv-abierta', 'just-abierta'].includes(e.tipo)) return false;
     if (filtroEstado === 'cerradas' && !['conv-cerrada', 'just-cerrada'].includes(e.tipo)) return false;
     if (filtroTramitacion === 'solicitud'     && e.tipo !== 'conv-abierta') return false;
     if (filtroTramitacion === 'justificacion' && e.tipo !== 'just-abierta') return false;
-
     if (busqueda.trim()) {
       const q = busqueda.toLowerCase();
       return (d.titulo?.toLowerCase().includes(q) ||
@@ -144,7 +160,9 @@ const Subvenciones = ({ datos, anioActivo, setAnioActivo, volver }) => {
     return true;
   }), [datos, anioActivo, busqueda, filtroArea, filtroEstado, filtroTramitacion]);
 
-  const justAbiertas = filtrados.filter(d => diasHasta(d.fechaFinJustificacion) !== null && diasHasta(d.fechaFinJustificacion) >= 0).length;
+  const justAbiertas = filtrados.filter(d =>
+    diasHasta(d.fechaFinJustificacion) !== null && diasHasta(d.fechaFinJustificacion) >= 0
+  ).length;
 
   return (
     <div className="home-content-wrapper">
@@ -174,13 +192,10 @@ const Subvenciones = ({ datos, anioActivo, setAnioActivo, volver }) => {
       </div>
 
       <div className="subv-controles">
-        <input
-          type="text"
-          className="subv-search-input"
+        <input type="text" className="subv-search-input"
           placeholder="Buscar subvención, área, palabra clave..."
-          autoComplete="off"
-          spellCheck="false"
-          onInput={(ev) => setBusqueda(ev.target.value)}
+          autoComplete="off" spellCheck="false"
+          onInput={ev => setBusqueda(ev.target.value)}
         />
         <select value={filtroArea} onChange={ev => setFiltroArea(ev.target.value)}>
           <option value="todas">Área: Todas</option>
@@ -210,3 +225,4 @@ const Subvenciones = ({ datos, anioActivo, setAnioActivo, volver }) => {
 };
 
 export default Subvenciones;
+
