@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './UltimasPublicaciones.css';
-
+console.log('UltimasPublicaciones renderizado');
 /* ===== Config visual por tipo ===== */
 const TIPO_CONFIG = {
   tramite:        { label: 'Trámite',                  color: '#305985', bg: '#e6f1fb' },
@@ -126,7 +126,7 @@ const UltimasPublicaciones = ({ noticias = [], abrirTramite = () => {} }) => {
     <section className="up-section">
       <div className="up-header">
         <div>
-          <h2 className="section-title" style={{ marginBottom: 4 }}>Últimas Publicaciones</h2>
+          <h2 className="up-titulo">Últimas Publicaciones</h2>
           <p className="up-subtitulo">
             Nuevos trámites, convocatorias, plenos y novedades del Ayuntamiento
           </p>

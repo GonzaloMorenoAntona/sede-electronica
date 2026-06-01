@@ -241,8 +241,16 @@ body.font-xlarge  { font-size: 122%; }
 /* ============================================================
    ÚLTIMAS PUBLICACIONES
    ============================================================ */
-.sede-publicaciones { background: var(--bg-light); padding: 40px 0; }
-.sede-publicaciones-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.sede-publicaciones { 
+  background: var(--bg-light); 
+  padding: 50px 0; 
+  border-top: 1px solid var(--border-color); /* <--- Línea de ancho completo */
+}
+.sede-publicaciones-inner { 
+  max-width: 1200px; 
+  margin: 0 auto; 
+  padding: 0 24px; 
+}
 .sede-publicaciones-inner .up-section { margin-top: 0; }
 
 /* ============================================================
@@ -250,15 +258,6 @@ body.font-xlarge  { font-size: 122%; }
    ============================================================ */
 .sede-municipal { background: #fff; padding: 50px 0; }
 .sede-municipal-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-.sede-municipal-inner h2 {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 1.3rem; font-weight: 800; color: var(--text-main);
-  margin: 0 0 22px; letter-spacing: -0.01em;
-}
-.sede-municipal-bar {
-  display: inline-block; width: 4px; height: 22px;
-  background: var(--primary-color); border-radius: 2px;
-}
 .sede-municipal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 
 .sede-municipal-link {
