@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import '../pages/HomePage.css';
 import './Layout.css';
 
-import imgLogo    from '../assets/logo-ayuntamiento.jpg';
-import imgSkyline from '../assets/skyline-footer.png';
 
 console.log('Layout renderizado');
 
@@ -51,7 +49,7 @@ const TopBar = ({ onFontSize }) => {
 const Header = () => (
   <header className="sede-header">
     <div className="sede-header-inner">
-      <img src={imgLogo} alt="Escudo del Ayuntamiento de Ciudad Real" className="sede-header-logo"/>
+      <img src="/assets/logo-ayuntamiento.jpg" alt="Escudo del Ayuntamiento de Ciudad Real" className="sede-header-logo"/>
       <div className="sede-header-title">
         <strong>Ciudad Real</strong>
         <span>Sede Electrónica</span>
@@ -149,7 +147,7 @@ const Footer = ({ navigate, abrirTramite }) => {
   return (
     <footer className="sede-footer">
       <div className="sede-skyline-wrap" aria-hidden="true">
-        <img src={imgSkyline} alt=""/>
+        <img src="/assets/skyline-footer.png" alt="Línea de horizonte de Ciudad Real"/>
       </div>
       <div className="sede-footer-inner">
         <div className="sede-footer-cols">

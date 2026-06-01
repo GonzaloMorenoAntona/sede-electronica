@@ -4,10 +4,6 @@ import BuscadorPage from './BuscadorPage';
 import IconoMuni from './IconoMuni';
 import UltimasPublicaciones from '../components/UltimasPublicaciones';
 
-import imgAyuntamiento from '../assets/ayuntamiento.jpg';
-import imgPrado        from '../assets/parque-prado.jpg';
-import imgPuerta       from '../assets/puerta-toledo.jpg';
-
 /* ===== Iconos SVG ===== */
 const SVG_PATHS = {
   search:    <><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></>,
@@ -36,11 +32,11 @@ const Icon = ({ name, size = 16 }) => (
 );
 
 const HERO_SLIDES = [
-  { id: 1, image: imgAyuntamiento, title: 'Sede Electrónica del Ayuntamiento de Ciudad Real',
+  { id: 1, image: '/assets/ayuntamiento.jpg', title: 'Sede Electrónica del Ayuntamiento de Ciudad Real',
     subtitle: 'Accede a todos los trámites y servicios municipales desde cualquier lugar', cta: 'Acceder a trámites' },
-  { id: 2, image: imgPrado, title: 'Trámites electrónicos disponibles 24 horas',
+  { id: 2, image: '/assets/parque-prado.jpg', title: 'Trámites electrónicos disponibles 24 horas',
     subtitle: 'Gestiona tus expedientes sin desplazarte. Administración más cercana, más eficiente', cta: 'Ver todos los trámites' },
-  { id: 3, image: imgPuerta, title: 'Participación Ciudadana en Ciudad Real',
+  { id: 3, image: '/assets/puerta-toledo.jpg', title: 'Participación Ciudadana en Ciudad Real',
     subtitle: 'Tu opinión construye la ciudad. Consultas y proyectos normativos abiertos', cta: 'Participar ahora' },
 ];
 
