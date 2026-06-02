@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate, useParams } from 'react-router-dom';
+import useMatomo from './hooks/useMatomo';
 import './App.css';
 import Layout from './components/LayoutTEMP';
 import HomePage from './pages/HomePage';
@@ -45,6 +46,7 @@ const ListadoWrapper = ({ categorias, onAbrirTramite }) => {
 };
 
 function AppContent() {
+  useMatomo()
   const [categorias, setCategorias] = useState([]);
   const navigate = useNavigate();
 

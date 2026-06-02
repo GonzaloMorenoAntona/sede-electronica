@@ -50,7 +50,7 @@ const ACCESOS = [
 ];
 
 /* ===== Subcomponentes ===== */
-const HeroCarousel = ({ onCta }) => {
+const CarruselHero = ({ onCta }) => {
   const [idx, setIdx]   = useState(0);
   const [fade, setFade] = useState(false);
   const go = useCallback((i) => {
@@ -85,7 +85,7 @@ const HeroCarousel = ({ onCta }) => {
   );
 };
 
-const SearchSection = ({ categorias, abrirTramite }) => (
+const SeccionBuscador = ({ categorias, abrirTramite }) => (
   <section className="sede-search">
     <div className="sede-search-inner">
       <h2>¿Qué trámite necesitas realizar?</h2>
@@ -165,7 +165,7 @@ const SoporteAlertas = ({ onSuscribir }) => {
   );
 };
 
-const ThematicAreas = ({ categorias, abrirCategoria }) => {
+const AreasTematicas = ({ categorias, abrirCategoria }) => {
   const areas = categorias.filter(c => c.id <= 9);
   return (
     <section id="tramites" className="sede-areas">
@@ -193,7 +193,7 @@ const ThematicAreas = ({ categorias, abrirCategoria }) => {
   );
 };
 
-const MunicipalLinksGrid = ({ items = [] }) => {
+const EnlacesMunicipales = ({ items = [] }) => {
   const navigate = useNavigate();
   const [cveOpen, setCveOpen] = useState(false);
 
@@ -209,7 +209,10 @@ const MunicipalLinksGrid = ({ items = [] }) => {
   return (
     <section className="sede-municipal">
       <div className="sede-municipal-inner">
-        <h2><span className="sede-municipal-bar"/> Información Municipal</h2>
+        <div className="sede-section-head">
+          <h2>Información Municipal</h2>
+          <p>Accede a los tablones, documentos y portales del Ayuntamiento</p>
+        </div>
         <div className="sede-municipal-grid">
           {normales.map(i => (
             urlItem(i) ? (
@@ -340,18 +343,18 @@ const HomePage = ({ categorias, alSeleccionarTramite, abrirCategoria }) => {
 
   return (
     <>
-      <HeroCarousel onCta={scrollTramites}/>
+      <CarruselHero onCta={scrollTramites}/>
       <div className="sede-barra-fina-azul"/>
-      <SearchSection categorias={categorias} abrirTramite={alSeleccionarTramite}/>
+      <SeccionBuscador categorias={categorias} abrirTramite={alSeleccionarTramite}/>
       <AccesosPrincipales onTramitar={scrollTramites} onConsultar={irAConsultar} urlPagar={urlPagar}/>
       <SoporteAlertas onSuscribir={irASuscripcion}/>
-      <ThematicAreas categorias={categorias} abrirCategoria={abrirCategoria}/>
+      <AreasTematicas categorias={categorias} abrirCategoria={abrirCategoria}/>
       <section id="publicaciones" className="sede-publicaciones">
         <div className="sede-publicaciones-inner">
           <UltimasPublicaciones noticias={noticias} abrirTramite={alSeleccionarTramite}/>
         </div>
       </section>
-      <MunicipalLinksGrid items={infoMunicipal} abrirTramite={alSeleccionarTramite}/>
+      <EnlacesMunicipales items={infoMunicipal} abrirTramite={alSeleccionarTramite}/>
       <AccesosRapidos abrirTramite={alSeleccionarTramite}/>
     </>
   );
