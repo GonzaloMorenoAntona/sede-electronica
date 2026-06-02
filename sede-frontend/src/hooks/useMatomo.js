@@ -20,7 +20,7 @@ const useMatomo = () => {
 
   useEffect(() => {
     // No registrar en desarrollo
-    if (window.location.hostname === 'localhost') return;
+    //if (window.location.hostname === 'localhost') return;
 
     const titulo = TITULOS_RUTAS[location.pathname] || location.pathname;
 
