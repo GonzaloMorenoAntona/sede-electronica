@@ -34,7 +34,7 @@ public class NoticiasController {
             // 1. Condición estricta: Solo los que en la columna 'tipo' ponga "TRAMITE" y estén "VIGENTE"
             if ("TRAMITE".equalsIgnoreCase(t.getTipo()) && "VIGENTE".equalsIgnoreCase(t.getEstado())) {
 
-                // 2. Escudo anti-errores: Si a algún trámite se le olvidó poner la fecha en BD, le ponemos la de hoy para que aparezca sí o sí y no se pierda.
+                // 2. Si a algún trámite se le olvidó poner la fecha en BD, le ponemos la de hoy para que aparezca sí o sí y no se pierda.
                 java.time.LocalDate fechaAplicar = t.getFechaPublicacion() != null
                         ? t.getFechaPublicacion()
                         : java.time.LocalDate.now();

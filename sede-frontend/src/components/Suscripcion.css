@@ -134,3 +134,14 @@
 .susc-gestion {
   margin-top: 12px;
 }
+
+.subv-plazo {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.subv-plazo-label {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 0.72rem; color: #64748b; font-weight: 600;
+}
+.subv-plazo strong {
+  font-size: 0.88rem; color: #1e293b; font-weight: 700;
+}

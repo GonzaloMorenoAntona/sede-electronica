@@ -24,7 +24,7 @@ public class ConvenioService {
     private ConvenioRepository repository;
 
     public List<Convenio> listarTodos() {
-        return repository.findAll();
+        return repository.findAllByOrderByFechaSincronizacionDesc();
     }
 
     public Optional<Convenio> guardarOActualizar(String apiKey, Convenio datos) {

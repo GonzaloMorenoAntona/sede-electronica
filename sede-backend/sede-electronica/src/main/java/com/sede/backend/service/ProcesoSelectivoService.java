@@ -23,7 +23,7 @@ public class ProcesoSelectivoService {
     private ProcesoSelectivoRepository repository;
 
     public List<ProcesoSelectivo> listarTodos() {
-        return repository.findAll();
+        return repository.findAllByOrderByFechaSincronizacionDesc();
     }
 
     public Optional<ProcesoSelectivo> guardarOActualizar(String apiKey, ProcesoSelectivo datos) {

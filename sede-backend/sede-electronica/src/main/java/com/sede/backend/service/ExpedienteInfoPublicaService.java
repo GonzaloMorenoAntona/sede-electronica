@@ -23,7 +23,7 @@ public class ExpedienteInfoPublicaService {
     private ExpedienteInfoPublicaRepository repository;
 
     public List<ExpedienteInfoPublica> listarTodos() {
-        return repository.findAll();
+        return repository.findAllByOrderByFechaSincronizacionDesc();
     }
 
     public Optional<ExpedienteInfoPublica> guardarOActualizar(String apiKey, ExpedienteInfoPublica datos) {

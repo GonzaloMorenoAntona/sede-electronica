@@ -23,7 +23,7 @@ public class ConsultaPublicaService {
     private ConsultaPublicaRepository repository;
 
     public List<ConsultaPublica> listarTodas() {
-        return repository.findAll();
+        return repository.findAllByOrderByFechaSincronizacionDesc();
     }
 
     public Optional<ConsultaPublica> guardarOActualizar(String apiKey, ConsultaPublica datos) {

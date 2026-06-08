@@ -1,11 +1,12 @@
 import React, { useState, useMemo } from 'react';
 import './Subvenciones.css';
-
+console.log('Subvenciones component loaded');
 /* ===== Iconos ===== */
 const PATHS = {
   clock: <><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></>,
   doc:   <><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></>,
   ext:   <><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></>,
+  cal:   <><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></>,
 };
 const Icon = ({ name, size = 14 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -43,6 +44,14 @@ const parseArr = (j) => {
   catch { return []; }
 };
 
+const formatFecha = (f) => {
+  if (!f) return null;
+  const d = new Date(f);
+  const dia = String(d.getDate()).padStart(2, '0');
+  const mes = String(d.getMonth() + 1).padStart(2, '0');
+  return `${dia}/${mes}/${d.getFullYear()}`;
+};
+
 const diasHasta = (f) => {
   if (!f) return null;
   const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
@@ -67,6 +76,12 @@ const Card = ({ sub }) => {
   const ai      = getAreaIcono(sub.servicio);
   const abierto = e.dias !== null && e.dias >= 0;
 
+  const esConv     = e.tipo.startsWith('conv');
+  const fechaInicio = esConv ? sub.fechaInicioPresentacion : sub.fechaInicioJustificacion;
+  const fechaFin    = esConv ? sub.fechaFinPresentacion    : sub.fechaFinJustificacion;
+  const labelInicio = esConv ? 'Inicio convocatoria'       : 'Inicio justificación';
+  const labelFin    = esConv ? 'Fin convocatoria'          : 'Fin justificación';
+
   const btnUrl   = e.tipo === 'conv-abierta' ? sub.urlConvocatoria : sub.urlJustificacion;
   const btnLabel = e.tipo === 'conv-abierta' ? 'Tramitar solicitud' : 'Presentar justificación';
 
@@ -87,34 +102,45 @@ const Card = ({ sub }) => {
 
       <div className="subv-estado">
         <span className={`subv-badge subv-badge--${e.tipo}`}>{e.label}</span>
+        <div className="subv-fechas-grid">
+          {fechaInicio && (
+            <div className="subv-fecha-box">
+              <Icon name="cal" size={13}/>
+              <span>{labelInicio}</span>
+              <strong>{formatFecha(fechaInicio)}</strong>
+            </div>
+          )}
+          {fechaFin && (
+            <div className="subv-fecha-box">
+              <Icon name="cal" size={13}/>
+              <span>{labelFin}</span>
+              <strong>{formatFecha(fechaFin)}</strong>
+            </div>
+          )}
+        </div>
         <span className={`subv-tiempo ${abierto ? 'abierto' : 'cerrado'}`}>
-          <Icon name="clock" /> {abierto ? `Quedan ${e.dias} día${e.dias !== 1 ? 's' : ''}` : 'Plazo cerrado'}
+          <Icon name="clock"/> {abierto ? `Quedan ${e.dias} día${e.dias !== 1 ? 's' : ''}` : 'Plazo cerrado'}
         </span>
       </div>
 
       <div className="subv-docs">
-        {bases.length > 0 && (
-          <>
-            <span className="subv-docs-label">Bases reguladoras</span>
-            {bases.map((b, i) => (
-              <a key={i} href={b.url} target="_blank" rel="noreferrer" className="subv-doc">
-                <span className="subv-doc-pdf">PDF</span>
-                <span className="subv-doc-nombre">{b.label}</span>
-              </a>
-            ))}
-          </>
+        {(bases.length > 0 || anexos.length > 0) && (
+          <span className="subv-docs-header"><Icon name="doc" size={13}/> Documentación</span>
         )}
-        {anexos.length > 0 && (
-          <>
-            <span className="subv-docs-label" style={{ marginTop: bases.length ? 8 : 0 }}>Documentación</span>
-            {anexos.map((an, i) => (
-              <a key={i} href={an.url} target="_blank" rel="noreferrer" className="subv-doc">
-                <span className="subv-doc-pdf">PDF</span>
-                <span className="subv-doc-nombre">{an.label}</span>
-              </a>
-            ))}
-          </>
-        )}
+        {bases.map((b, i) => (
+          <a key={i} href={b.url} target="_blank" rel="noreferrer" className="subv-doc">
+            <Icon name="doc" size={13}/>
+            <span className="subv-doc-nombre">{b.label}</span>
+            <span className="subv-doc-pdf">PDF</span>
+          </a>
+        ))}
+        {anexos.map((an, i) => (
+          <a key={i} href={an.url} target="_blank" rel="noreferrer" className="subv-doc">
+            <Icon name="doc" size={13}/>
+            <span className="subv-doc-nombre">{an.label}</span>
+            <span className="subv-doc-pdf">PDF</span>
+          </a>
+        ))}
         {bases.length === 0 && anexos.length === 0 && (
           <span className="subv-docs-vacio">Sin documentación adjunta</span>
         )}
@@ -123,7 +149,7 @@ const Card = ({ sub }) => {
       <div className="subv-acciones">
         {abierto && btnUrl ? (
           <a href={btnUrl} target="_blank" rel="noreferrer" className="subv-btn subv-btn--primario">
-            {btnLabel} <Icon name="ext" size={12} />
+            {btnLabel} <Icon name="ext" size={12}/>
           </a>
         ) : (
           <span className="subv-btn subv-btn--inactivo">{e.label}</span>
@@ -225,4 +251,5 @@ const Subvenciones = ({ datos, anioActivo, setAnioActivo, volver }) => {
 };
 
 export default Subvenciones;
+
 

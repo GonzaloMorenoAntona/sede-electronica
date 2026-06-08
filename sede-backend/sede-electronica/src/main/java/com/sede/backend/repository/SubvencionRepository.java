@@ -12,4 +12,5 @@ public interface SubvencionRepository extends JpaRepository<Subvencion, Long> {
     Optional<Subvencion> findByIdExternoSigem(String idExternoSigem);
 
     List<Subvencion> findByAnioOrderByFechaSincronizacionDesc(Integer anio);
+    List<Subvencion> findAllByOrderByFechaSincronizacionDesc();
 }

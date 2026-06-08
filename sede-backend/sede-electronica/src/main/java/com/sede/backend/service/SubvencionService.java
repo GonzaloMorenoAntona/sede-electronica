@@ -24,7 +24,7 @@ public class SubvencionService {
     private SubvencionRepository repository;
 
     public List<Subvencion> listarTodas() {
-        return repository.findAll();
+        return repository.findAllByOrderByFechaSincronizacionDesc();
     }
 
     public Optional<Subvencion> guardarOActualizar(String apiKey, Subvencion datos) {

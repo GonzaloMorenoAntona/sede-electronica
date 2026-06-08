@@ -24,7 +24,7 @@ public class PlenoService {
     private PlenoRepository repository;
 
     public List<Pleno> listarTodos() {
-        return repository.findAll();
+        return repository.findAllByOrderByFechaSincronizacionDesc();
     }
 
     public Optional<Pleno> guardarOActualizar(String apiKey, Pleno datos) {

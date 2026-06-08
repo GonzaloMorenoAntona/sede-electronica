@@ -19,7 +19,7 @@ public class JuntaGobiernoService {
     private String apiKeyEsperada;
 
     public List<JuntaGobierno> listarTodos() {
-        return repository.findAll();
+        return repository.findAllByOrderByFechaSincronizacionDesc();
     }
 
     public Optional<JuntaGobierno> guardarOActualizar(String apiKey, JuntaGobierno junta) {

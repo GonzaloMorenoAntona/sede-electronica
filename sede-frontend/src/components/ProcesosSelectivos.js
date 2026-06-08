@@ -19,7 +19,13 @@ const Icon = ({ name, size = 14 }) => (
 /* ===== Helpers ===== */
 const parseJSON = (j) => { try { return typeof j === 'string' ? JSON.parse(j) : (j || null); } catch { return null; } };
 const parseArr  = (j) => { try { const r = typeof j === 'string' ? JSON.parse(j) : j; return Array.isArray(r) ? r : []; } catch { return []; } };
-const formatFecha = (f) => f ? new Date(f).toLocaleDateString('es-ES') : '—';
+const formatFecha = (f) => {
+  if (!f) return '—';
+  const d = new Date(f);
+  const dia = String(d.getDate()).padStart(2, '0');
+  const mes = String(d.getMonth() + 1).padStart(2, '0');
+  return `${dia}/${mes}/${d.getFullYear()}`;
+};
 
 const getEnlace = (p) => parseJSON(p.enlaceActivo);
 const enlaceActivo = (p) => {

@@ -23,7 +23,7 @@ public class InformacionPublicaService {
     private InformacionPublicaRepository repository;
 
     public List<InformacionPublica> listarTodas() {
-        return repository.findAll();
+        return repository.findAllByOrderByFechaSincronizacionDesc();
     }
 
     public Optional<InformacionPublica> guardarOActualizar(String apiKey, InformacionPublica datos) {
