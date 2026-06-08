@@ -49,6 +49,9 @@ const ACCESOS = [
     desc: 'Gestiona tributos, tasas, recibos y paga de forma segura.',                     cta: 'Ir a portal tributario' },
 ];
 
+/* IDs cubiertos en otros sitios — no mostrar en Información Municipal */
+const OCULTAR_IDS = new Set([1, 8, 91, 92, 93, 94, 106]);
+
 /* ===== Subcomponentes ===== */
 const CarruselHero = ({ onCta }) => {
   const [idx, setIdx]   = useState(0);
@@ -193,18 +196,18 @@ const AreasTematicas = ({ categorias, abrirCategoria }) => {
   );
 };
 
-const EnlacesMunicipales = ({ items = [] }) => {
-  const navigate = useNavigate();
+const EnlacesMunicipales = ({ items = [], abrirTramite }) => {
   const [cveOpen, setCveOpen] = useState(false);
 
-  const esCve = (i) => /\bCVE\b/i.test(i.titulo || '');
-  // Spring Boot serializa url_externa como urlExterna (camelCase).
-  // Si tu entidad lo llama distinto, ajusta aquí.
-  const urlItem = (i) => i.urlExterna || i.url_externa || i.url || null;
-  const cve      = items.filter(esCve);
-  const normales = items.filter(i => !esCve(i));
+  const visibles = (Array.isArray(items) ? items : [])
+    .filter(i => !OCULTAR_IDS.has(Number(i.id)));
 
-  if (!items.length) return null;
+  const esCve    = i => /\bCVE\b/i.test(i.titulo || '');
+  const urlItem  = i => i.urlExterna || i.url_externa || i.url || null;
+  const cve      = visibles.filter(esCve);
+  const normales = visibles.filter(i => !esCve(i));
+
+  if (!visibles.length) return null;
 
   return (
     <section className="sede-municipal">
@@ -217,11 +220,11 @@ const EnlacesMunicipales = ({ items = [] }) => {
           {normales.map(i => (
             urlItem(i) ? (
               <a key={i.id} href={urlItem(i)} target="_blank" rel="noreferrer" className="sede-municipal-link">
-                <Icon name={i.icono || 'doc'} size={16}/><span>{i.titulo}</span>
+                <Icon name="doc" size={16}/><span>{i.titulo}</span>
               </a>
             ) : (
-              <button key={i.id} onClick={() => navigate(`/tramite/${i.id}`)} className="sede-municipal-link">
-                <Icon name={i.icono || 'doc'} size={16}/><span>{i.titulo}</span>
+              <button key={i.id} onClick={() => abrirTramite(i.id)} className="sede-municipal-link">
+                <Icon name="doc" size={16}/><span>{i.titulo}</span>
               </button>
             )
           ))}
@@ -249,28 +252,22 @@ const EnlacesMunicipales = ({ items = [] }) => {
   );
 };
 
-
 const ACCESOS_CONFIG = [
   { id: 5,   logo: '/logos/perfil-contratante.png',  alt: 'Perfil del Contratante' },
-  // OAV (id=122): INSERT en BD requerido (ver V_insert_oav.sql), categoría 13
   { id: 122, logo: '/logos/oav.png',                 alt: 'OAV - Oficina de Atención Urbanística' },
   { id: 7,   logo: '/logos/carpeta-ciudadana.png',   alt: 'Carpeta Ciudadana' },
   { id: 2,   logo: '/logos/etablon.png',             alt: 'eTablon' },
   { id: 13,  logo: '/logos/sugerencias.png',         alt: 'Oficina de Sugerencias y Reclamaciones' },
-  // FACe (id=18): categoría 2 → se carga con fetch propio (ver useEffect abajo)
   { id: 18,  logo: '/logos/face.png',                alt: 'FACe - Punto General de Facturación' },
-  // MiFactura y DEHú: INSERT en BD requerido (ver SQLs)
   { id: 121, logo: '/logos/mifactura.png',           alt: 'MiFactura - Gobierno de España' },
   { id: 120, logo: '/logos/dehu.png',                alt: 'DEHú - Notificaciones' },
 ];
-
 
 const AccesosRapidos = ({ abrirTramite }) => {
   const navigate = useNavigate();
   const [accesos, setAccesos] = useState([]);
 
   useEffect(() => {
-    // Carga cada acceso por su ID directamente, sin importar la categoría
     Promise.all(
       ACCESOS_CONFIG.map(cfg =>
         fetch(`/api/tramites/${cfg.id}/detalle`)
