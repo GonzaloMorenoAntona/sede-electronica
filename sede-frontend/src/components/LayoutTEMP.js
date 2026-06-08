@@ -65,7 +65,7 @@ const MainNav = ({ onAlertas }) => {
   const [open, setOpen] = useState(false);
   const items = [
     { label: 'Web Municipal',   href: WEB_MUNICIPAL, externo: true },
-    { label: 'Sede Electrónica', href: '#main',      activo: true },
+    { label: 'Sede Electrónica', href: '/',      activo: true },
   ];
   return (
     <nav className="sede-nav">
