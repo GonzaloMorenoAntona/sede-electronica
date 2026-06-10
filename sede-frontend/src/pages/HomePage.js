@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import BuscadorPage from './BuscadorPage';
 import IconoMuni from './IconoMuni';
 import UltimasPublicaciones from '../components/UltimasPublicaciones';
-
+console.log('HomePage renderizada');
 /* ===== Iconos SVG ===== */
 const SVG_PATHS = {
   search:    <><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></>,
@@ -55,7 +55,7 @@ const OCULTAR_IDS = new Set([1, 8, 91, 92, 93, 94, 106]);
 /* ===== Subcomponentes ===== */
 const CarruselHero = ({ onCta }) => {
   const [idx, setIdx]   = useState(0);
-  const [fade, setFade] = useState(false);
+  const [fade, setFade] = useState(false); 
   const go = useCallback((i) => {
     if (fade) return;
     setFade(true);
@@ -169,7 +169,7 @@ const SoporteAlertas = ({ onSuscribir }) => {
 };
 
 const AreasTematicas = ({ categorias, abrirCategoria }) => {
-  const areas = categorias.filter(c => c.id <= 9);
+  const areas = categorias.filter(c => c.id <= 9 || c.id === 14);
   return (
     <section id="tramites" className="sede-areas">
       <div className="sede-areas-inner">

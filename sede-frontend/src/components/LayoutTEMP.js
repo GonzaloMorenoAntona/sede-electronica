@@ -4,7 +4,7 @@ import '../pages/HomePage.css';
 import './Layout.css';
 
 
-console.log('Layout renderizado');
+
 
 /* ===== Iconos SVG ===== */
 const SVG_PATHS = {
@@ -34,8 +34,6 @@ const TopBar = ({ onFontSize }) => {
     <div className="sede-topbar">
       <span className="sede-topbar-fecha">{fecha}</span>
       <div className="sede-topbar-right">
-        <button onClick={() => onFontSize('up')}   className="sede-topbar-az" aria-label="Aumentar texto">A+</button>
-        <button onClick={() => onFontSize('down')} className="sede-topbar-az" aria-label="Reducir texto">A−</button>
         <span className="sede-topbar-sep"/>
         <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><Icon name="fb" size={14}/></a>
         <a href="https://twitter.com/"      target="_blank" rel="noreferrer" aria-label="Twitter"><Icon name="tw" size={14}/></a>

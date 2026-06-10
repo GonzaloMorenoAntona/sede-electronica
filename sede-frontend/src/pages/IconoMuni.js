@@ -11,13 +11,14 @@ const IconoMuni = ({ icono, size = 40 }) => {
     shield:    "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 12l2 2 4-4",
     leaf:      "M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z M11 20v-6 M11 14l2-2",
     book:      "M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z",
-    bullhorn:  "M11 5L6 9H2v6h4l5 4V5z M19.07 4.93a10 10 0 0 1 0 14.14 M15.54 8.46a5 5 0 0 1 0 7.07 M11 15l-2 5h-2l2-5"
+    bullhorn:  "M11 5L6 9H2v6h4l5 4V5z M19.07 4.93a10 10 0 0 1 0 14.14 M15.54 8.46a5 5 0 0 1 0 7.07 M11 15l-2 5h-2l2-5",
+    landmark: "M3 21h18 M6 21V10 M18 21V10 M12 3L2 10h20L12 3z M9 21v-6h6v6"
   };
 
   return (
     <svg 
-      width={size}   /* <--- Ahora lee la variable dinámica */
-      height={size}  /* <--- Ahora lee la variable dinámica */
+      width={size}  
+      height={size}  
       viewBox="0 0 24 24" 
       fill="none" 
       stroke="currentColor"

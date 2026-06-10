@@ -12,12 +12,7 @@
 }
 .sede-topbar-fecha { opacity: .85; }
 .sede-topbar-right { display: flex; align-items: center; gap: 10px; }
-.sede-topbar-az {
-  background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
-  color: #fff; border-radius: 4px; padding: 2px 7px;
-  font-size: 0.72rem; font-weight: 700; cursor: pointer; font-family: inherit;
-}
-.sede-topbar-az:hover { background: rgba(255,255,255,.25); }
+
 .sede-topbar-sep { width: 1px; height: 14px; background: rgba(255,255,255,.25); margin: 0 4px; }
 .sede-topbar-right a { color: rgba(255,255,255,.7); display: inline-flex; align-items: center; }
 .sede-topbar-right a:hover { color: #fff; }
