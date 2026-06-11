@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './FormularioSoporte.css';
 console.log('FormularioSoporte renderizado');
 
-const SITE_KEY = '0c16ee28-3bf6-4276-a850-eac25a3e44ac'; 
+const SITE_KEY = true; 
 
 const FormularioSoporte = ({ onCerrar }) => {
   const [form, setForm]         = useState({ nombre: '', telefono: '', email: '', consulta: '' });
