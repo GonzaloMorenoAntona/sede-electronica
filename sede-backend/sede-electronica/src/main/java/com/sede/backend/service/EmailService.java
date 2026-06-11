@@ -1,10 +1,13 @@
 package com.sede.backend.service;
 
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class EmailService {
@@ -61,6 +64,43 @@ public class EmailService {
                         appUrl + "/suscripcion-confirmada?token=" + token + "\n\n" +
                         "Ayuntamiento de Ciudad Real"
         );
+        mailSender.send(msg);
+    }
+    public void enviarSoporte(String nombre, String telefono, String emailCiudadano,
+                              String consulta, MultipartFile archivo) throws Exception {
+        MimeMessage msg = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(msg, archivo != null && !archivo.isEmpty(), "UTF-8");
+
+        helper.setFrom(mailFrom);
+        helper.setTo("soporte@ciudadreal.es");
+        helper.setReplyTo(emailCiudadano);
+        helper.setSubject("Incidencia Sede Electrónica — " + nombre);
+
+        String cuerpo =
+                "Se ha recibido una nueva consulta/incidencia desde la Sede Electrónica.\n\n" +
+                        "──────────────────────────────────\n" +
+                        "DATOS DEL CIUDADANO\n" +
+                        "──────────────────────────────────\n" +
+                        "Nombre:    " + nombre + "\n" +
+                        "Teléfono:  " + (telefono.isBlank() ? "No indicado" : telefono) + "\n" +
+                        "Email:     " + emailCiudadano + "\n\n" +
+                        "──────────────────────────────────\n" +
+                        "CONSULTA / INCIDENCIA\n" +
+                        "──────────────────────────────────\n" +
+                        consulta + "\n\n" +
+                        "──────────────────────────────────\n" +
+                        (archivo != null && !archivo.isEmpty()
+                                ? "Archivo adjunto: " + archivo.getOriginalFilename() + "\n"
+                                : "Sin archivo adjunto\n") +
+                        "──────────────────────────────────\n" +
+                        "Enviado desde: " + appUrl;
+
+        helper.setText(cuerpo);
+
+        if (archivo != null && !archivo.isEmpty()) {
+            helper.addAttachment(archivo.getOriginalFilename(), archivo);
+        }
+
         mailSender.send(msg);
     }
 }

@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import BuscadorPage from './BuscadorPage';
 import IconoMuni from './IconoMuni';
 import UltimasPublicaciones from '../components/UltimasPublicaciones';
-console.log('HomePage renderizada');
+import FormularioSoporte from '../components/FormularioSoporte';
+console.log('HomePage renderizado');
 /* ===== Iconos SVG ===== */
 const SVG_PATHS = {
   search:    <><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></>,
@@ -128,15 +129,11 @@ const AccesosPrincipales = ({ onTramitar, onConsultar, urlPagar }) => (
 );
 
 const SoporteAlertas = ({ onSuscribir }) => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible]       = useState(true);
+  const [formAbierto, setFormAbierto] = useState(false);
+
   if (!visible) return null;
-  const enviarIncidencia = () => {
-    window.location.href =
-      'mailto:glpi@ciudadreal.es?subject=' +
-      encodeURIComponent('Incidencia Sede Electrónica') +
-      '&body=' +
-      encodeURIComponent('Describa la incidencia:\n\nNavegador / dispositivo:\nURL donde ocurre:\n');
-  };
+
   return (
     <section className="sede-banners-descartables">
       <button className="sede-banner-cerrar" onClick={() => setVisible(false)} aria-label="Cerrar avisos">
@@ -149,8 +146,8 @@ const SoporteAlertas = ({ onSuscribir }) => {
             <strong>Ayuda y Soporte Técnico</strong>
             <span>¿Tienes problemas? Contacta con soporte o lee nuestras guías.</span>
           </div>
-          <button onClick={enviarIncidencia} className="sede-banner-btn">
-            Ver ayuda <Icon name="arrow" size={14}/>
+          <button onClick={() => setFormAbierto(o => !o)} className="sede-banner-btn">
+            {formAbierto ? 'Cerrar formulario' : 'Ver ayuda'} <Icon name="arrow" size={14}/>
           </button>
         </div>
         <div className="sede-banner-item naranja">
@@ -164,6 +161,16 @@ const SoporteAlertas = ({ onSuscribir }) => {
           </button>
         </div>
       </div>
+
+      {formAbierto && (
+        <div className="sede-soporte-form-wrap">
+          <div className="sede-soporte-form-inner">
+            <h3>Formulario de Soporte Técnico</h3>
+            <p>Completa los campos y te responderemos lo antes posible.</p>
+            <FormularioSoporte onCerrar={() => setFormAbierto(false)}/>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
