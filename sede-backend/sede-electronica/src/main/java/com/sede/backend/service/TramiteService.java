@@ -23,7 +23,6 @@ public class TramiteService {
         respuesta.put("id", tramite.getId());
         respuesta.put("titulo", tramite.getTitulo());
         respuesta.put("descripcionHtml", tramite.getDescripcionHtml());
-        respuesta.put("unidadTramitadora", tramite.getUnidadTramitadora());
         respuesta.put("tipo", tramite.getTipo());
         respuesta.put("fechaPublicacion", tramite.getFechaPublicacion());
         respuesta.put("estado", tramite.getEstado());

@@ -23,7 +23,6 @@ public class Tramite {
     @Column(name = "categoria_id")
     private Long categoriaId;
 
-    private String subgrupo;
 
     @Column(name = "palabras_clave")
     private String palabrasClave;
@@ -32,10 +31,7 @@ public class Tramite {
     private String urlExterna;
 
     @Column(name = "es_enlace_externo")
-    private Integer esEnlaceExterno; // Lo ponemos como Integer
-
-    @Column(name = "unidad_tramitadora")
-    private String unidadTramitadora;
+    private Integer esEnlaceExterno;
 
     @Column(name = "tipo")
     private String tipo;
